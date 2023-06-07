@@ -4,7 +4,7 @@ import PokemonCard from "@/app/pokemon/components/pokemon-card/pokemon-card";
 
 export default async function Pokemon() {
   const fetchRequest = await fetch(
-    `http://localhost:3000/api/pokeapi/pokemon?offset=0&limit=20`,
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/pokeapi/pokemon?offset=0&limit=20`,
     { cache: "no-store" }
   );
 

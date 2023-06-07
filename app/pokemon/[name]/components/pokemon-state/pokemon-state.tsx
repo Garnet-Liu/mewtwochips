@@ -17,7 +17,7 @@ export default async function PokemonState(props: IPokemonStateProps) {
       {props.stats.map(async (stat) => {
         const name = stat.stat.name;
         const fetchRequest = await fetch(
-          `http://localhost:3000/api/pokeapi/stat/${name}`,
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/pokeapi/stat/${name}`,
           // { cache: "no-store" }
         );
         const statDetail: Stat = await fetchRequest.json();

@@ -9,7 +9,7 @@ interface IPokemonCardProps {
 
 export default async function PokemonCard({ name }: IPokemonCardProps) {
   const fetchRequest = await fetch(
-    `http://localhost:3000/api/pokeapi/pokemon/${name}`
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/pokeapi/pokemon/${name}`
     // { cache: "no-store" }
   );
 
