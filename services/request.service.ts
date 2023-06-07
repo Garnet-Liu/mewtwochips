@@ -4,7 +4,7 @@ import { auth } from "@/services/firebase.service";
 
 // 创建 axios 请求实例
 const requestService = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_BASE_URL, // 基础请求地址
+  baseURL: process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3000/", // 基础请求地址
   timeout: 600000, // 请求超时设置
   withCredentials: false // 跨域请求是否需要携带 cookie
 });

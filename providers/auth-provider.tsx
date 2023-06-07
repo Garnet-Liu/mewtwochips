@@ -29,15 +29,7 @@ export default function AuthProvider({ children, intercept = [] }: IAuthProvider
   }, [user.state, isRedirect, router]);
 
   if (user.state === EAuthState.PENDING || isRedirect) {
-    const styles = {
-      height: "100vh",
-      width: "100%",
-      fontSize: 20,
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center"
-    };
-    return <div style={styles}>Loading...</div>;
+    return <div className="w-full text-xl flex items-center justify-center mt-60">Loading...</div>;
   } else {
     return <>{children}</>;
   }

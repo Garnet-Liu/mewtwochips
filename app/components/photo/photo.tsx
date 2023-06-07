@@ -1,4 +1,5 @@
 import Image from "next/image";
+
 import { IPhoto } from "@/services/data.service";
 
 interface IPhotoProps {

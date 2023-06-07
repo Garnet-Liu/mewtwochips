@@ -1198,6 +1198,15 @@ axe-core@^4.6.2:
   resolved "https://registry.npmmirror.com/axe-core/-/axe-core-4.7.2.tgz#040a7342b20765cb18bb50b628394c21bccc17a0"
   integrity sha512-zIURGIS1E1Q4pcrMjp+nnEh+16G56eG/MUllJH8yEvw7asDo7Ac9uhC9KIH5jzpITueEZolfYglnCGIuSBz39g==
 
+axios-cache-interceptor@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.npmmirror.com/axios-cache-interceptor/-/axios-cache-interceptor-1.1.1.tgz#27fc97404a7987e152d318ae0084e691a537622f"
+  integrity sha512-FX2fGHECGE8bhFs4cLZ9FSu1oG4zRoDLKuw2FaYmZCHyrGeg703h751rFD01ICWm3WYb+3/BwrYsv5HOICO2AA==
+  dependencies:
+    cache-parser "^1.2.4"
+    fast-defer "^1.1.7"
+    object-code "^1.2.4"
+
 axios@^1.4.0:
   version "1.4.0"
   resolved "https://registry.npmmirror.com/axios/-/axios-1.4.0.tgz#38a7bf1224cd308de271146038b551d725f0be1f"
@@ -1283,6 +1292,11 @@ busboy@1.6.0:
   integrity sha512-8SFQbg/0hQ9xy3UNTB0YEnsNBbWfhf7RtnzpL7TkBiTBRfrQ9Fxcnz7VJsleJpyp6rVLvXiuORqjlHi5q+PYuA==
   dependencies:
     streamsearch "^1.1.0"
+
+cache-parser@^1.2.4:
+  version "1.2.4"
+  resolved "https://registry.npmmirror.com/cache-parser/-/cache-parser-1.2.4.tgz#60975135ef2330e6a1d60895279d7237a2a9b398"
+  integrity sha512-O0KwuHuJnbHUrghHi2kGp0SxnWSIBXTYt7M8WVhW0kbPRUNUKoE/Of6e1rRD6AAxmfxFunKnt90yEK09D+sc5g==
 
 call-bind@^1.0.0, call-bind@^1.0.2:
   version "1.0.2"
@@ -1935,6 +1949,11 @@ fast-deep-equal@^3.1.1, fast-deep-equal@^3.1.3:
   version "3.1.3"
   resolved "https://registry.npmmirror.com/fast-deep-equal/-/fast-deep-equal-3.1.3.tgz#3a7d56b559d6cbc3eb512325244e619a65c6c525"
   integrity sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q==
+
+fast-defer@^1.1.7:
+  version "1.1.7"
+  resolved "https://registry.npmmirror.com/fast-defer/-/fast-defer-1.1.7.tgz#943bc3c7a876d437360318ab1e1f269a29f31ba4"
+  integrity sha512-tJ01ulDWT2WhqxMKS20nXX6wyX2iInBYpbN3GO7yjKwXMY4qvkdBRxak9IFwBLlFDESox+SwSvqMCZDfe1tqeg==
 
 fast-glob@^3.2.11, fast-glob@^3.2.12, fast-glob@^3.2.9:
   version "3.2.12"
@@ -2840,6 +2859,11 @@ object-assign@^4.0.1, object-assign@^4.1.1:
   resolved "https://registry.npmmirror.com/object-assign/-/object-assign-4.1.1.tgz#2109adc7965887cfc05cbbd442cac8bfbb360863"
   integrity sha512-rJgTQnkUnH1sFw8yT6VSU3zD3sWmu6sZhIseY8VX+GRu3P6F7Fu+JNDoXfklElbLJSnc3FUQHVe4cU5hj+BcUg==
 
+object-code@^1.2.4:
+  version "1.2.4"
+  resolved "https://registry.npmmirror.com/object-code/-/object-code-1.2.4.tgz#c356b1c5237272e736a3843c6086ca09a754b277"
+  integrity sha512-uGq4ETUuWe+GA586NXEriiaozNuff+YNFXlpD8cVrM1GoiuTZpCABP+bZCWDrvQDoCiSTyiWAFHD/HF/iwhb2w==
+
 object-hash@^3.0.0:
   version "3.0.0"
   resolved "https://registry.npmmirror.com/object-hash/-/object-hash-3.0.0.tgz#73f97f753e7baffc0e2cc9d6e079079744ac82e9"
@@ -3031,6 +3055,11 @@ pirates@^4.0.1:
   version "4.0.5"
   resolved "https://registry.npmmirror.com/pirates/-/pirates-4.0.5.tgz#feec352ea5c3268fb23a37c702ab1699f35a5f3b"
   integrity sha512-8V9+HQPupnaXMA23c5hvl69zXvTwTzyAYasnkb0Tts4XvO4CliqONMOnvlq26rkhLC3nWDFBJf73LU1e1VZLaQ==
+
+pokenode-ts@^1.19.0:
+  version "1.19.0"
+  resolved "https://registry.npmmirror.com/pokenode-ts/-/pokenode-ts-1.19.0.tgz#a63fbe132bab3a8666601f70b26d7f76dc225a4d"
+  integrity sha512-FbBEPu6Vymp1YGAnb8y5ZPSomufsp3uP8cYR9FMerOD+4vmpwT0F4ySHjsOp/Q2BViL70CtpyB511UwcKnOJPg==
 
 postcss-import@^15.1.0:
   version "15.1.0"

@@ -27,12 +27,16 @@ export default function RootLayout({ children, modal }: ILayoutProps) {
   console.log("Root Layout");
   return (
     <html lang="en">
-    <body className={`${roboto.className} min-h-screen relative`}>
+    <body className={roboto.className}>
     <ReduxProvider>
       <FirebaseProvider>
-        <Header/>
-        {children}
-        {modal}
+        <div className="min-h-screen relative">
+          <Header/>
+          <div className="h-full">
+            {children}
+            {modal}
+          </div>
+        </div>
       </FirebaseProvider>
     </ReduxProvider>
     </body>

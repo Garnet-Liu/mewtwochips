@@ -1,18 +1,23 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
+import requestService from "@/services/request.service";
+import { Pokemon, PokemonSpecies } from "pokenode-ts";
 
-import { Button } from "@/app/components/jump-route-button/junmp-route-button";
+interface IPokemonResponse {
+  pokemon: Pokemon;
+  species: PokemonSpecies;
+}
 
 export default function BackButton({ children }: { children?: ReactNode }) {
-  const router = useRouter();
-
-  const handleBack = () => {
-    console.log("handleBack");
-    router.back();
-  };
+  useEffect(() => {
+    requestService.get<void, IPokemonResponse>(
+      `/api/pokeapi/pokemon/1`
+    ).then((res) => {
+      console.log(res);
+    });
+  }, []);
   return (
-    <Button onClick={handleBack}>{children}</Button>
+    <div>test</div>
   );
 }

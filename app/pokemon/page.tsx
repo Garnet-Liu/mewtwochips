@@ -1,27 +1,18 @@
-import { useGetPokemonQuery } from "@/redux/features/pokemon-slice";
+import PokemonCard from "@/app/pokemon/components/pokemon-card/pokemon-card";
 
 export default function Pokemon() {
-  // const { data, error, isLoading } = useGetPokemonQuery({ offset: 1, limit: 20 });
-  //
-  // if (isLoading) {
-  //   return (
-  //     <div>Loading...</div>
-  //   );
-  // } else if (error) {
-  //   return (
-  //     <div>Error!!</div>
-  //   );
-  // } else if (data) {
-  //   return (
-  //     <div>
-  //       {data.results.map((pokemon) => (
-  //         <div key={pokemon.name}>
-  //           <h1>{pokemon.name}</h1>
-  //         </div>
-  //       ))}
-  //     </div>
-  //   );
-  // } else {
-  // }
-  return <div>完全没找到</div>;
+  return (
+    <div className="w-[1200px] mx-auto">
+      <h1 className="text-center text-4xl font-bold m-10">
+        Pokemon
+      </h1>
+
+      <div className="flex flex-wrap">
+        {new Array(20).fill(1).map((item, index) => (
+          /* @ts-expect-error Server Component */
+          <PokemonCard key={index} id={index + 1}></PokemonCard>
+        ))}
+      </div>
+    </div>
+  );
 }

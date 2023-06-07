@@ -2,15 +2,12 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { getPhotoList } from "@/services/data.service";
-import BackButton from "@/app/photos/components/back-button/back-button";
 
 export default async function Photos() {
   console.log("Photos");
   const photos = await getPhotoList();
   return (
     <main className="container mx-auto">
-      <BackButton>Back</BackButton>
-
       <h1 className="text-center text-4xl font-bold m-10">
         Photos
       </h1>
