@@ -14,7 +14,6 @@ export default function FirebaseProvider({ children }: { children: ReactNode }) 
     const authUnsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
         console.log("onAuthStateChanged");
-        // const token = await user.getIdToken();
         const userInfo: IUserInfo = {
           uid: user.uid,
           email: user.email,

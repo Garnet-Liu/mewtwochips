@@ -1,5 +1,11 @@
 "use client";
 
+import { usePathname, useRouter } from "next/navigation";
+import InboxIcon from "@mui/icons-material/MoveToInbox";
+import MenuIcon from "@mui/icons-material/Menu";
+import MailIcon from "@mui/icons-material/Mail";
+import { useState } from "react";
+import Link from "next/link";
 import {
   Button,
   Divider,
@@ -11,13 +17,6 @@ import {
   ListItemIcon,
   ListItemText
 } from "@mui/material";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MenuIcon from "@mui/icons-material/Menu";
-import MailIcon from "@mui/icons-material/Mail";
-import { usePathname } from "next/navigation";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import Link from "next/link";
 
 const features = [
   { path: "/pokemon", name: "Pokemon" },
