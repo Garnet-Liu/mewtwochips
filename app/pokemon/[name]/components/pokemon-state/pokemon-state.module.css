@@ -1,0 +1,67 @@
+
+.stats {
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.statsHP {
+  background-color: #97C87A;
+}
+
+.statsAttack {
+  background-color: #FAE192;
+}
+
+.statsSpeed {
+  background-color: #C39CD8;
+}
+
+.statsDefense {
+  background-color: #FBB977;
+}
+
+.statsSpecialAttack {
+  background-color: #A2D4DA;
+}
+
+.statsSpecialDefense {
+  background-color: #89A9CD;
+}
+
+.value {
+  height: 20px;
+  border-width: 1px;
+  border-style: solid;
+}
+
+.valueHP {
+  border-color: #558936;
+  background-color: #8AC654;
+}
+
+.valueSpeed {
+  border-color: #3C2957;
+  background-color: #A456D0;
+}
+
+.valueAttack {
+  border-color: #CCBC33;
+  background-color: #F8CB3C;
+}
+
+.valueDefense {
+  border-color: #B4673D;
+  background-color: #D98837;
+}
+
+.valueSpecialAttack {
+  border-color: #1A7E8D;
+  background-color: #59C3D0;
+}
+
+.valueSpecialDefense {
+  border-color: #004689;
+  background-color: #5890CD;
+}

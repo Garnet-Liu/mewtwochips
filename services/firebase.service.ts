@@ -17,8 +17,6 @@ const firebaseConfig = {
 export const provider = new GoogleAuthProvider();
 
 // Initialize Firebase
-console.log("Initialize firebaseApp");
-
 export const firebaseApp = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
 
 export const auth = getAuth(firebaseApp);
@@ -26,11 +24,8 @@ export const auth = getAuth(firebaseApp);
 export const getCurrentUser = async (): Promise<User | null> => {
   return new Promise((resolve, reject) => {
     const authUnsubscribe = onAuthStateChanged(getAuth(firebaseApp), async (user) => {
-
       const token = await user?.getIdToken();
-
       document.cookie = `token=${token}`;
-
       authUnsubscribe();
       resolve(user);
     }, reject);
