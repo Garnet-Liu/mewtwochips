@@ -12,7 +12,7 @@ export default function UserProfile() {
   if (auth.state === EAuthState.PENDING) {
     return <div>等一下！！！！！</div>;
   } else if (auth.state === EAuthState.LOGOUT) {
-    return <div>轻登陆查看User信息！</div>;
+    return <div>请登陆查看User信息！</div>;
   } else {
     return (
       <div className="w-[300px] flex flex-col items-start">
