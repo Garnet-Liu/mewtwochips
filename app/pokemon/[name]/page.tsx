@@ -1,11 +1,15 @@
 import Image from "next/image";
 
-import requestService from "@/services/request.service";
 import { IPokemonResponse } from "@/interfaces/pokemon.interface";
 import PokemonState from "@/app/pokemon/[name]/components/pokemon-state/pokemon-state";
 
 export default async function PokemonDetail({ params: { name } }: { params: { name: string } }) {
-  const { pokemon, species } = await requestService.get<void, IPokemonResponse>(`/api/pokeapi/pokemon/${name}`);
+  const fetchRequest = await fetch(
+    `http://localhost:3000/api/pokeapi/pokemon/${name}`,
+    // { cache: "no-store" }
+  );
+
+  const { pokemon, species }: IPokemonResponse = await fetchRequest.json();
 
   if (pokemon) {
     const imgSrc = pokemon.sprites.other?.["official-artwork"].front_default || "";

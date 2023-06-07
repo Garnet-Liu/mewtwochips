@@ -8,7 +8,7 @@ import { IPokemonResponse } from "@/interfaces/pokemon.interface";
 export default function BackButton({ children }: { children?: ReactNode }) {
   useEffect(() => {
     requestService.get<void, IPokemonResponse>(`/api/pokeapi/pokemon/charizard`).then((res) => {
-      console.log(res);
+      console.log('BackButton charizard', res);
     });
   }, []);
   return (

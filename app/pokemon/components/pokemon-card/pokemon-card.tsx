@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import requestService from "@/services/request.service";
 import { IPokemonResponse } from "@/interfaces/pokemon.interface";
 
 interface IPokemonCardProps {
@@ -9,9 +8,12 @@ interface IPokemonCardProps {
 }
 
 export default async function PokemonCard({ name }: IPokemonCardProps) {
-  const { pokemon, species } = await requestService.get<void, IPokemonResponse>(
-    `/api/pokeapi/pokemon/${name}`
+  const fetchRequest = await fetch(
+    `http://localhost:3000/api/pokeapi/pokemon/${name}`
+    // { cache: "no-store" }
   );
+
+  const { pokemon, species }: IPokemonResponse = await fetchRequest.json();
   const zhName = species.names.find((item) => item.language.name === "zh-Hans");
   const pokemonName = zhName?.name ?? species.name;
   const boxStyle = { borderColor: species.color.name };

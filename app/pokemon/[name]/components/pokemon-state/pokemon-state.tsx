@@ -2,7 +2,6 @@ import { PokemonStat, Stat } from "pokenode-ts";
 import classnames from "classnames";
 
 import styles from "./pokemon-state.module.css";
-import requestService from "@/services/request.service";
 
 interface IPokemonStateProps {
   color: string;
@@ -17,9 +16,12 @@ export default async function PokemonState(props: IPokemonStateProps) {
 
       {props.stats.map(async (stat) => {
         const name = stat.stat.name;
-        const statDetail = await requestService.get<void, Stat>(
-          `/api/pokeapi/stat/${name}`
+        const fetchRequest = await fetch(
+          `http://localhost:3000/api/pokeapi/stat/${name}`,
+          // { cache: "no-store" }
         );
+        const statDetail: Stat = await fetchRequest.json();
+
         const statName = statDetail.names.find((item) => item.language.name === "zh-Hans")?.name ?? statDetail.name;
         const stateBGClass = classnames(styles.stats, {
           [styles.statsHP]: name === "hp",
