@@ -32,7 +32,7 @@ export default function RootLayout({ children, modal }: ILayoutProps) {
       <FirebaseProvider>
         <div className="min-h-screen relative">
           <Header/>
-          <div className="h-full">
+          <div>
             {children}
             {modal}
           </div>

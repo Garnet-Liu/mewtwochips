@@ -1,48 +1,38 @@
-import { PokemonStat, Stat } from "pokenode-ts";
 import classnames from "classnames";
 
 import styles from "./pokemon-state.module.css";
+import { IPokemonDetail } from "@/interfaces/pokemon.interface";
 
 interface IPokemonStateProps {
-  color: string;
-  stats: PokemonStat[];
+  pokemon: IPokemonDetail;
 }
 
-export default async function PokemonState(props: IPokemonStateProps) {
-  const boxStyle = { borderColor: props.color };
+export default function PokemonState({ pokemon }: IPokemonStateProps) {
+  const boxStyle = { borderColor: pokemon.pokemon_color };
   return (
     <div className="w-full rounded-xl border items-center bg-white overflow-hidden" style={boxStyle}>
       <h3 className="text-center leading-[70px] font-medium">种族值</h3>
-
-      {props.stats.map(async (stat) => {
-        const name = stat.stat.name;
-        const fetchRequest = await fetch(
-          `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/pokeapi/stat/${name}`,
-          // { cache: "no-store" }
-        );
-        const statDetail: Stat = await fetchRequest.json();
-
-        const statName = statDetail.names.find((item) => item.language.name === "zh-Hans")?.name ?? statDetail.name;
+      {pokemon.stats.map(async (stat) => {
         const stateBGClass = classnames(styles.stats, {
-          [styles.statsHP]: name === "hp",
-          [styles.statsSpeed]: name === "speed",
-          [styles.statsAttack]: name === "attack",
-          [styles.statsDefense]: name === "defense",
-          [styles.statsSpecialAttack]: name === "special-attack",
-          [styles.statsSpecialDefense]: name === "special-defense"
+          [styles.statsHP]: stat.name === "hp",
+          [styles.statsSpeed]: stat.name === "speed",
+          [styles.statsAttack]: stat.name === "attack",
+          [styles.statsDefense]: stat.name === "defense",
+          [styles.statsSpecialAttack]: stat.name === "special-attack",
+          [styles.statsSpecialDefense]: stat.name === "special-defense"
         });
         const stateValueClass = classnames(styles.value, {
-          [styles.valueHP]: name === "hp",
-          [styles.valueSpeed]: name === "speed",
-          [styles.valueAttack]: name === "attack",
-          [styles.valueDefense]: name === "defense",
-          [styles.valueSpecialAttack]: name === "special-attack",
-          [styles.valueSpecialDefense]: name === "special-defense"
+          [styles.valueHP]: stat.name === "hp",
+          [styles.valueSpeed]: stat.name === "speed",
+          [styles.valueAttack]: stat.name === "attack",
+          [styles.valueDefense]: stat.name === "defense",
+          [styles.valueSpecialAttack]: stat.name === "special-attack",
+          [styles.valueSpecialDefense]: stat.name === "special-defense"
         });
         return (
-          <div key={name} className={stateBGClass}>
+          <div key={stat.name} className={stateBGClass}>
             <div className="flex-[1_1_30%] pr-2.5 pl-5 flex justify-between">
-              <div className="uppercase">{statName}:</div>
+              <div className="uppercase">{stat.stat_name}:</div>
               <div>{stat.base_stat}</div>
             </div>
 

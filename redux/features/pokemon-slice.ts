@@ -1,12 +1,12 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-import { IPokemonList, IQueryPokemonList } from "@/interfaces/pokemon.interface";
+import { IPokemon, IQueryPokemonList } from "@/interfaces/pokemon.interface";
 
 export const pokemonApi = createApi({
   reducerPath: "pokemonApi",
   baseQuery: fetchBaseQuery({ baseUrl: "https://pokeapi.co/api/v2/" }),
   endpoints: builder => ({
-    getPokemon: builder.query<IPokemonList, IQueryPokemonList>({
+    getPokemon: builder.query<IPokemon, IQueryPokemonList>({
       query: (p) => `pokemon?offset=${p.offset}&limit=${p.limit}`
     }),
     getPokemonByName: builder.query({

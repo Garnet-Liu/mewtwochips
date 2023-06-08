@@ -1,6 +1,6 @@
 "use client";
 
-import Image from 'next/image';
+import Image from "next/image";
 
 import { EAuthState } from "@/interfaces/auth.interface";
 import { useAppSelector } from "@/redux/hooks/redux.hook";
@@ -10,15 +10,28 @@ export default function UserProfile() {
   const auth = useAppSelector((state) => state.auth);
 
   if (auth.state === EAuthState.PENDING) {
-    return <div>等一下！！！！！</div>;
+    return <div className="text-center">等一下！！！！！</div>;
   } else if (auth.state === EAuthState.LOGOUT) {
-    return <div>请登陆查看User信息！</div>;
+    return <div className="text-center">请登陆查看User信息！</div>;
   } else {
+    const photo = auth.userInfo?.photoURL || "";
     return (
-      <div className="w-[300px] flex flex-col items-start">
-        <Image className='self-center' src={auth.userInfo?.photoURL || ''} priority={true} width={100} height={100} alt="avatar"/>
-        <p>name: {auth.userInfo?.displayName}</p>
-        <p>email: {auth.userInfo?.email}</p>
+      <div className="flex justify-center items-center">
+        <Image src={photo} priority={true} width={100} height={100} alt="avatar"/>
+        <div className="ml-3">
+          <div className="flex">
+            <p className="w-14">name:</p>
+            <p>{auth.userInfo?.displayName}</p>
+          </div>
+          <div className="flex">
+            <p className="w-14">email:</p>
+            <p>{auth.userInfo?.email}</p>
+          </div>
+          <div className="flex">
+            <p className="w-14">uid:</p>
+            <p>{auth.userInfo?.uid}</p>
+          </div>
+        </div>
       </div>
     );
   }

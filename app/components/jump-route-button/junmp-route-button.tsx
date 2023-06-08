@@ -1,5 +1,5 @@
-import classnames from "classnames";
 import { ButtonHTMLAttributes, DetailedHTMLProps, ReactNode } from "react";
+import classnames from "classnames";
 
 interface IButtonProps extends DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> {
   children?: ReactNode;

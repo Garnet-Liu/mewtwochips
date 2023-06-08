@@ -1,31 +1,21 @@
 "use client";
 
-import { usePathname, useRouter } from "next/navigation";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
+import { Divider, Drawer, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
+import CatchingPokemonIcon from "@mui/icons-material/CatchingPokemon";
+import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
+import AlarmIcon from '@mui/icons-material/Alarm';
 import MenuIcon from "@mui/icons-material/Menu";
-import MailIcon from "@mui/icons-material/Mail";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 import Link from "next/link";
-import {
-  Button,
-  Divider,
-  Drawer,
-  IconButton,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText
-} from "@mui/material";
 
 const features = [
-  { path: "/pokemon", name: "Pokemon" },
-  { path: "/photos", name: "Photos" },
-  { path: "/counter", name: "Counter" }
+  { path: "/pokemon", name: "Pokemon", icon: <CatchingPokemonIcon/> },
+  { path: "/photos", name: "Photos", icon: <InsertPhotoIcon/> },
+  { path: "/counter", name: "Counter", icon: <AlarmIcon/> }
 ];
 
 export default function FeatureDrawer() {
-  const route = useRouter();
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
@@ -34,8 +24,6 @@ export default function FeatureDrawer() {
       <IconButton size="large" edge="start" sx={{ mr: 2 }} onClick={() => setOpen(true)}>
         <MenuIcon/>
       </IconButton>
-
-      <Button onClick={() => route.back()}>Back</Button>
 
       <Drawer anchor="left" open={open} onClose={() => setOpen(false)}>
         <List sx={{ width: 300 }}>
@@ -46,7 +34,7 @@ export default function FeatureDrawer() {
                 <Link style={{ width: "100%" }} href={feature.path}>
                   <ListItemButton onClick={() => setOpen(false)} selected={isActive}>
                     <ListItemIcon>
-                      {index % 2 === 0 ? <InboxIcon/> : <MailIcon/>}
+                      {feature.icon}
                     </ListItemIcon>
                     <ListItemText primary={feature.name}/>
                   </ListItemButton>
