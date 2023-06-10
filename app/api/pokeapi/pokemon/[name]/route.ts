@@ -1,10 +1,13 @@
 import { Pokemon, PokemonSpecies, Stat } from "pokenode-ts";
 import { NextResponse } from "next/server";
+import { cookies } from "next/headers";
 
 import { IPokemonDetail } from "@/interfaces/pokemon.interface";
 
 export async function GET(request: Request, { params }: { params: { name: string } }) {
   console.log("request pokemon name", params.name);
+  const idToken = cookies().get("token");
+  console.log("idToken", idToken);
   try {
     const pokemonResponse = await fetch(`https://pokeapi.co/api/v2/pokemon/${params.name}`);
     const pokemon: Pokemon = await pokemonResponse.json();

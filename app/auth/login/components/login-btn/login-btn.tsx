@@ -2,14 +2,17 @@
 
 import { getAuth, signInWithPopup } from "@firebase/auth";
 
-import { firebaseApp, provider } from "@/services/firebase.service";
+import { firebaseApp, provider } from "@/services/firebase-client.service";
 
 export const LoginButton = () => {
   console.log("LoginButton");
-  const handleLogin = () => {
-    signInWithPopup(getAuth(firebaseApp), provider).then((user) => {
-      console.log("user", user);
-    });
+  const handleLogin = async () => {
+    try {
+      const userCredential = await signInWithPopup(getAuth(firebaseApp), provider);
+      console.log("userCredential", userCredential);
+    } catch (error) {
+      console.log("LoginButton login error", error);
+    }
   };
 
   return (

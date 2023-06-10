@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { auth } from "@/services/firebase.service";
+import { auth } from "@/services/firebase-client.service";
 
 // 创建 axios 请求实例
 const requestService = axios.create({

@@ -8,7 +8,6 @@ import { useAppSelector } from "@/redux/hooks/redux.hook";
 export default function UserProfile() {
   console.log("UserProfile");
   const auth = useAppSelector((state) => state.auth);
-
   if (auth.state === EAuthState.PENDING) {
     return <div className="text-center">等一下！！！！！</div>;
   } else if (auth.state === EAuthState.LOGOUT) {

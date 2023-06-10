@@ -1,3 +1,4 @@
+import { headers } from "next/headers";
 import Image from "next/image";
 
 import { IPokemonDetail } from "@/interfaces/pokemon.interface";
@@ -7,7 +8,8 @@ import PokemonState from "@/app/pokemon/[name]/components/pokemon-state/pokemon-
 export default async function PokemonDetail({ params: { name } }: { params: { name: string } }) {
   console.log("Pokemon detail", process.env.NEXT_PUBLIC_API_BASE_URL);
   const fetchRequest = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/pokeapi/pokemon/${name}`
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/pokeapi/pokemon/${name}`,
+    { headers: headers() }
   );
   const pokemonDetail: IPokemonDetail = await fetchRequest.json();
   const dateResponse = await fetch("https://worldtimeapi.org/api/ip");

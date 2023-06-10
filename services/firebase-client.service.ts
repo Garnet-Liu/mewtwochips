@@ -1,8 +1,8 @@
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-import { getAuth, onAuthStateChanged } from "@firebase/auth";
-import { GoogleAuthProvider, User } from "firebase/auth";
 import { getApps, initializeApp } from "firebase/app";
+import { GoogleAuthProvider } from "firebase/auth";
+import { getAuth } from "@firebase/auth";
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -20,14 +20,3 @@ export const provider = new GoogleAuthProvider();
 export const firebaseApp = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
 
 export const auth = getAuth(firebaseApp);
-
-export const getCurrentUser = async (): Promise<User | null> => {
-  return new Promise((resolve, reject) => {
-    const authUnsubscribe = onAuthStateChanged(getAuth(firebaseApp), async (user) => {
-      const token = await user?.getIdToken();
-      document.cookie = `token=${token}`;
-      authUnsubscribe();
-      resolve(user);
-    }, reject);
-  });
-};

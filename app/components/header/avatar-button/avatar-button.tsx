@@ -6,7 +6,7 @@ import LoginIcon from "@mui/icons-material/Login";
 import { MouseEvent, useState } from "react";
 import Link from "next/link";
 
-import { auth } from "@/services/firebase.service";
+import { auth } from "@/services/firebase-client.service";
 import { EAuthState } from "@/interfaces/auth.interface";
 import { useAppSelector } from "@/redux/hooks/redux.hook";
 
@@ -32,7 +32,7 @@ export default function AvatarButton() {
     const handleClose = () => {
       setAnchorEl(null);
       auth.signOut().then(() => {
-        console.log("sign out");
+        console.log("firebase sign out");
       });
     };
     return (
