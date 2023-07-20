@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { ReactNode, useEffect } from "react";
 
 import { EAuthState } from "@/interfaces/auth.interface";
-import { useAppSelector } from "@/redux/hooks/redux.hook";
+import { useAppSelector } from "@/hooks/redux.hook";
 
 interface IAuthProviderProps {
   children: ReactNode;

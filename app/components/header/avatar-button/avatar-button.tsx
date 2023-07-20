@@ -8,7 +8,7 @@ import Link from "next/link";
 
 import { auth } from "@/services/firebase-client.service";
 import { EAuthState } from "@/interfaces/auth.interface";
-import { useAppSelector } from "@/redux/hooks/redux.hook";
+import { useAppSelector } from "@/hooks/redux.hook";
 
 export default function AvatarButton() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -31,10 +31,13 @@ export default function AvatarButton() {
 
     const handleClose = () => {
       setAnchorEl(null);
+    };
+
+    const handleLogout = () => {
       auth.signOut().then(() => {
         console.log("firebase sign out");
       });
-    };
+    }
     return (
       <>
         <IconButton onClick={handleClick}>
@@ -42,7 +45,7 @@ export default function AvatarButton() {
         </IconButton>
 
         <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
-          <MenuItem onClick={handleClose}>
+          <MenuItem onClick={handleLogout}>
             <ListItemIcon>
               <LogoutIcon fontSize="small"/>
             </ListItemIcon>

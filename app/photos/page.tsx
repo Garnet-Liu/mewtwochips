@@ -10,8 +10,9 @@ export default async function Photos() {
   const dateResponse = await fetch("https://worldtimeapi.org/api/ip");
   const dateData = await dateResponse.json();
   return (
-    <main className="container mx-auto overflow-hidden">
-      <PageHeader pageTitle="Photos" backRoute="/" datetime={dateData?.datetime || ""}/>
+    <main className="w-[1200px] mx-auto bg-white mt-5">
+      {/* @ts-expect-error Server Component */}
+      <PageHeader pageTitle="Photos" backRoute="/"/>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 auto-rows-max	 gap-6 m-10">
         {photos.map(({ id, imageSrc }) => (

@@ -4,7 +4,7 @@ import { ReactNode, useEffect } from "react";
 import nookies from "nookies";
 
 import { auth } from "@/services/firebase-client.service";
-import { useAppDispatch } from "@/redux/hooks/redux.hook";
+import { useAppDispatch } from "@/hooks/redux.hook";
 import { EAuthState, IUserInfo } from "@/interfaces/auth.interface";
 import { resetUser, updateUser } from "@/redux/features/auth-slice";
 

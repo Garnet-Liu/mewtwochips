@@ -3,7 +3,7 @@
 import Image from "next/image";
 
 import { EAuthState } from "@/interfaces/auth.interface";
-import { useAppSelector } from "@/redux/hooks/redux.hook";
+import { useAppSelector } from "@/hooks/redux.hook";
 
 export default function UserProfile() {
   console.log("UserProfile");

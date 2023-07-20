@@ -11,7 +11,7 @@ import {
   selectCount
 } from "@/redux/features/counter-slice";
 import styles from "@/app/counter/page.module.css";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks/redux.hook";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux.hook";
 
 export default function CounterAction() {
   const count = useAppSelector(selectCount);

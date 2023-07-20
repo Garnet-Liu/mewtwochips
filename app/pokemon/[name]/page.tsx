@@ -17,7 +17,8 @@ export default async function PokemonDetail({ params: { name } }: { params: { na
   console.log("pokemonDetail", pokemonDetail);
   return (
     <div className="w-[1200px] mx-auto">
-      <PageHeader pageTitle={pokemonDetail.pokemon_name} backRoute="/pokemon" datetime={dateData?.datetime || ""}/>
+      {/* @ts-expect-error Server Component */}
+      <PageHeader pageTitle={pokemonDetail.pokemon_name} backRoute="/pokemon"/>
 
       <div className="flex">
         <div className="w-1/2 relative">

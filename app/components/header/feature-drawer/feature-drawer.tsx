@@ -3,6 +3,7 @@
 import { Divider, Drawer, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
 import CatchingPokemonIcon from "@mui/icons-material/CatchingPokemon";
 import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
+import Brightness1Icon from '@mui/icons-material/Brightness1';
 import AlarmIcon from '@mui/icons-material/Alarm';
 import MenuIcon from "@mui/icons-material/Menu";
 import { usePathname } from "next/navigation";
@@ -12,7 +13,8 @@ import Link from "next/link";
 const features = [
   { path: "/pokemon", name: "Pokemon", icon: <CatchingPokemonIcon/> },
   { path: "/photos", name: "Photos", icon: <InsertPhotoIcon/> },
-  { path: "/counter", name: "Counter", icon: <AlarmIcon/> }
+  { path: "/counter", name: "Counter", icon: <AlarmIcon/> },
+  { path: "/clash-of-clans", name: "Clash of Clans", icon: <Brightness1Icon/> }
 ];
 
 export default function FeatureDrawer() {

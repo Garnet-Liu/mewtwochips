@@ -13,7 +13,8 @@ export default async function Page({ params }: IPageProps) {
   if (photo) {
     return (
       <div className="container mx-auto my-10">
-        <PageHeader pageTitle={photo.name} backRoute="/photos" datetime={dateData?.datetime || ""}/>
+        {/* @ts-expect-error Server Component */}
+        <PageHeader pageTitle={photo.name} backRoute="/photos"/>
 
         <div className="w-1/2 mx-auto border border-gray-700">
           <Photo photo={photo}/>
@@ -23,7 +24,8 @@ export default async function Page({ params }: IPageProps) {
   } else {
     return (
       <div className="container mx-auto m-10">
-        <PageHeader pageTitle="没找到" backRoute="/photos" datetime={dateData?.datetime || ""}/>
+        {/* @ts-expect-error Server Component */}
+        <PageHeader pageTitle="没找到" backRoute="/photos"/>
       </div>
     );
   }

@@ -10,10 +10,13 @@ export default function PokemonControl() {
   const [count, setCount] = useState<number>(0);
 
   useEffect(() => {
+    console.log("useEffect");
     fetch("https://pokeapi.co/api/v2/pokemon?offset=0&limit=1").then((response) => {
       return response.json();
     }).then((data) => {
       setCount(data.count);
+    }).catch((error) => {
+      console.log("fetch data failed", error);
     });
   }, []);
 

@@ -4,6 +4,6 @@ interface IDateSectionProps {
 
 export default function DateSection({ date }: IDateSectionProps) {
   return (
-    <div>{date}</div>
+    <div className="px-3">{date}</div>
   );
 }
