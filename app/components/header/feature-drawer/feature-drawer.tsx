@@ -2,6 +2,7 @@
 
 import { Divider, Drawer, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
 import CatchingPokemonIcon from "@mui/icons-material/CatchingPokemon";
+import CurrencyBitcoin from "@mui/icons-material/CurrencyBitcoin";
 import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
 import Brightness1Icon from '@mui/icons-material/Brightness1';
 import AlarmIcon from '@mui/icons-material/Alarm';
@@ -10,10 +11,12 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import Link from "next/link";
 
+
 const features = [
   { path: "/pokemon", name: "Pokemon", icon: <CatchingPokemonIcon/> },
   { path: "/photos", name: "Photos", icon: <InsertPhotoIcon/> },
   { path: "/counter", name: "Counter", icon: <AlarmIcon/> },
+  { path: "/web3", name: "Web3", icon: <CurrencyBitcoin/> },
   { path: "/clash-of-clans", name: "Clash of Clans", icon: <Brightness1Icon/> }
 ];
 

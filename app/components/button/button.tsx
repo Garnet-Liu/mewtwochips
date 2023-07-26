@@ -1,11 +1,11 @@
 import { ButtonHTMLAttributes, DetailedHTMLProps, ReactNode } from "react";
-import classnames from "classnames";
+import cn from "classnames";
 
 interface IButtonProps extends DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> {
   children?: ReactNode;
 }
 
-export const Button = ({ children, ...btnProps }: IButtonProps) => {
+export default function Button  ({ children, className, ...btnProps }: IButtonProps)  {
   const names = [
     "inline-flex",
     "items-center",
@@ -24,6 +24,6 @@ export const Button = ({ children, ...btnProps }: IButtonProps) => {
     "duration-150"
   ];
   return (
-    <button {...btnProps} className={classnames(names)}>{children}</button>
+    <button {...btnProps} className={cn(names, className)}>{children}</button>
   );
 };

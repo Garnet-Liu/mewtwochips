@@ -6,9 +6,9 @@ import LoginIcon from "@mui/icons-material/Login";
 import { MouseEvent, useState } from "react";
 import Link from "next/link";
 
-import { auth } from "@/services/firebase-client.service";
-import { EAuthState } from "@/interfaces/auth.interface";
 import { useAppSelector } from "@/hooks/redux.hook";
+import { EAuthState } from "@/interfaces/auth.interface";
+import { auth } from "@/services/firebase-client.service";
 
 export default function AvatarButton() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -16,6 +16,7 @@ export default function AvatarButton() {
   const authInfo = useAppSelector((state) => state.auth);
 
   console.log("auth", authInfo);
+  console.log("auth userInfo token", authInfo.userInfo?.token);
 
   if (authInfo.state === EAuthState.PENDING) {
     return (
@@ -56,7 +57,7 @@ export default function AvatarButton() {
     );
   } else {
     return (
-      <Link href="/auth/login">
+      <Link href={"/auth/login"}>
         <IconButton color="primary">
           <Avatar>
             <LoginIcon/>

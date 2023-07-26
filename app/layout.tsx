@@ -3,8 +3,8 @@ import { ReactNode } from "react";
 
 import "./globals.css";
 import Header from "@/app/components/header/header";
-import ReduxProvider from "@/providers/redux-provider";
-import FirebaseProvider from "@/providers/firebase-provider";
+import ReduxProvider from "@/providers/redux.provider";
+import FirebaseProvider from "@/providers/firebase.provider";
 
 const roboto = Roboto({
   weight: ["300", "400", "500", "700"],
@@ -32,7 +32,7 @@ export default function RootLayout({ children, modal }: ILayoutProps) {
       <FirebaseProvider>
         <div className="min-h-screen relative">
           <Header/>
-          <div>
+          <div className="overflow-hidden">
             {children}
             {modal}
           </div>

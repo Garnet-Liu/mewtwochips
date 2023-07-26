@@ -5,8 +5,6 @@ import AvatarButton from "@/app/components/header/avatar-button/avatar-button";
 import FeatureDrawer from "@/app/components/header/feature-drawer/feature-drawer";
 
 export default function Header() {
-  console.log("Header");
-
   return (
     <div className={styles.container}>
       <div className={styles.content}>

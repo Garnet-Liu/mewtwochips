@@ -2,11 +2,10 @@
 
 import Image from "next/image";
 
-import { EAuthState } from "@/interfaces/auth.interface";
 import { useAppSelector } from "@/hooks/redux.hook";
+import { EAuthState } from "@/interfaces/auth.interface";
 
 export default function UserProfile() {
-  console.log("UserProfile");
   const auth = useAppSelector((state) => state.auth);
   if (auth.state === EAuthState.PENDING) {
     return <div className="text-center">等一下！！！！！</div>;

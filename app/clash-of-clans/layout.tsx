@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-import AuthProvider from "@/providers/auth-provider";
+import AuthProvider from "@/providers/auth.provider";
 import { EAuthState } from "@/interfaces/auth.interface";
 
 export default function ClashOfClansLayout({ children }: { children: ReactNode }) {
