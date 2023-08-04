@@ -37,3 +37,6 @@ next-env.d.ts
 
 /.idea
 firebase-secret-key.json
+/test-results/
+/playwright-report/
+/playwright/.cache/
