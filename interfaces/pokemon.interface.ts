@@ -11,6 +11,7 @@ export interface IPokemonList {
 export interface IPokemon {
   id: number;
   name: string;
+  show: boolean;
   pokemon_name: string;
   pokemon_photo: string;
   pokemon_color: string;

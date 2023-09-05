@@ -13,6 +13,7 @@ const nextConfig = {
         port: "",
         pathname: "/PokeAPI/sprites/master/sprites/pokemon/**"
       },
+      { protocol: "https", hostname: "res.cloudinary.com", port: "", pathname: "/apollographql/image/upload/**" },
       { protocol: "https", hostname: "api-assets.clashofclans.com", port: "", pathname: "/**" }
     ]
   }

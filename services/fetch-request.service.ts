@@ -1,6 +1,6 @@
 import { IBaseResponse } from "@/interfaces/api.interface";
 
-export const clientFetchRequest = <T>(url: string, init?: RequestInit): Promise<IBaseResponse<T>> => {
+export const clientFetchRequest = <T = any>(url: string, init?: RequestInit): Promise<IBaseResponse<T>> => {
   return fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}${url}`, init).then((res) => res.json());
 };
 

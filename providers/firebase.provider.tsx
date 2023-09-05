@@ -1,7 +1,6 @@
 "use client";
 
 import { ReactNode, useEffect } from "react";
-import { User } from "@firebase/auth";
 import nookies from "nookies";
 
 import { useAppDispatch } from "@/hooks/redux.hook";
@@ -18,11 +17,23 @@ export default function FirebaseProvider({ children }: { children: ReactNode }) 
       if (user) {
         // 登陆之后，定时刷新token，防止SSR页面token过期，无法获取数据
         tokenTimeOut = setTimeout(async () => {
-          await creatUserInfo(user);
-          // token是两个小时过去，所以应该是115分钟刷新一次，但是这个时间需要确定一下
+          // 刷新一个全新的token
+          await user.getIdToken(true);
+          // token是一个小时过期，所以应该是55分钟刷新一次
         }, 55 * 60 * 1000);
-        const userInfo = await creatUserInfo(user);
-        nookies.set(undefined, "token", userInfo.token, { path: "/" });
+        // 每次程序加载都获取一个全新的token
+        const idToken = await user.getIdToken(true);
+        const userInfo: IUserInfo = {
+          uid: user.uid,
+          token: idToken,
+          email: user.email,
+          photoURL: user.photoURL,
+          providerId: user.providerId,
+          displayName: user.displayName,
+          phoneNumber: user.phoneNumber,
+          emailVerified: user.emailVerified
+        };
+        nookies.set(undefined, "token", idToken, { path: "/" });
         dispatch(updateUser({ state: EAuthState.LOGIN, userInfo: userInfo }));
       } else {
         clearInterval(tokenTimeOut);
@@ -41,17 +52,3 @@ export default function FirebaseProvider({ children }: { children: ReactNode }) 
     <>{children}</>
   );
 }
-
-const creatUserInfo = async (user: User): Promise<IUserInfo> => {
-  const idToken = await user.getIdToken(true);
-  return {
-    uid: user.uid,
-    token: idToken,
-    email: user.email,
-    photoURL: user.photoURL,
-    providerId: user.providerId,
-    displayName: user.displayName,
-    phoneNumber: user.phoneNumber,
-    emailVerified: user.emailVerified
-  };
-};
