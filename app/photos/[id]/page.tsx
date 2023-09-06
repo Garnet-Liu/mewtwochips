@@ -8,8 +8,6 @@ interface IPageProps {
 
 export default async function Page({ params }: IPageProps) {
   const photo = await getPhotoDetail(params.id);
-  const dateResponse = await fetch("https://worldtimeapi.org/api/ip");
-  const dateData = await dateResponse.json();
   if (photo) {
     return (
       <div className="container mx-auto my-10">

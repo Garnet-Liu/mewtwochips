@@ -12,8 +12,6 @@ export default async function PokemonDetail({ params: { name } }: { params: { na
     { headers: headers() }
   );
   const pokemonDetail: IPokemonDetail = await fetchRequest.json();
-  const dateResponse = await fetch("https://worldtimeapi.org/api/ip");
-  const dateData = await dateResponse.json();
   console.log("pokemonDetail", pokemonDetail);
   return (
     <div className="w-[1200px] mx-auto">

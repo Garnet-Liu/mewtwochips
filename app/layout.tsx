@@ -4,6 +4,7 @@ import { ReactNode } from "react";
 import "./globals.css";
 import Header from "@/app/components/header/header";
 import ReduxProvider from "@/providers/redux.provider";
+import { ApolloWrapper } from "@/providers/apollo.provider";
 import FirebaseProvider from "@/providers/firebase.provider";
 
 const roboto = Roboto({
@@ -29,15 +30,17 @@ export default function RootLayout({ children, modal }: ILayoutProps) {
     <html lang="en">
     <body className={roboto.className}>
     <ReduxProvider>
-      <FirebaseProvider>
-        <div className="min-h-screen relative">
-          <Header/>
-          <div className="overflow-hidden">
-            {children}
-            {modal}
+      <ApolloWrapper>
+        <FirebaseProvider>
+          <div className="min-h-screen relative">
+            <Header/>
+            <div className="overflow-hidden">
+              {children}
+              {modal}
+            </div>
           </div>
-        </div>
-      </FirebaseProvider>
+        </FirebaseProvider>
+      </ApolloWrapper>
     </ReduxProvider>
     </body>
     </html>

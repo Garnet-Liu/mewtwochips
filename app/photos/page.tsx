@@ -7,8 +7,6 @@ import PageHeader from "@/app/components/page-header/page-header";
 export default async function Photos() {
   console.log("Photos");
   const photos = await getPhotoList();
-  const dateResponse = await fetch("https://worldtimeapi.org/api/ip");
-  const dateData = await dateResponse.json();
   return (
     <main className="w-[1200px] mx-auto bg-white mt-5">
       {/* @ts-expect-error Server Component */}

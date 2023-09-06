@@ -11,13 +11,14 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import Link from "next/link";
 
-
 const features = [
   { path: "/pokemon", name: "Pokemon", icon: <CatchingPokemonIcon/> },
   { path: "/photos", name: "Photos", icon: <InsertPhotoIcon/> },
   { path: "/counter", name: "Counter", icon: <AlarmIcon/> },
-  { path: "/web3", name: "Web3", icon: <CurrencyBitcoin/> },
-  { path: "/clash-of-clans", name: "Clash of Clans", icon: <Brightness1Icon/> }
+  { path: "/wagmi", name: "Wagmi", icon: <CurrencyBitcoin/> },
+  { path: "/clash-of-clans", name: "Clash of Clans", icon: <Brightness1Icon/> },
+  { path: "/apollographql", name: "Apollographql", icon: <Brightness1Icon/> },
+  { path: "/media-devices", name: "MediaDevices", icon: <Brightness1Icon/> }
 ];
 
 export default function FeatureDrawer() {

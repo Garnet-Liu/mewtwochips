@@ -1,6 +1,7 @@
 import { NamedAPIResourceList, Pokemon, PokemonSpecies } from "pokenode-ts";
 import { NextResponse } from "next/server";
 
+import { IBaseResponse } from "@/interfaces/api.interface";
 import { IPokemon, IPokemonList } from "@/interfaces/pokemon.interface";
 
 export async function GET(request: Request) {
@@ -27,15 +28,18 @@ export async function GET(request: Request) {
       return {
         id: pokemon.id,
         name: pokemon.name,
+        show: false,
         pokemon_photo: pokemon.sprites.other?.["official-artwork"].front_default || "",
         pokemon_color: species.color.name,
         pokemon_name: zh_Name?.name ?? species.name
       };
     });
 
-    const apiResponseData: IPokemonList = {
-      pokemon: responsePokemon,
-      count: pokemonList.count
+    const apiResponseData: IBaseResponse<IPokemonList> = {
+      data: { pokemon: responsePokemon, count: pokemonList.count },
+      message: "success",
+      success: true,
+      code: 200
     }
     return NextResponse.json(apiResponseData);
   } catch (error) {

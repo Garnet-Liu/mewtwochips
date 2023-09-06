@@ -3,16 +3,28 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 4000",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "compile": "graphql-codegen",
+    "watch": "graphql-codegen -w",
+    "preinstall": "npx -y only-allow yarn"
+  },
+  "engines": {
+    "yarn": ">= 1.22.0",
+    "node": ">=18.0.0"
   },
   "dependencies": {
+    "@apollo/client": "^3.8.1",
+    "@apollo/experimental-nextjs-app-support": "^0.4.1",
     "@emotion/react": "^11.11.0",
     "@emotion/styled": "^11.11.0",
+    "@graphql-codegen/cli": "^5.0.0",
+    "@graphql-codegen/client-preset": "^4.1.0",
     "@mui/icons-material": "^5.11.16",
     "@mui/material": "^5.13.4",
+    "@radix-ui/react-toast": "^1.1.4",
     "@reduxjs/toolkit": "^1.9.5",
     "@types/luxon": "^3.3.0",
     "@types/node": "20.2.5",
@@ -25,8 +37,9 @@
     "encoding": "^0.1.13",
     "eslint": "8.41.0",
     "eslint-config-next": "13.4.4",
-    "firebase": "^9.22.1",
+    "firebase": "^10.1.0",
     "firebase-admin": "^11.9.0",
+    "graphql": "^16.8.0",
     "luxon": "^3.3.0",
     "next": "13.4.4",
     "nookies": "^2.5.2",

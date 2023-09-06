@@ -1,5 +1,5 @@
 import PageHeader from "@/app/components/page-header/page-header";
-import Web3Connect from "@/app/web3/components/web3-connect/web3-connect";
+import WagmiConnect from "@/app/wagmi/components/wagmi-connect/wagmi-connect";
 
 export default function Web3() {
   return (
@@ -7,7 +7,7 @@ export default function Web3() {
       {/* @ts-expect-error Server Component */}
       <PageHeader pageTitle="Web3" backRoute="/"/>
 
-      <Web3Connect/>
+      <WagmiConnect/>
     </div>
   );
 }
