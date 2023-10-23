@@ -10,6 +10,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import Link from "next/link";
+import Wheel from "@/app/wheel/page";
 
 const features = [
   { path: "/pokemon", name: "Pokemon", icon: <CatchingPokemonIcon/> },
@@ -18,7 +19,8 @@ const features = [
   { path: "/wagmi", name: "Wagmi", icon: <CurrencyBitcoin/> },
   { path: "/clash-of-clans", name: "Clash of Clans", icon: <Brightness1Icon/> },
   { path: "/apollographql", name: "Apollographql", icon: <Brightness1Icon/> },
-  { path: "/media-devices", name: "MediaDevices", icon: <Brightness1Icon/> }
+  { path: "/media-devices", name: "MediaDevices", icon: <Brightness1Icon/> },
+  { path: "/wheel", name: "Wheel", icon: <Brightness1Icon/> }
 ];
 
 export default function FeatureDrawer() {

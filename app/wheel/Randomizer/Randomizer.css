@@ -1,0 +1,11 @@
+.mask {
+  mask: radial-gradient(transparent 110px, #000 110px);
+}
+
+.circle-bottom {
+  clip-path: polygon(50% 0%, 100% 0%, 100% 100%, 50% 100%);
+}
+
+.circle-top {
+  clip-path: polygon(0% 0%, 50% 0%, 50% 100%, 0% 100%);
+}
