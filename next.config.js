@@ -1,5 +1,16 @@
 /** @type {import("next").NextConfig} */
 const nextConfig = {
+  async headers() {
+    return [
+      {
+        // Apply these headers to all routes in your application.
+        source: "/:path*",
+        headers: [
+          { key: "Access-Control-Allow-Origin", value: "*" }
+        ]
+      }
+    ];
+  },
   async redirects() {
     return [{ source: "/auth", destination: "/auth/login", permanent: true }];
   },

@@ -18,7 +18,7 @@ import { OwnUserResponse, TokenOrProvider, UserResponse } from "stream-chat";
 // import "@stream-io/stream-chat-css/dist/css/index.css";
 import "./LiveStreamChat.css";
 
-const apiKey = "8mwk44mrcg2n";
+const apiKey = process.env.NEXT_PUBLIC_STREAM_API_KEY as string;
 const userToConnect: OwnUserResponse | UserResponse = {
   id: "9e98c030-cd1b-43ac-a9fa-2be77be71ecb",
   name: "chongligarnet346"

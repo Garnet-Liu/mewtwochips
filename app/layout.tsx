@@ -32,7 +32,7 @@ export default function RootLayout({ children, modal }: ILayoutProps) {
     <ReduxProvider>
       <ApolloWrapper>
         <FirebaseProvider>
-          <div className="min-h-screen relative">
+          <div className="min-h-screen relative w-[1200px]">
             <Header/>
             <div className="overflow-hidden">
               {children}
