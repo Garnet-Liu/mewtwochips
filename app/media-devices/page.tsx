@@ -1,33 +1,25 @@
 "use client";
 
-import { useCallback, useEffect, useRef } from "react";
+import { ChangeEvent, useCallback, useEffect, useRef, useState } from "react";
 
 export default function MediaDevicesPage() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [options, setOptions] = useState<MediaDeviceInfo[]>([]);
 
-  const width = 400;    // 外面会对照片的宽度进行缩放
-  const height = 560;     // 高度会基于输入的视频流进行计算
   const x = 0;
   const y = 0;
 
-  useEffect(() => {
-    console.log("useEffect", canvasRef, videoRef);
-    initMedia().then(() => {
-      console.log("initMedia");
-    });
-  }, []);
-
-  const renderCanvas = useCallback((video: HTMLVideoElement, ctx: CanvasRenderingContext2D | null) => {
+  const renderCanvas = useCallback((width: number, height: number, video: HTMLVideoElement, ctx: CanvasRenderingContext2D | null) => {
     const render = () => {
       window.requestAnimationFrame(render);
       ctx?.clearRect(x, y, width, height);
       ctx?.drawImage(video, x, y, width, height);  //绘制视频
     };
     return render;
-  }, [height, width, x, y]);
+  }, [x, y]);
 
-  const initMedia = async () => {
+  const initMedia = useCallback(async () => {
     const video = videoRef.current;
     const canvas = canvasRef.current;
     if (video && canvas) {
@@ -43,25 +35,43 @@ export default function MediaDevicesPage() {
         return info.kind === "videoinput";
       });
       console.log("videoInput", videoInput);
-      const findVideo = videoInput.find((v) => v.label === "FaceTime高清摄像头（内建） (05ac:8514)");
-      console.log("findVideo", findVideo);
-      console.log("findVideo", findVideo?.deviceId);
+      setOptions(videoInput);
+    }
+  }, []);
+
+  useEffect(() => {
+    console.log("useEffect", canvasRef, videoRef);
+    initMedia().then(() => {
+      console.log("initMedia");
+    });
+  }, [initMedia]);
+
+  const deviceChangeHandle = async (event: ChangeEvent<HTMLSelectElement>) => {
+    console.log(event.target.value);
+    const deviceId = event.target.value;
+    const video = videoRef.current;
+    const canvas = canvasRef.current;
+    if (video && canvas) {
       try {
         const mediaStream = await navigator.mediaDevices.getUserMedia({
           video: {
-            deviceId: { exact: videoInput[1]?.deviceId },
-            aspectRatio: { exact: 9 / 16 },
+            deviceId: { exact: deviceId }
+            // aspectRatio: { exact: 9 / 16 },
             // width: width
           }
         });
         console.log("mediaStream", mediaStream);
         video.srcObject = mediaStream;
 
-        video.onloadedmetadata = function (e) {
+        video.onloadedmetadata = function () {
           video.play().then(() => {
             console.log("play...");
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            video.width = video.videoWidth;
+            video.height = video.videoHeight;
 
-            const renderHandle = renderCanvas(video, canvas.getContext("2d"));
+            const renderHandle = renderCanvas(canvas.width, canvas.height, video, canvas.getContext("2d"));
 
             renderHandle();
           });
@@ -73,12 +83,24 @@ export default function MediaDevicesPage() {
   };
 
   return (
-    <div className="flex">
-      <video width={width} height={height} ref={videoRef} playsInline>
+    <div className="flex flex-col items-center gap-4">
+      <select name="device" onChange={deviceChangeHandle}>
+        <option value="">Select your device</option>
+        {
+          options.map((device) => {
+            return (
+              <option key={device.deviceId} value={device.deviceId}>
+                {device.label}
+              </option>
+            );
+          })
+        }
+      </select>
+      <video ref={videoRef} playsInline>
         视频流目前不可用。
       </video>
 
-      <canvas width={width} height={height} ref={canvasRef}></canvas>
+      <canvas ref={canvasRef}></canvas>
     </div>
   );
 }
