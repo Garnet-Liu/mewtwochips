@@ -20,6 +20,7 @@ const features = [
   { path: "/clash-of-clans", name: "Clash of Clans", icon: <Brightness1Icon/> },
   { path: "/apollographql", name: "Apollographql", icon: <Brightness1Icon/> },
   { path: "/media-devices", name: "MediaDevices", icon: <Brightness1Icon/> },
+  { path: "/stream-chat", name: "Stream chat", icon: <Brightness1Icon/> },
   { path: "/wheel", name: "Wheel", icon: <Brightness1Icon/> }
 ];
 
