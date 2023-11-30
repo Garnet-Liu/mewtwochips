@@ -6,6 +6,7 @@ import Header from "@/app/components/header/header";
 import ReduxProvider from "@/providers/redux.provider";
 import { ApolloWrapper } from "@/providers/apollo.provider";
 import FirebaseProvider from "@/providers/firebase.provider";
+import { Navigation } from "@/app/components/Navigation/Navigation";
 
 const roboto = Roboto({
   weight: ["300", "400", "500", "700"],
@@ -32,11 +33,16 @@ export default function RootLayout({ children, modal }: ILayoutProps) {
     <ReduxProvider>
       <ApolloWrapper>
         <FirebaseProvider>
-          <div className="min-h-screen relative w-[1200px]">
+          <div className="min-h-screen relative min-w-[1200px] flex flex-col">
             <Header/>
-            <div className="overflow-hidden">
-              {children}
-              {modal}
+
+            <div className="overflow-hidden flex flex-1">
+              <Navigation/>
+
+              <div className="w-full">
+                {children}
+                {modal}
+              </div>
             </div>
           </div>
         </FirebaseProvider>

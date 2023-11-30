@@ -1,7 +1,5 @@
 "use client";
 
-import { CircularProgress } from "@mui/material";
-
 import { useCWLTime } from "@/hooks/repeating-event-time.hook";
 import { IEventTime } from "@/interfaces/clash-of-clans.interface";
 
@@ -31,7 +29,7 @@ export default function EventItem({ name, getCurrentDate }: IEventItemProps) {
   } else {
     return (
       <div className="my-3 h-[52px] flex justify-center items-center">
-        <CircularProgress/>
+        {/*<CircularProgress/>*/}
       </div>
     );
   }

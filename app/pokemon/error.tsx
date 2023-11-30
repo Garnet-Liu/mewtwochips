@@ -1,6 +1,5 @@
 "use client";
 
-import { Button } from "@mui/material";
 import { useEffect } from "react";
 
 export default function Error({ error, reset }: { error: Error; reset: () => void; }) {
@@ -12,7 +11,7 @@ export default function Error({ error, reset }: { error: Error; reset: () => voi
   return (
     <div className="w-[1200px] mx-auto flex flex-col justify-center items-center my-9">
       <h2>Something went wrong!</h2>
-      <Button onClick={() => reset()}>Try again</Button>
+      <button onClick={() => reset()}>Try again</button>
     </div>
   );
 }
