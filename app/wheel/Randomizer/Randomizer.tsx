@@ -1,16 +1,39 @@
 "use client";
 
 import "./Randomizer.css";
+import { useEffect, useState } from "react";
 
-export function Randomizer() {
-  const items = [
-    { name: "123", color: "red" },
-    { name: "123", color: "blue" },
-    { name: "123", color: "black" },
-    { name: "123", color: "orange" },
-    { name: "123", color: "#3C2957" }
-  ];
+interface IProps {
+  winIndex: number;
+  items: Array<{ name: string; color: string }>;
+}
+
+const TIME_TO_SPIN_WHEEL = 4000;
+
+export function Randomizer(props: IProps) {
+  const { items, winIndex } = props;
+
+  console.log("winIndex", winIndex);
+
+  const [animationFinished, setAnimationFinished] = useState(false);
+  const [animationStarted, setAnimationStarted] = useState(false);
+
+  useEffect(() => {
+    setAnimationStarted(true);
+
+    return () => {
+      setAnimationStarted(false)
+    }
+  }, []);
+
   const rotate = 360 / items.length;
+
+  const rotateNumber = 360 * 3 + (360 - winIndex * rotate + 90 - rotate / 2);
+
+  const rotateCss = {
+    transitionDuration: `${TIME_TO_SPIN_WHEEL}ms`,
+    transform: `rotate(${rotateNumber}deg)`
+  };
 
   const circleBottomCss = (index: number) => {
     return {
@@ -38,8 +61,10 @@ export function Randomizer() {
   // 圆的半径
   const r = 192;
 
-  const start = -18;
-  const end = 54;
+  const start = -90;
+  const end = 90;
+
+  console.log("大小", end - start);
 
   // 起始角度和结束角度（以弧度表示）
   const startAngle = start * Math.PI / 180; // 起始角度为30度，转换为弧度
@@ -59,28 +84,34 @@ export function Randomizer() {
 
   return (
     <div className="w-full pt-[100%] relative">
-      <div className="absolute top-0 right-0 bottom-0 left-0">
+      <div style={animationStarted ? rotateCss : undefined}
+           className="absolute bottom-0 left-0 right-0 top-0 transition">
         <div className="relative w-full h-full mask">
 
           {items.map((i, index) => {
             return (
               <div key={index} style={circleBottomCss(index)}
                    className="w-[96%] h-[96%] absolute top-[2%] left-[2%] circle-bottom">
-                <div style={circleTopCss(index)} className="w-full h-full rounded-full text-center circle-top">
+                <div style={circleTopCss(index)}
+                     className="w-full h-full rounded-full text-center circle-top">
                   <div style={textCss()} className="w-full h-full flex justify-center items-center">
-                    <span className="text-white translate-x-1/2 pl-[110px]">谢谢参与 {index + 1}</span>
+                    <span className="text-white translate-x-1/2 pl-[110px]">
+                      {i.name} {index + 1}
+                    </span>
                   </div>
                 </div>
               </div>
             );
           })}
 
-          <svg xmlns="http://www.w3.org/2000/svg" className="w-full h-full absolute top-0 left-0" width="400"
+          <svg xmlns="http://www.w3.org/2000/svg" className="w-full h-full absolute top-0 left-0"
+               width="400"
                height="400" viewBox="0 0 400 400">
-            <path d={`M200,200 L${x1},${y1} A200,200 0 0,1 ${x2},${y2} Z`}
-                  fill="transparent"
-                  stroke="red"
-                  strokeWidth="3"/>
+            <path
+              d={`M200,200 L${x1},${y1} A192,192 0 ${end - start > 180 ? "1" : "0"} 1 ${x2},${y2} Z`}
+              fill="transparent"
+              stroke="red"
+              strokeWidth="3"/>
           </svg>
         </div>
       </div>

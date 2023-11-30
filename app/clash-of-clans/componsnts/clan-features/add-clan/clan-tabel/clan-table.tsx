@@ -1,6 +1,5 @@
 "use client";
 
-import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
@@ -55,57 +54,58 @@ export default function ClanTable({ clanList, addBtn, deleteBtn, profile }: ICla
     route.push(`/clash-of-clans/${encodeURIComponent(tag)}`);
   };
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell>ID</TableCell>
-            <TableCell>联赛等级</TableCell>
-            <TableCell>语言</TableCell>
-            <TableCell>部落</TableCell>
-            <TableCell>等级</TableCell>
-            <TableCell>成员</TableCell>
-            <TableCell>标签</TableCell>
-            {(addBtn || deleteBtn) && <TableCell></TableCell>}
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {clanList.map((clan) => (
-            <TableRow key={clan.tag} sx={{ cursor: "pointer" }} hover onClick={() => handleJumpClan(clan.tag)}>
-              <TableCell component="th" scope="row">{clan.tag}</TableCell>
-              <TableCell>{clan?.warLeague?.name}</TableCell>
-              <TableCell>{clan?.chatLanguage?.name}</TableCell>
-              <TableCell>
-                <div className="flex items-center">
-                  <Image src={clan.badgeUrls.small} width="32" height="32" alt="badge"/>
-                  {clan?.name}
-                </div>
-              </TableCell>
-              <TableCell>{clan.clanLevel}</TableCell>
-              <TableCell>{clan.memberList.length}</TableCell>
-              <TableCell>
-                <div className="flex items-center">
-                  {clan.labels.map((label) => (
-                    <Image key={label.iconUrls.small} src={label.iconUrls.small} width="32" height="32" alt="label"/>
-                  ))}
-                </div>
-              </TableCell>
-
-              {addBtn && (
-                <TableCell>
-                  <Button variant="outlined" onClick={() => handleClanAdd(clan)}>添加</Button>
-                </TableCell>
-              )}
-
-              {deleteBtn && (
-                <TableCell>
-                  <Button variant="outlined" onClick={() => handleClanDelete(clan)}>删除</Button>
-                </TableCell>
-              )}
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <div>部落</div>
+    // <TableContainer component={Paper}>
+    //   <Table sx={{ minWidth: 650 }} aria-label="simple table">
+    //     <TableHead>
+    //       <TableRow>
+    //         <TableCell>ID</TableCell>
+    //         <TableCell>联赛等级</TableCell>
+    //         <TableCell>语言</TableCell>
+    //         <TableCell>部落</TableCell>
+    //         <TableCell>等级</TableCell>
+    //         <TableCell>成员</TableCell>
+    //         <TableCell>标签</TableCell>
+    //         {(addBtn || deleteBtn) && <TableCell></TableCell>}
+    //       </TableRow>
+    //     </TableHead>
+    //     <TableBody>
+    //       {clanList.map((clan) => (
+    //         <TableRow key={clan.tag} sx={{ cursor: "pointer" }} hover onClick={() => handleJumpClan(clan.tag)}>
+    //           <TableCell component="th" scope="row">{clan.tag}</TableCell>
+    //           <TableCell>{clan?.warLeague?.name}</TableCell>
+    //           <TableCell>{clan?.chatLanguage?.name}</TableCell>
+    //           <TableCell>
+    //             <div className="flex items-center">
+    //               <Image src={clan.badgeUrls.small} width="32" height="32" alt="badge"/>
+    //               {clan?.name}
+    //             </div>
+    //           </TableCell>
+    //           <TableCell>{clan.clanLevel}</TableCell>
+    //           <TableCell>{clan.memberList.length}</TableCell>
+    //           <TableCell>
+    //             <div className="flex items-center">
+    //               {clan.labels.map((label) => (
+    //                 <Image key={label.iconUrls.small} src={label.iconUrls.small} width="32" height="32" alt="label"/>
+    //               ))}
+    //             </div>
+    //           </TableCell>
+    //
+    //           {addBtn && (
+    //             <TableCell>
+    //               <Button variant="outlined" onClick={() => handleClanAdd(clan)}>添加</Button>
+    //             </TableCell>
+    //           )}
+    //
+    //           {deleteBtn && (
+    //             <TableCell>
+    //               <Button variant="outlined" onClick={() => handleClanDelete(clan)}>删除</Button>
+    //             </TableCell>
+    //           )}
+    //         </TableRow>
+    //       ))}
+    //     </TableBody>
+    //   </Table>
+    // </TableContainer>
   );
 }

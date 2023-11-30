@@ -1,6 +1,5 @@
 "use client";
 
-import { Box, CircularProgress, InputAdornment, TextField } from "@mui/material";
 import { MouseEvent, useState } from "react";
 import Image from "next/image";
 
@@ -45,18 +44,18 @@ export default function AddClan({ profile }: { profile: IProfile }) {
             </p>
           </div>
 
-          <Box component="form" className="p-2" onSubmit={handleSubmit}>
-            <TextField fullWidth
-                       name="tag"
-                       placeholder="输入部落tag或者部落名称检索部落: #000000000 或者 部落名字"
-                       InputProps={{
-                         endAdornment: loading ? (
-                           <InputAdornment position="end">
-                             <CircularProgress size={30}/>
-                           </InputAdornment>
-                         ) : null
-                       }}/>
-          </Box>
+          {/*<Box component="form" className="p-2" onSubmit={handleSubmit}>*/}
+          {/*  <TextField fullWidth*/}
+          {/*             name="tag"*/}
+          {/*             placeholder="输入部落tag或者部落名称检索部落: #000000000 或者 部落名字"*/}
+          {/*             InputProps={{*/}
+          {/*               endAdornment: loading ? (*/}
+          {/*                 <InputAdornment position="end">*/}
+          {/*                   <CircularProgress size={30}/>*/}
+          {/*                 </InputAdornment>*/}
+          {/*               ) : null*/}
+          {/*             }}/>*/}
+          {/*</Box>*/}
         </div>
       </div>
 

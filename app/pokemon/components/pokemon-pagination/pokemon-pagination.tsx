@@ -1,6 +1,5 @@
 "use client";
 
-import { TablePagination } from "@mui/material";
 import { MouseEvent } from "react";
 
 interface IPokemonPaginationProps {
@@ -14,6 +13,9 @@ interface IPokemonPaginationProps {
 export default function PokemonPagination(props: IPokemonPaginationProps) {
   const { count = 1281, page, rowsPage = 10, handleChangePage } = props;
   return (
-    <TablePagination component="div" count={count} page={page} onPageChange={handleChangePage} rowsPerPage={rowsPage}/>
+    <div>
+      分页
+    </div>
+    // <TablePagination component="div" count={count} page={page} onPageChange={handleChangePage} rowsPerPage={rowsPage}/>
   );
 }
