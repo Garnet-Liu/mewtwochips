@@ -1,63 +1,67 @@
 "use client";
 
+import { useCallback, useEffect, useMemo, useState } from "react";
+
+import Button from "@/app/components/button/button";
 import { Randomizer } from "@/app/wheel/Randomizer/Randomizer";
-import { useEffect, useState } from "react";
+import { SlotMachine } from "@/app/wheel/SlotMachine/SlotMachine";
 
 export default function WheelPage() {
+  const [showWheel, setShowWheel] = useState(false);
+  const [showSlotMachine, setShowSlotMachine] = useState(false);
 
-  const [show, setShow]= useState(false)
-
-  const items1 = [
-    { name: "123", color: "red" },
-    { name: "123", color: "blue" },
-    { name: "123", color: "black" },
-    { name: "123", color: "orange" },
-    { name: "123", color: "#3C2957" },
-    { name: "123", color: "red" },
-    { name: "123", color: "blue" },
-    { name: "123", color: "black" },
-    { name: "123", color: "orange" },
-    { name: "123", color: "#3C2957" },
-    { name: "123", color: "red" },
+  const randomizer = [
+    { name: "123", color: "gray" },
     { name: "123", color: "blue" },
     { name: "123", color: "black" },
     { name: "123", color: "orange" },
     { name: "123", color: "#3C2957" }
   ];
-  const items2 = [
-    { name: "123", color: "gray" },
-    { name: "123", color: "blue" },
-    { name: "123", color: "black" },
-    { name: "123", color: "orange" },
-    { name: "123", color: "#3C2957" },
-  ];
 
+  const slotMachine = useMemo(() => {
+    return ["Garnet", "Garnet1"
+      // , "Garnet2", "Garnet3", "Garnet4", "Garnet5", "Garnet6", "Garnet7"
+    ];
+  }, []);
 
   useEffect(() => {
-    setShow(true)
+    setShowWheel(true);
+    setShowSlotMachine(true);
   }, []);
+
+  const wheelFinishedHandle = useCallback(() => {
+    setTimeout(() => {
+      setShowWheel(false);
+    }, 2000);
+  }, []);
+
+  const slotMachineFinishedHandle = useCallback(() => {
+    setTimeout(() => {
+      setShowSlotMachine(false);
+    }, 2000);
+  }, []);
+
   return (
     <div className="p-12 flex gap-4 flex-wrap">
-      <div className="w-[400px] h-[400px]">
-        <Randomizer items={items1} winIndex={1}/>
+      <div className="w-[400px] min-h-[450px]">
+        <Button disabled={showWheel} onClick={() => setShowWheel(true)}>Start</Button>
+        {showWheel &&
+          <Randomizer items={randomizer} winIndex={4} onFinished={wheelFinishedHandle}/>}
       </div>
-      <div className="w-[400px] h-[400px]">
-        {show && <Randomizer items={items2} winIndex={4}/>}
+
+      <div className="w-[400px] min-h-[450px]">
+        <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100">
+          <polygon points="50,10 90,90 10,90" fill="white" stroke="black" strokeWidth="10"/>
+        </svg>
       </div>
 
-      <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100">
-        <polygon points="50,10 90,90 10,90" fill="white" stroke="black" strokeWidth="10"/>
-      </svg>
-
-      <svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400">
-        <path d="M 200 200 L200,8 A200,200 0 1,1 200 200 z" stroke="red" strokeWidth="3" fill="transparent" />
-      </svg>
-
-      <svg xmlns="http://www.w3.org/2000/svg"
-           width="400"
-           height="400" viewBox="0 0 400 400">
-        <path d="M 0 196 A 196 196 0 1 1 392 196 z" stroke="red" strokeWidth="3" fill="transparent" />
-      </svg>
+      <div className="w-[400px] min-h-[450px]">
+        <Button disabled={showSlotMachine} onClick={() => setShowSlotMachine(true)}>Start</Button>
+        {showSlotMachine && <SlotMachine winnerName="Garnet"
+                                         animationDuration={2000}
+                                         onFinished={slotMachineFinishedHandle}
+                                         enteredUsernames={slotMachine}/>}
+      </div>
     </div>
   );
 }

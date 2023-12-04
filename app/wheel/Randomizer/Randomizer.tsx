@@ -1,39 +1,38 @@
 "use client";
 
 import "./Randomizer.css";
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 
 interface IProps {
   winIndex: number;
   items: Array<{ name: string; color: string }>;
+  onFinished?: () => void;
 }
 
 const TIME_TO_SPIN_WHEEL = 4000;
 
 export function Randomizer(props: IProps) {
-  const { items, winIndex } = props;
+  const { items, winIndex, onFinished } = props;
 
   console.log("winIndex", winIndex);
 
-  const [animationFinished, setAnimationFinished] = useState(false);
-  const [animationStarted, setAnimationStarted] = useState(false);
-
-  useEffect(() => {
-    setAnimationStarted(true);
-
-    return () => {
-      setAnimationStarted(false)
-    }
-  }, []);
+  const wheelRef = useRef<HTMLDivElement>(null);
 
   const rotate = 360 / items.length;
 
   const rotateNumber = 360 * 3 + (360 - winIndex * rotate + 90 - rotate / 2);
 
-  const rotateCss = {
-    transitionDuration: `${TIME_TO_SPIN_WHEEL}ms`,
-    transform: `rotate(${rotateNumber}deg)`
-  };
+  useEffect(() => {
+    if (wheelRef.current) {
+      wheelRef.current.style.transition = "none";
+      wheelRef.current.style.transform = "none";
+      wheelRef.current.offsetTop;
+      wheelRef.current.style.transitionProperty = "all";
+      wheelRef.current.style.transitionDuration = `${TIME_TO_SPIN_WHEEL}ms`;
+      console.log("rotateNumber", rotateNumber);
+      wheelRef.current.style.transform = `rotate(${rotateNumber}deg)`;
+    }
+  }, [rotateNumber]);
 
   const circleBottomCss = (index: number) => {
     return {
@@ -84,8 +83,8 @@ export function Randomizer(props: IProps) {
 
   return (
     <div className="w-full pt-[100%] relative">
-      <div style={animationStarted ? rotateCss : undefined}
-           className="absolute bottom-0 left-0 right-0 top-0 transition">
+      <div ref={wheelRef} className="absolute bottom-0 left-0 right-0 top-0 transition"
+           onTransitionEnd={onFinished}>
         <div className="relative w-full h-full mask">
 
           {items.map((i, index) => {
@@ -108,7 +107,7 @@ export function Randomizer(props: IProps) {
                width="400"
                height="400" viewBox="0 0 400 400">
             <path
-              d={`M200,200 L${x1},${y1} A192,192 0 ${end - start > 180 ? "1" : "0"} 1 ${x2},${y2} Z`}
+              d={`M200,200 L${x1},${y1} A${r},${r} 0 ${end - start > 180 ? "1" : "0"} 1 ${x2},${y2} Z`}
               fill="transparent"
               stroke="red"
               strokeWidth="3"/>

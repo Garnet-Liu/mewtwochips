@@ -5,8 +5,9 @@ interface IButtonProps extends DetailedHTMLProps<ButtonHTMLAttributes<HTMLButton
   children?: ReactNode;
 }
 
-export default function Button  ({ children, className, ...btnProps }: IButtonProps)  {
+export default function Button({ children, className, ...btnProps }: IButtonProps) {
   const names = [
+    "cursor-pointer",
     "inline-flex",
     "items-center",
     "px-4",
