@@ -7,56 +7,63 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "compile": "graphql-codegen",
-    "watch": "graphql-codegen -w",
-    "preinstall": "npx -y only-allow yarn"
+    "format": "prettier --write src/**/*.{ts,tsx,css}",
+    "prepare": "husky install"
   },
   "engines": {
-    "yarn": ">= 1.22.0",
-    "node": ">=18.0.0"
+    "node": ">=18.17.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "**/*.{js,jsx,ts,tsx}": [
+      "eslint --fix 'src/**/*.{js,jsx,ts,tsx}'",
+      "prettier --write --ignore-unknown"
+    ]
   },
   "dependencies": {
-    "@apollo/client": "^3.8.1",
-    "@apollo/experimental-nextjs-app-support": "^0.4.1",
-    "@graphql-codegen/cli": "^5.0.0",
-    "@graphql-codegen/client-preset": "^4.1.0",
-    "@livekit/components-react": "^1.4.1",
+    "@livekit/components-react": "^1.4.2",
     "@livekit/components-styles": "^1.0.7",
-    "@radix-ui/react-toast": "^1.1.4",
-    "@reduxjs/toolkit": "^1.9.5",
-    "@tensorflow/tfjs": "^4.12.0",
-    "@types/luxon": "^3.3.0",
-    "@types/node": "20.2.5",
-    "@types/react": "18.2.7",
-    "@types/react-dom": "18.2.4",
-    "autoprefixer": "10.4.14",
-    "axios": "^1.4.0",
-    "axios-cache-interceptor": "^1.1.1",
-    "classnames": "^2.3.2",
-    "encoding": "^0.1.13",
-    "eslint": "8.41.0",
-    "eslint-config-next": "13.4.4",
-    "firebase": "^10.1.0",
-    "firebase-admin": "^11.9.0",
-    "graphql": "^16.8.0",
-    "livekit-client": "^1.15.1",
+    "@radix-ui/themes": "^2.0.2",
+    "@t3-oss/env-nextjs": "^0.7.1",
+    "@types/luxon": "^3.3.7",
+    "class-variance-authority": "^0.7.0",
+    "firebase": "^10.7.1",
+    "firebase-admin": "^12.0.0",
+    "livekit-client": "^1.15.4",
     "livekit-server-sdk": "^1.2.7",
-    "luxon": "^3.3.0",
-    "next": "13.4.4",
-    "nookies": "^2.5.2",
-    "pokenode-ts": "^1.19.0",
-    "postcss": "8.4.24",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "react-hook-form": "^7.44.3",
-    "react-redux": "^8.0.7",
-    "sharp": "^0.32.1",
-    "stream-chat": "^8.14.2",
-    "stream-chat-react": "^10.20.1",
-    "swr": "^2.1.5",
-    "tailwindcss": "3.3.2",
-    "typescript": "5.0.4",
-    "viem": "^1.3.1",
-    "wagmi": "^1.3.9"
+    "luxon": "^3.4.4",
+    "next": "14.0.4",
+    "next-auth": "^4.24.5",
+    "pokenode-ts": "^1.20.0",
+    "react": "^18",
+    "react-dom": "^18",
+    "react-hook-form": "^7.49.2",
+    "stream-chat": "^8.14.4",
+    "stream-chat-react": "^11.1.1",
+    "swr": "^2.2.4",
+    "tailwind-merge": "^2.1.0",
+    "viem": "^1.19.13",
+    "wagmi": "^1.4.11",
+    "zod": "^3.22.4",
+    "zustand": "^4.4.7"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "autoprefixer": "^10.0.1",
+    "eslint": "^8",
+    "eslint-config-next": "14.0.4",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.2.0",
+    "postcss": "^8",
+    "prettier": "^3.1.1",
+    "prettier-plugin-tailwindcss": "^0.5.9",
+    "tailwindcss": "^3.3.0",
+    "typescript": "^5"
   }
 }
