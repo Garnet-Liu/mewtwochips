@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import { DateTime } from "luxon";
 
-import { IEventTime } from "../interfaces/clashOfSlans.interface";
+import { IEventTime } from "../../../interfaces/clashOfClans.interface";
 
 export interface IEventTimes {
   getCWLTime(): IEventTime;

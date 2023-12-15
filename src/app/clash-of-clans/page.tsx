@@ -2,7 +2,7 @@ import { headers } from "next/headers";
 
 import { IProfile } from "@/interfaces/profile.interface";
 import { PageHeader } from "@/components/PageHeader/PageHeader";
-import { clientFetchRequest } from "@/services/fetch-request.service";
+import { fetchRequest } from "@/context/fetch-request";
 import ClanFeatures from "@/app/clash-of-clans/componsnts/clan-features/clan-features";
 import { RepeatingEvent } from "./componsnts/RepeatingEvent/RepeatingEvent";
 import { Clans } from "./Clans/Clans";

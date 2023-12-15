@@ -3,9 +3,9 @@
 import { MouseEvent, useState } from "react";
 import Image from "next/image";
 
+import { fetchRequest } from "@/context/fetch-request";
 import { IProfile } from "@/interfaces/profile.interface";
-import { IClanDetail } from "@/app/clash-of-clans/interfaces/clashOfSlans.interface";
-import { clientFetchRequest } from "@/services/fetch-request.service";
+import { IClanDetail } from "@/interfaces/clashOfClans.interface";
 import ClanTable from "@/app/clash-of-clans/componsnts/clan-features/add-clan/clan-tabel/clan-table";
 
 export default function AddClan({ profile }: { profile: IProfile }) {
@@ -18,12 +18,12 @@ export default function AddClan({ profile }: { profile: IProfile }) {
     console.log("tag", data.get("tag"));
     setLoading(true);
     try {
-      const searchClan = await clientFetchRequest<IClanDetail[]>(
-        `/api/clash-of-clans/search-clan`,
-        { method: "post", body: JSON.stringify({ search: data.get("tag") }) },
-      );
+      const searchClan = await fetchRequest<IClanDetail[]>(`/api/clash-of-clans/search-clan`, {
+        method: "post",
+        body: JSON.stringify({ search: data.get("tag") }),
+      });
       console.log("searchClan", searchClan);
-      setClanList(searchClan.data);
+      setClanList(searchClan);
       setLoading(false);
     } catch (error) {
       console.warn(error);

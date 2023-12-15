@@ -33,9 +33,6 @@ export default function WagmiConnect() {
     console.log("window === undefined");
   }
 
-  console.log("connectors", connectors);
-  console.log("balance", balance);
-  console.log("chain", chain);
   return (
     <div className="px-10 pb-5">
       <div>Connected to {activeConnector?.name}</div>

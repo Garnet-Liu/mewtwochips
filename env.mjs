@@ -26,7 +26,6 @@ export const env = createEnv({
    * 💡 You'll get type errors if these are not prefixed with NEXT_PUBLIC_.
    */
   client: {
-    NEXT_PUBLIC_API_BASE_URL: z.string().min(1),
     NEXT_PUBLIC_LIVEKIT_WS_URL: z.string().min(1),
     NEXT_PUBLIC_STREAM_API_KEY: z.string().min(1),
     NODE_ENV: z.enum(["development", "test", "production"])
@@ -48,7 +47,6 @@ export const env = createEnv({
     FIREBASE_CLIENT_EMAIL: process.env.FIREBASE_CLIENT_EMAIL,
     FIREBASE_GOOGLE_SECRET: process.env.FIREBASE_GOOGLE_SECRET,
     CLASH_OF_CLANS_API_TOKEN: process.env.CLASH_OF_CLANS_API_TOKEN,
-    NEXT_PUBLIC_API_BASE_URL: process.env.NEXT_PUBLIC_API_BASE_URL,
     NEXT_PUBLIC_LIVEKIT_WS_URL: process.env.NEXT_PUBLIC_LIVEKIT_WS_URL,
     NEXT_PUBLIC_STREAM_API_KEY: process.env.NEXT_PUBLIC_STREAM_API_KEY
   }
