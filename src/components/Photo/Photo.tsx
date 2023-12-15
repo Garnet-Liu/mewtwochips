@@ -7,18 +7,17 @@ interface IPhotoProps {
 }
 
 export default function Photo({ photo }: IPhotoProps) {
-  console.log("Photo", photo);
   return (
     <>
       <Image
-        alt=""
+        alt="photo"
         src={photo.imageSrc}
         height={600}
         width={600}
-        className="w-full object-cover aspect-square col-span-2"
+        className="col-span-2 aspect-square w-full object-cover"
       />
 
-      <div className="bg-white text-black p-4 px-6">
+      <div className="bg-white p-4 px-6 text-black">
         <h3>{photo.name}</h3>
         <p>Taken by {photo.username}</p>
       </div>

@@ -1,12 +1,14 @@
-import BackRoute from "@/components/PageHeader/BackRoute/BackRoute";
-import DateSection from "@/components/PageHeader/DateSection/DateSection";
+import { Heading } from "@radix-ui/themes";
+
+import { BackRoute } from "@/components/PageHeader/BackRoute/BackRoute";
+import { DateSection } from "@/components/PageHeader/DateSection/DateSection";
 
 interface IPageHeaderProps {
   pageTitle: string;
   backRoute: string;
 }
 
-export default async function PageHeader({ pageTitle, backRoute }: IPageHeaderProps) {
+export async function PageHeader({ pageTitle, backRoute }: IPageHeaderProps) {
   let dateData: string = "";
   try {
     const dateResponse = await fetch("https://worldtimeapi.org/api/ip");
@@ -15,15 +17,13 @@ export default async function PageHeader({ pageTitle, backRoute }: IPageHeaderPr
     console.log("fetch date failed", error);
   }
   return (
-    <div className="p-10 relative">
-      <div className="absolute left-0 top-1/2 translate-y-[-50%]">
-        <BackRoute href={backRoute}/>
-      </div>
+    <div className="relative flex items-center gap-3">
+      <BackRoute href={backRoute} />
 
-      <p className="text-center text-4xl font-bold">{pageTitle}</p>
+      <Heading className="flex-1">{pageTitle}</Heading>
 
-      <div className="absolute right-0 top-1/2 translate-y-[-50%]">
-        <DateSection date={dateData}/>
+      <div className="text-sm">
+        <DateSection date={dateData} />
       </div>
     </div>
   );

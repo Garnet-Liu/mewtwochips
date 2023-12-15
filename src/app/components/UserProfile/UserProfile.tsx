@@ -35,7 +35,7 @@ export function UserProfile(props: Props) {
             <p>{session.user?.email}</p>
           </div>
 
-          <p className="font-black">A site for lovers of Pokemon and fries</p>
+          <p className="font-black">A site for lovers of Pokémon and chips</p>
         </div>
       </div>
 

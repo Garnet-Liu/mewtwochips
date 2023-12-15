@@ -1,5 +1,5 @@
 import PokemonContent from "@/app/pokemon/components/PokemonContent/PokemonContent";
-import PageHeader from "@/components/PageHeader/PageHeader";
+import { PageHeader } from "@/components/PageHeader/PageHeader";
 
 export default async function Pokemon() {
   return (

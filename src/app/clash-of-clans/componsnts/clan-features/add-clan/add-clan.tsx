@@ -4,7 +4,7 @@ import { MouseEvent, useState } from "react";
 import Image from "next/image";
 
 import { IProfile } from "@/interfaces/profile.interface";
-import { IClanDetail } from "@/interfaces/clash-of-clans.interface";
+import { IClanDetail } from "@/app/clash-of-clans/interfaces/clashOfSlans.interface";
 import { clientFetchRequest } from "@/services/fetch-request.service";
 import ClanTable from "@/app/clash-of-clans/componsnts/clan-features/add-clan/clan-tabel/clan-table";
 

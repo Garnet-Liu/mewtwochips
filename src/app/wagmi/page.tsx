@@ -1,5 +1,5 @@
 import WagmiConnect from "@/app/wagmi/components/WagmiConnect/WagmiConnect";
-import PageHeader from "@/components/PageHeader/PageHeader";
+import { PageHeader } from "@/components/PageHeader/PageHeader";
 
 export default function Page() {
   return (
