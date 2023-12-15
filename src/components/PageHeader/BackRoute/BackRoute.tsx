@@ -1,6 +1,6 @@
 "use client";
 
-import { IconButton } from "@radix-ui/themes";
+import { Box, IconButton } from "@radix-ui/themes";
 import { ReactNode } from "react";
 import Link from "next/link";
 
@@ -9,13 +9,16 @@ interface IBackRouteProps {
   children?: ReactNode;
 }
 
-export default function BackRoute({ href, children }: IBackRouteProps) {
+export function BackRoute(props: IBackRouteProps) {
+  const { href, children } = props;
   return (
     <Link href={href}>
       {children ?? (
-        <IconButton aria-label="back route">
-          <span className="material-symbols-outlined">arrow_back</span>
-        </IconButton>
+        <Box m="2">
+          <IconButton size="2" variant="ghost" aria-label="back route">
+            <span className="material-symbols-outlined">arrow_back</span>
+          </IconButton>
+        </Box>
       )}
     </Link>
   );

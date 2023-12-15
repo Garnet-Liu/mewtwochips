@@ -15,43 +15,43 @@ export async function POST(request: Request) {
       // it's available as LocalParticipant.identity with livekit-client SDK
       const participantName = `${user_id}-${identity || "join"}`;
 
-      const streamingAt = new AccessToken(env.NEXT_PUBLIC_LK_API_KEY, env.NEXT_PUBLIC_LK_API_SECRET, {
-        identity: `${participantName}-streaming`
+      const streamingAt = new AccessToken(env.LIVE_KIT_API_KEY, env.LIVE_KIT_API_SECRET, {
+        identity: `${participantName}-streaming`,
       });
       streamingAt.addGrant({
         room: roomName,
         roomJoin: true,
         canPublish: true,
         canSubscribe: true,
-        canPublishData: true
+        canPublishData: true,
       });
 
-      const securityAt = new AccessToken(env.NEXT_PUBLIC_LK_API_KEY, env.NEXT_PUBLIC_LK_API_SECRET, {
-        identity: `${participantName}-security`
+      const securityAt = new AccessToken(env.LIVE_KIT_API_KEY, env.LIVE_KIT_API_SECRET, {
+        identity: `${participantName}-security`,
       });
       securityAt.addGrant({
         room: roomName,
         roomJoin: true,
         canPublish: true,
         canSubscribe: true,
-        canPublishData: true
+        canPublishData: true,
       });
 
-      const viewingAt = new AccessToken(env.NEXT_PUBLIC_LK_API_KEY, env.NEXT_PUBLIC_LK_API_SECRET, {
-        identity: `${participantName}-viewing`
+      const viewingAt = new AccessToken(env.LIVE_KIT_API_KEY, env.LIVE_KIT_API_SECRET, {
+        identity: `${participantName}-viewing`,
       });
       streamingAt.addGrant({
         room: roomName,
         roomJoin: true,
         canPublish: true,
         canSubscribe: true,
-        canPublishData: true
+        canPublishData: true,
       });
 
       return NextResponse.json({
         streamingToken: streamingAt.toJwt(),
         securityToken: securityAt.toJwt(),
-        viewingToken: viewingAt.toJwt()
+        viewingToken: viewingAt.toJwt(),
       });
     } catch (error) {
       console.log("live kit error");

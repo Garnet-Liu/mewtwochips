@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import PageHeader from "@/components/PageHeader/PageHeader";
+import { PageHeader } from "@/components/PageHeader/PageHeader";
 import { getPhotoList } from "@/components/Photo/service/data.service";
 
 export default async function Page() {

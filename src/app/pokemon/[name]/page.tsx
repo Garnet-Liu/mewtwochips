@@ -1,7 +1,7 @@
 import { headers } from "next/headers";
 import Image from "next/image";
 
-import PageHeader from "@/components/PageHeader/PageHeader";
+import { PageHeader } from "@/components/PageHeader/PageHeader";
 import { IPokemonDetail } from "@/interfaces/pokemon.interface";
 import PokemonState from "@/app/pokemon/[name]/components/pokemon-state/pokemon-state";
 

@@ -14,7 +14,7 @@ export interface IClanDetail {
   warLeague: { id: number; name: string };
   clanLevel: number;
   memberList: [];
-  labels: Array<{ iconUrls: { small: string; medium: string; }; id: string; name: string; }>;
+  labels: Array<{ iconUrls: { small: string; medium: string }; id: string; name: string }>;
 }
 
 export interface IEventTime {

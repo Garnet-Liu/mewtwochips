@@ -1,7 +1,7 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
-  darkMode: 'class',
+  darkMode: "class",
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -13,52 +13,58 @@ const config: Config = {
         "slot-machine": {
           "0%": {
             transform: "translateY(-90%)",
-            filter: "blur(1px)"
+            filter: "blur(1px)",
           },
           "100%": {
             transform: "translateY(1%)",
-            filter: "blur(1px)"
-          }
+            filter: "blur(1px)",
+          },
         },
         "slot-machine-border": {
           "25%": {
-            transform: "translateY(7%)"
+            transform: "translateY(7%)",
           },
           "50%": {
-            transform: "translateY(-3%)"
+            transform: "translateY(-3%)",
           },
           "70%": {
-            transform: "translateY(4%)"
+            transform: "translateY(4%)",
           },
           "85%": {
-            transform: "translateY(-1%)"
+            transform: "translateY(-1%)",
           },
           "100%": {
-            transform: "translateY(0)"
-          }
+            transform: "translateY(0)",
+          },
         },
         "slot-machine-num": {
           "0%": {
-            transform: "translateY(calc(var(--slot-machine-winner) * var(--slot-machine-translate-y)))",
-            filter: "none"
+            transform:
+              "translateY(calc(var(--slot-machine-winner) * var(--slot-machine-translate-y)))",
+            filter: "none",
           },
           "25%": {
-            transform: "translateY(calc(var(--slot-machine-winner) * var(--slot-machine-translate-y) + 3%))"
+            transform:
+              "translateY(calc(var(--slot-machine-winner) * var(--slot-machine-translate-y) + 3%))",
           },
           "50% ": {
-            transform: "translateY(calc(var(--slot-machine-winner) * var(--slot-machine-translate-y) - 1%))"
+            transform:
+              "translateY(calc(var(--slot-machine-winner) * var(--slot-machine-translate-y) - 1%))",
           },
           "70%": {
-            transform: "translateY(calc(var(--slot-machine-winner) * var(--slot-machine-translate-y) + 0.6%))"
+            transform:
+              "translateY(calc(var(--slot-machine-winner) * var(--slot-machine-translate-y) + 0.6%))",
           },
           "85% ": {
-            transform: "translateY(calc(var(--slot-machine-winner) * var(--slot-machine-translate-y) - 0.3%))"
+            transform:
+              "translateY(calc(var(--slot-machine-winner) * var(--slot-machine-translate-y) - 0.3%))",
           },
           "100%": {
-            transform: "translateY(calc(var(--slot-machine-winner) * var(--slot-machine-translate-y)))",
-            filter: "none"
-          }
-        }
+            transform:
+              "translateY(calc(var(--slot-machine-winner) * var(--slot-machine-translate-y)))",
+            filter: "none",
+          },
+        },
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
@@ -66,6 +72,6 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [require("tailwindcss-animate")],
 };
 export default config;

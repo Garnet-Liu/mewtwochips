@@ -1,5 +1,6 @@
 "use client";
 
+import { Button, TextField } from "@radix-ui/themes";
 import { useState } from "react";
 
 import styles from "@/app/counter/page.module.css";
@@ -10,40 +11,37 @@ export default function CounterAction() {
 
   const incrementValue = Number(incrementAmount) || 0;
 
-  const { count, increment, decrement } = useCountStore()
-
-  if (typeof window !== 'undefined') {
-    console.log('window === undefined');
-  }
+  const { count, increment, decrement } = useCountStore();
 
   return (
     <>
       <div className={styles.row}>
-        <button className={styles.button} aria-label="Decrement value" onClick={() => decrement(1)}>
+        <Button size="2" aria-label="Decrement value" onClick={() => decrement(1)}>
           -
-        </button>
+        </Button>
+
         <span className={styles.value}>{count}</span>
-        <button className={styles.button} aria-label="Increment value" onClick={() => increment(1)}>
+
+        <Button size="2" aria-label="Increment value" onClick={() => increment(1)}>
           +
-        </button>
+        </Button>
       </div>
 
       <div className={styles.row}>
-        <input className={styles.textbox}
-               aria-label="Set increment amount"
-               value={incrementAmount}
-               onChange={(e) => setIncrementAmount(e.target.value)}/>
-        <button className={styles.button} onClick={() => (increment(incrementValue))}>
+        <TextField.Root className="w-14">
+          <TextField.Input
+            size="3"
+            value={incrementAmount}
+            onChange={(e) => {
+              setIncrementAmount(e.target.value);
+            }}
+          />
+        </TextField.Root>
+
+        <Button size="3" onClick={() => increment(incrementValue)}>
           Add Amount
-        </button>
-        {/*<button className={styles.asyncButton} onClick={() => dispatch(incrementAsync(incrementValue))}>*/}
-        {/*  Add Async*/}
-        {/*</button>*/}
-        {/*<button className={styles.button} onClick={() => dispatch(incrementIfOdd(incrementValue))}>*/}
-        {/*  Add If Odd*/}
-        {/*</button>*/}
+        </Button>
       </div>
     </>
-
   );
 }
