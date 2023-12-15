@@ -4,8 +4,8 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 
 import { IProfile } from "@/interfaces/profile.interface";
-import { IClanDetail } from "@/app/clash-of-clans/interfaces/clashOfSlans.interface";
-import { clientFetchRequest } from "@/services/fetch-request.service";
+import { IClanDetail } from "@/interfaces/clashOfClans.interface";
+import { fetchRequest } from "@/context/fetch-request";
 
 interface IClanTableProps {
   addBtn?: boolean;
@@ -22,7 +22,7 @@ export default function ClanTable({ clanList, addBtn, deleteBtn, profile }: ICla
   const handleClanAdd = async (clan: IClanDetail) => {
     console.log("handleClanAdd", clan);
     try {
-      const addRequest = await clientFetchRequest("/api/clash-of-clans/profile", {
+      const addRequest = await fetchRequest("/api/clash-of-clans/profile", {
         method: "put",
         body: JSON.stringify({
           ...profile,
@@ -39,7 +39,7 @@ export default function ClanTable({ clanList, addBtn, deleteBtn, profile }: ICla
     console.log("handleClanDelete", clan);
     try {
       const clans = profile.clans.filter((t) => t !== clan.tag);
-      const addRequest = await clientFetchRequest("/api/clash-of-clans/profile", {
+      const addRequest = await fetchRequest("/api/clash-of-clans/profile", {
         method: "put",
         body: JSON.stringify({ ...profile, clans: clans }),
       });

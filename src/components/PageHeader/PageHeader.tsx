@@ -2,6 +2,7 @@ import { Heading } from "@radix-ui/themes";
 
 import { BackRoute } from "@/components/PageHeader/BackRoute/BackRoute";
 import { DateSection } from "@/components/PageHeader/DateSection/DateSection";
+import { baseFetchRequest } from "@/context/fetch-request";
 
 interface IPageHeaderProps {
   pageTitle: string;
@@ -11,8 +12,8 @@ interface IPageHeaderProps {
 export async function PageHeader({ pageTitle, backRoute }: IPageHeaderProps) {
   let dateData: string = "";
   try {
-    const dateResponse = await fetch("https://worldtimeapi.org/api/ip");
-    dateData = (await dateResponse.json()).datetime;
+    const dateResponse = await baseFetchRequest("https://worldtimeapi.org/api/ip");
+    dateData = dateResponse.datetime;
   } catch (error) {
     console.log("fetch date failed", error);
   }

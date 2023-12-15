@@ -3,8 +3,8 @@
 import { Button, Code, TextField } from "@radix-ui/themes";
 import { ChangeEvent, useState } from "react";
 
-import { clientFetchRequest } from "@/services/fetch-request.service";
-import { IClanDetail } from "@/app/clash-of-clans/interfaces/clashOfSlans.interface";
+import { fetchRequest } from "@/context/fetch-request";
+import { IClanDetail } from "@/interfaces/clashOfClans.interface";
 
 export function Clans() {
   const [tag, setTag] = useState("");
@@ -16,7 +16,7 @@ export function Clans() {
   };
 
   const handleSearch = async () => {
-    const data = await clientFetchRequest<IClanDetail>(`/api/clash-of-clans/clan?tag=${tag}`);
+    const data = await fetchRequest<IClanDetail>(`/api/clash-of-clans/clan?tag=${tag}`);
 
     console.log("data", data);
     setDetail(JSON.stringify(data));

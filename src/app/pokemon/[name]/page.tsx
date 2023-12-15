@@ -6,10 +6,7 @@ import { IPokemonDetail } from "@/interfaces/pokemon.interface";
 import PokemonState from "@/app/pokemon/[name]/components/pokemon-state/pokemon-state";
 
 export default async function PokemonDetail({ params: { name } }: { params: { name: string } }) {
-  const fetchRequest = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/pokeapi/pokemon/${name}`,
-    { headers: headers() },
-  );
+  const fetchRequest = await fetch(`/api/pokeapi/pokemon/${name}`, { headers: headers() });
   const pokemonDetail: IPokemonDetail = await fetchRequest.json();
   return (
     <div className="mx-auto w-[1200px]">

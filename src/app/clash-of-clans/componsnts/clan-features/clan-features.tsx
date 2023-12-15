@@ -1,8 +1,8 @@
 import { headers } from "next/headers";
 
 import { IProfile } from "@/interfaces/profile.interface";
-import { IClanDetail } from "@/app/clash-of-clans/interfaces/clashOfSlans.interface";
-import { clientFetchRequest } from "@/services/fetch-request.service";
+import { IClanDetail } from "@/interfaces/clashOfClans.interface";
+import { fetchRequest } from "@/context/fetch-request";
 import AddClan from "@/app/clash-of-clans/componsnts/clan-features/add-clan/add-clan";
 import ClanTable from "@/app/clash-of-clans/componsnts/clan-features/add-clan/clan-tabel/clan-table";
 
@@ -13,7 +13,7 @@ interface IClanFeaturesProps {
 export default async function ClanFeatures({ profile }: IClanFeaturesProps) {
   const clanListResponse = await Promise.all(
     profile.clans.map(async (clan) => {
-      return clientFetchRequest<IClanDetail>("/api/clash-of-clans/clan-detail", {
+      return fetchRequest<IClanDetail>("/api/clash-of-clans/clan-detail", {
         method: "post",
         headers: headers(),
         body: JSON.stringify({ tag: clan }),
@@ -21,7 +21,7 @@ export default async function ClanFeatures({ profile }: IClanFeaturesProps) {
     }),
   );
 
-  const clanList = clanListResponse.map((clan) => clan.data).filter((c) => !!c);
+  const clanList = clanListResponse.map((clan) => clan).filter((c) => !!c);
 
   if (profile.clans.length) {
     return (

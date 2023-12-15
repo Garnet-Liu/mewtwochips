@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { IEventTime } from "../interfaces/clashOfSlans.interface";
+import { IEventTime } from "../../../interfaces/clashOfClans.interface";
 
 interface Props {
   getCurrentDate(): IEventTime;

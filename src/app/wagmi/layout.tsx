@@ -6,10 +6,5 @@ interface ILayoutProps {
 }
 
 export default function Web3Layout({ children }: ILayoutProps) {
-  console.log("Root Layout");
-  return (
-      <Web3WagmiProvider>
-        {children}
-      </Web3WagmiProvider>
-  );
+  return <Web3WagmiProvider>{children}</Web3WagmiProvider>;
 }
