@@ -1,4 +1,4 @@
-import PageHeader from "@/components/PageHeader/PageHeader";
+import { PageHeader } from "@/components/PageHeader/PageHeader";
 import CounterAction from "@/app/counter/components/counter-action/counter-action";
 
 export default async function Page() {

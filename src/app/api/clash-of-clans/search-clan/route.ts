@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 
 import { IBaseResponse } from "@/interfaces/api.interface";
 import { tagPattern1, tagPattern2 } from "@/context/pattern.tool";
-import { IClanDetail } from "@/interfaces/clash-of-clans.interface";
+import { IClanDetail } from "@/app/clash-of-clans/interfaces/clashOfSlans.interface";
 import { serverFetchRequest } from "@/services/fetch-request.service";
 
 export async function POST(request: Request): Promise<NextResponse<IBaseResponse<IClanDetail[]>>> {
@@ -13,34 +13,34 @@ export async function POST(request: Request): Promise<NextResponse<IBaseResponse
     if (tagPattern1.test(search)) {
       const clan = await serverFetchRequest<IClanDetail>(
         `https://api.clashofclans.com/v1/clans/${encodeURIComponent(search)}`,
-        { headers: { Authorization: `Bearer ${process.env.NEXT_PUBLIC_CLASH_API_KEY}` } }
+        { headers: { Authorization: `Bearer ${process.env.NEXT_PUBLIC_CLASH_API_KEY}` } },
       );
       return NextResponse.json({
         code: 200,
         success: true,
         message: "success",
-        data: [clan]
+        data: [clan],
       });
     } else if (tagPattern2.test(search)) {
       const clan = await serverFetchRequest<IClanDetail>(
         `https://api.clashofclans.com/v1/clans/%23${search}`,
-        { headers: { Authorization: `Bearer ${process.env.NEXT_PUBLIC_CLASH_API_KEY}` } }
+        { headers: { Authorization: `Bearer ${process.env.NEXT_PUBLIC_CLASH_API_KEY}` } },
       );
       return NextResponse.json({
         code: 200,
         success: true,
         message: "success",
-        data: [clan]
+        data: [clan],
       });
     } else {
       const clans = await serverFetchRequest<{ items: [{ tag: string }] }>(
         `https://api.clashofclans.com/v1/clans?name=${search}`,
-        { headers: { Authorization: `Bearer ${process.env.NEXT_PUBLIC_CLASH_API_KEY}` } }
+        { headers: { Authorization: `Bearer ${process.env.NEXT_PUBLIC_CLASH_API_KEY}` } },
       );
       const clanListGroup = (clans?.items || []).map(async ({ tag }) => {
         return await serverFetchRequest<IClanDetail>(
           `https://api.clashofclans.com/v1/clans/${encodeURIComponent(tag)}`,
-          { headers: { Authorization: `Bearer ${process.env.NEXT_PUBLIC_CLASH_API_KEY}` } }
+          { headers: { Authorization: `Bearer ${process.env.NEXT_PUBLIC_CLASH_API_KEY}` } },
         );
       });
       const clanList = await Promise.all(clanListGroup);
@@ -48,10 +48,13 @@ export async function POST(request: Request): Promise<NextResponse<IBaseResponse
         code: 200,
         success: true,
         message: "success",
-        data: clanList
+        data: clanList,
       });
     }
   } else {
-    return NextResponse.json({ code: 400, success: false, message: "没有检索条件", data: [] }, { status: 404 });
+    return NextResponse.json(
+      { code: 400, success: false, message: "没有检索条件", data: [] },
+      { status: 404 },
+    );
   }
 }

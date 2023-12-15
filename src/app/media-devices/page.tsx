@@ -1,6 +1,7 @@
 "use client";
 
-import { ChangeEvent, useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { Select } from "@radix-ui/themes";
 
 export default function Page() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -54,9 +55,8 @@ export default function Page() {
     });
   }, [initMedia]);
 
-  const deviceChangeHandle = async (event: ChangeEvent<HTMLSelectElement>) => {
-    console.log(event.target.value);
-    const deviceId = event.target.value;
+  const deviceChangeHandle = async (deviceId: string) => {
+    console.log("deviceChangeHandle deviceId", deviceId);
     const video = videoRef.current;
     const canvas = canvasRef.current;
     if (video && canvas) {
@@ -64,8 +64,6 @@ export default function Page() {
         const mediaStream = await navigator.mediaDevices.getUserMedia({
           video: {
             deviceId: { exact: deviceId },
-            // aspectRatio: { exact: 9 / 16 },
-            // width: width
           },
         });
         console.log("mediaStream", mediaStream);
@@ -97,16 +95,17 @@ export default function Page() {
 
   return (
     <div className="flex flex-col items-center gap-4">
-      <select name="device" className="bg-black" onChange={deviceChangeHandle}>
-        <option value="">Select your device</option>
-        {options.map((device) => {
-          return (
-            <option key={device.deviceId} value={device.deviceId}>
+      <Select.Root name="device" onValueChange={deviceChangeHandle}>
+        <Select.Trigger className="min-w-[300px]" />
+        <Select.Content>
+          {options.map((device) => (
+            <Select.Item key={device.deviceId} value={device.deviceId}>
               {device.label}
-            </option>
-          );
-        })}
-      </select>
+            </Select.Item>
+          ))}
+        </Select.Content>
+      </Select.Root>
+
       <video ref={videoRef} playsInline>
         视频流目前不可用。
       </video>

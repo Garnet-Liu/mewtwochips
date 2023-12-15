@@ -1,5 +1,5 @@
 import Photo from "@/components/Photo/Photo";
-import PageHeader from "@/components/PageHeader/PageHeader";
+import { PageHeader } from "@/components/PageHeader/PageHeader";
 import { getPhotoDetail } from "@/components/Photo/service/data.service";
 
 interface IPageProps {

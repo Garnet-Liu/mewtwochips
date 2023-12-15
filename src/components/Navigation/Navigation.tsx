@@ -15,8 +15,8 @@ import {
   Wheel,
   Youtube,
 } from "@/components/svg";
-import { AvatarMenu } from "./AvatarMenu/AvatarMenu";
 import { cn } from "@/context/cn";
+import { AvatarMenu } from "./AvatarMenu/AvatarMenu";
 
 export function Navigation() {
   const pathname = usePathname();
@@ -34,8 +34,6 @@ export function Navigation() {
       { path: "/wheel", label: "Wheel", icon: Wheel },
     ];
   }, []);
-
-  console.log("pathname", pathname);
 
   return (
     <div className="flex w-60 flex-col items-center gap-4 bg-white/[.1] py-4">

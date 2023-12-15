@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 
 import { IProfile } from "@/interfaces/profile.interface";
-import { IClanDetail } from "@/interfaces/clash-of-clans.interface";
+import { IClanDetail } from "@/app/clash-of-clans/interfaces/clashOfSlans.interface";
 import { clientFetchRequest } from "@/services/fetch-request.service";
 
 interface IClanTableProps {
@@ -17,18 +17,18 @@ interface IClanTableProps {
 export default function ClanTable({ clanList, addBtn, deleteBtn, profile }: IClanTableProps) {
   const route = useRouter();
 
-  console.log('clanList', clanList);
+  console.log("clanList", clanList);
 
   const handleClanAdd = async (clan: IClanDetail) => {
     console.log("handleClanAdd", clan);
     try {
-      const addRequest = await clientFetchRequest(
-        "/api/clash-of-clans/profile",
-        {
-          method: "put",
-          body: JSON.stringify({ ...profile, clans: Array.from(new Set([...profile.clans, clan.tag])) })
-        }
-      );
+      const addRequest = await clientFetchRequest("/api/clash-of-clans/profile", {
+        method: "put",
+        body: JSON.stringify({
+          ...profile,
+          clans: Array.from(new Set([...profile.clans, clan.tag])),
+        }),
+      });
       console.log("addRequest", addRequest);
     } catch (e) {
       console.warn(e);
@@ -39,10 +39,10 @@ export default function ClanTable({ clanList, addBtn, deleteBtn, profile }: ICla
     console.log("handleClanDelete", clan);
     try {
       const clans = profile.clans.filter((t) => t !== clan.tag);
-      const addRequest = await clientFetchRequest(
-        "/api/clash-of-clans/profile",
-        { method: "put", body: JSON.stringify({ ...profile, clans: clans }) }
-      );
+      const addRequest = await clientFetchRequest("/api/clash-of-clans/profile", {
+        method: "put",
+        body: JSON.stringify({ ...profile, clans: clans }),
+      });
       console.log("addRequest", addRequest);
     } catch (e) {
       console.warn(e);

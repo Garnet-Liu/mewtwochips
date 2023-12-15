@@ -1,17 +1,17 @@
 "use client";
 
-
-import '@livekit/components-styles';
 import {
-  LiveKitRoom,
-  VideoConference,
+  ControlBar,
   GridLayout,
-  ParticipantTile, RoomAudioRenderer, ControlBar, useTracks, VideoTrack, AudioTrack
+  LiveKitRoom,
+  ParticipantTile,
+  RoomAudioRenderer,
+  useTracks,
 } from "@livekit/components-react";
-import { useEffect, useState } from 'react';
-
-import { env } from "../../../env.mjs";
 import { Track } from "livekit-client";
+import { useEffect, useState } from "react";
+
+import "@livekit/components-styles";
 
 export default function Page() {
   const [token, setToken] = useState<{
@@ -39,18 +39,12 @@ export default function Page() {
       });
   }, []);
 
-  console.log("token", token);
-  console.log("NEXT_PUBLIC_LIVEKIT_WS_URL", env.NEXT_PUBLIC_LIVEKIT_WS_URL);
   if (token) {
     return (
       <LiveKitRoom
-        video={true}
-        audio={true}
         token={token.viewingToken}
         serverUrl={process.env.NEXT_PUBLIC_LIVEKIT_URL}
-        // Use the default LiveKit theme for nice styles.
         data-lk-theme="default"
-        style={{ height: '100dvh' }}
       >
         {/* Your custom component with basic video conferencing functionality. */}
         <MyVideoConference />
@@ -77,7 +71,7 @@ function MyVideoConference() {
     { onlySubscribed: false },
   );
   return (
-    <GridLayout tracks={tracks} style={{ height: 'calc(100vh - var(--lk-control-bar-height))' }}>
+    <GridLayout tracks={tracks} style={{ height: "calc(100vh - var(--lk-control-bar-height))" }}>
       {/* The GridLayout accepts zero or one child. The child is used
       as a template to render all passed in tracks. */}
       <ParticipantTile />
