@@ -14,7 +14,7 @@ export async function GET(request: Request) {
       const dateResponse = await baseFetchRequest("https://worldtimeapi.org/api/ip");
       console.log("dateResponse", dateResponse);
       const testResponse = await baseFetchRequest(
-        `http://localhost:4000/api/clash-of-clans/clan/test?tag=${tag}`,
+        `${env.API_BASE_URL}/api/clash-of-clans/clan/test?tag=${tag}`,
       );
       console.log("testResponse", testResponse);
       const clan = await baseFetchRequest<IClanDetail | IClanError>(
@@ -34,6 +34,7 @@ export async function GET(request: Request) {
     errorMessage = "Don't have tag field.";
   } catch (e) {
     const error = e as any;
+    console.log("clash GET error", error);
     errorMessage = `${error.reason}: ${error.message}`;
   }
   return NextResponse.json({

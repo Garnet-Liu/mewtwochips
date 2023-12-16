@@ -13,7 +13,6 @@ export async function PageHeader({ pageTitle, backRoute }: IPageHeaderProps) {
   let dateData: string = "";
   try {
     const dateResponse = await baseFetchRequest("https://worldtimeapi.org/api/ip");
-    console.log("dateResponse", dateResponse);
     dateData = dateResponse.datetime;
   } catch (error) {
     console.log("fetch date failed", error);
