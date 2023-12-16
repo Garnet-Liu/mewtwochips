@@ -8,6 +8,7 @@ export const env = createEnv({
    * Will throw if you access these variables on the client.
    */
   server: {
+    API_BASE_URL: z.string().min(1),
     LIVE_KIT_API_KEY: z.string().min(1),
     STREAM_API_SECRET: z.string().min(1),
     FIREBASE_GOOGLE_ID: z.string().min(1),
@@ -38,6 +39,7 @@ export const env = createEnv({
    */
   runtimeEnv: {
     NODE_ENV: process.env.NODE_ENV,
+    API_BASE_URL: process.env.API_BASE_URL,
     LIVE_KIT_API_KEY: process.env.LIVE_KIT_API_KEY,
     STREAM_API_SECRET: process.env.STREAM_API_SECRET,
     FIREBASE_GOOGLE_ID: process.env.FIREBASE_GOOGLE_ID,
