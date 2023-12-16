@@ -37,7 +37,7 @@ export function Clans() {
 
       <Button onClick={handleSearch}>Search</Button>
 
-      <Code>{detail}</Code>
+      {detail && <Code>{detail}</Code>}
     </div>
   );
 }
