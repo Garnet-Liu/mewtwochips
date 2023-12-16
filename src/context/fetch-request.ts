@@ -10,6 +10,8 @@ export const fetchRequest = async <T = void>(url: string, init?: RequestInit): P
 };
 
 export const baseFetchRequest = async <T = any>(url: string, init?: RequestInit): Promise<T> => {
-  const response = await fetch(url, init);
+  const f = fetch(url, init);
+  const response = await f;
+  console.log(`baseFetchRequest header ${url} => `, response.headers);
   return await response.json();
 };
