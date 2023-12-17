@@ -14,6 +14,12 @@ const nextConfig = {
         port: "",
         pathname: "/media/**",
       },
+      {
+        protocol: "https",
+        hostname: "api-assets.clashofclans.com",
+        port: "",
+        pathname: "/**",
+      },
     ],
   },
 };

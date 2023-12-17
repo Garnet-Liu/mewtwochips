@@ -1,25 +1,33 @@
 "use client";
 
-import { Button, Code, TextField } from "@radix-ui/themes";
+import { Button, TextField } from "@radix-ui/themes";
 import { ChangeEvent, useState } from "react";
+import Image from "next/image";
 
 import { fetchRequest } from "@/context/fetch-request";
 import { IClanDetail } from "@/interfaces/clashOfClans.interface";
 
 export function Clans() {
   const [tag, setTag] = useState("");
-
-  const [detail, setDetail] = useState("");
+  const [detail, setDetail] = useState<IClanDetail>();
+  const [loading, setLoading] = useState(false);
 
   const handleChangeTag = (event: ChangeEvent<HTMLInputElement>) => {
-    setTag(event.target.value);
+    setTag(event.target.value.replace("#", ""));
   };
 
   const handleSearch = async () => {
-    const data = await fetchRequest<IClanDetail>(`/api/clash-of-clans/clan?tag=${tag}`);
+    setLoading(true);
+    try {
+      console.log("handleSearch tag", tag);
+      const data = await fetchRequest<IClanDetail>(`/api/clash-of-clans/clan?tag=${tag}`);
 
-    console.log("data", data);
-    setDetail(JSON.stringify(data));
+      console.log("data", data);
+      setDetail(data);
+    } catch (error) {
+      console.log("Clans error", error);
+    }
+    setLoading(false);
   };
 
   return (
@@ -30,14 +38,34 @@ export function Clans() {
         <TextField.Input
           name="tag"
           value={tag}
+          disabled={loading}
           onChange={handleChangeTag}
           placeholder="Search your Clan"
         />
       </TextField.Root>
 
-      <Button onClick={handleSearch}>Search</Button>
+      <Button disabled={loading} onClick={handleSearch}>
+        Search
+      </Button>
 
-      {detail && <Code>{detail}</Code>}
+      {detail && (
+        <div>
+          <p>{detail.name}</p>
+
+          <ul>
+            {detail.memberList.map((member) => {
+              const leagueUrl = member.league.iconUrls.small;
+              return (
+                <li key={member.tag} className="flex items-center gap-2">
+                  <Image width={30} height={30} alt="league" src={leagueUrl} />
+                  <p>{member.tag}</p>
+                  <p>{member.name}</p>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      )}
     </div>
   );
 }
