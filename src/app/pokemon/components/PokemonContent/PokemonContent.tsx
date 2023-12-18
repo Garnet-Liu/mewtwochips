@@ -37,7 +37,7 @@ export default function PokemonContent() {
         count={count}
         rowsPage={rowsPage}
         handleChangePage={handleChangePage}
-      ></PokemonPagination>
+      />
     </>
   );
 }

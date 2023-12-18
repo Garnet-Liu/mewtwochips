@@ -57,7 +57,7 @@ export const useConnectUser = <SCG extends ExtendableGenerics = DefaultGenerics>
 
       getChatToken
         .then(({ token: apiKey }: { token: string }) => {
-          currentClient = new StreamChat<SCG>(env.NEXT_PUBLIC_STREAM_API_KEY as string);
+          currentClient = new StreamChat<SCG>(env.NEXT_PUBLIC_CHAT_STREAM_API_KEY);
 
           connectionPromise = currentClient.connectUser(userToConnect, apiKey).then(() => {
             if (!didUserConnectInterrupt) {

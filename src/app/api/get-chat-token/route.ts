@@ -9,8 +9,8 @@ export async function POST(request: Request) {
     const { channel_id, user_id } = res;
     try {
       const serverClient = StreamChat.getInstance(
-        env.NEXT_PUBLIC_STREAM_API_KEY,
-        env.STREAM_API_SECRET,
+        env.NEXT_PUBLIC_CHAT_STREAM_API_KEY,
+        env.STREAM_CHAT_API_SECRET,
       );
 
       const token = serverClient.createToken(user_id);
