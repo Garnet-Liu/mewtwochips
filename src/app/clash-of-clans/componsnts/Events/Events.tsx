@@ -3,7 +3,7 @@
 import { EventItem } from "./EventItem/EventItem";
 import { useEventTime } from "../../hooks/useEventTime";
 
-export function RepeatingEvent() {
+export function Events() {
   const {
     getClanGames,
     getCWLTime,

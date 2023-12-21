@@ -7,10 +7,12 @@ import Link from "next/link";
 import {
   ChatBubble,
   Clash,
+  Form,
   LiveBroadcasting,
   Photos,
   Pokeball,
   Stopwatch,
+  Toast,
   Wagmi,
   Wheel,
   Youtube,
@@ -32,6 +34,8 @@ export function Navigation() {
       { path: "/stream-chat", label: "Stream chat", icon: ChatBubble },
       { path: "/wagmi", label: "Wagmi", icon: Wagmi },
       { path: "/wheel", label: "Wheel", icon: Wheel },
+      { path: "/react-hook-form", label: "React hooks form", icon: Form },
+      { path: "/toast", label: "Toast", icon: Toast },
     ];
   }, []);
 

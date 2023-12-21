@@ -3,7 +3,7 @@
 import { Text } from "@radix-ui/themes";
 
 import { useCWLTime } from "../../../hooks/useCWLTime.hook";
-import { IEventTime } from "../../../../../interfaces/clashOfClans.interface";
+import { IEventTime } from "@/interfaces/clashOfClans.interface";
 
 interface IEventItemProps {
   name: { active: string; inactive: string } | string;

@@ -2,6 +2,7 @@ import { IBaseResponse } from "@/interfaces/api.interface";
 
 export const fetchRequest = async <T = void>(url: string, init?: RequestInit): Promise<T> => {
   const result = await baseFetchRequest<IBaseResponse<T>>(url, init);
+  console.log("result", result);
   if (result.success) {
     return result.data;
   } else {
