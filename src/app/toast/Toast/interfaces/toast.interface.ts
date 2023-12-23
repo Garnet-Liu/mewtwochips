@@ -6,6 +6,8 @@ export interface IToast {
   type: "foreground" | "background";
 }
 
+export type IToastProps = Partial<Omit<IToast, "description">> & Pick<IToast, "description">;
+
 export enum EToastStatus {
   MESSAGE = "message",
   SUCCESS = "success",

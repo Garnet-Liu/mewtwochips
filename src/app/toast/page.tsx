@@ -3,7 +3,6 @@
 import { Button } from "@radix-ui/themes";
 
 import { ToastStatus, useToast } from "@/app/toast/Toast";
-import { cn } from "@/context/cn";
 
 export default function Page() {
   const toast = useToast();
@@ -22,7 +21,8 @@ export default function Page() {
   };
 
   const handleOpenToast = (type: ToastStatus) => {
-    toast({ description: prettyDate(oneWeekAway()), status: type, duration: 2000000 });
+    // 无限时间 duration: Infinity
+    toast({ description: prettyDate(oneWeekAway()), status: type });
   };
   return (
     <div className="flex flex-col gap-3">

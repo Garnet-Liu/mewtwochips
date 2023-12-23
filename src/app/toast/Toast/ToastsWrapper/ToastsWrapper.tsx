@@ -1,22 +1,126 @@
 "use client";
 
-import { ReactNode, RefObject, useCallback, useMemo, useRef, useState } from "react";
+import { RefObject, useCallback, useMemo, useRef, useState } from "react";
+import { cva, VariantProps } from "class-variance-authority";
+import { ToastProviderProps } from "@radix-ui/react-toast";
 import * as ToastPrimitive from "@radix-ui/react-toast";
 
-import { cn } from "@/context/cn";
 import { ToastContext } from "../hooks/useToastContext";
 import { ToastView } from "@/app/toast/Toast/ToastView/ToastView";
-import { EToastStatus, IToast } from "@/app/toast/Toast/interfaces/toast.interface";
+import { useToastCommon } from "@/app/toast/Toast/hooks/useToastCommon";
+import { EToastStatus, IToast, IToastProps } from "@/app/toast/Toast/interfaces/toast.interface";
 
-interface ToastProps {
-  children: ReactNode;
+export const toastsWrapperVariants = cva(
+  ["[--stack-gap:_10px]", "group/viewport", "fixed", "z-[2147483647]", "w-[390px]", "outline-none"],
+  {
+    variants: {
+      vertical: {
+        up: ["top-0"],
+        down: ["bottom-0"],
+        center: ["top-1/2", "translate-y-[-50%]"],
+      },
+      horizontal: {
+        left: ["left-0"],
+        right: ["right-0"],
+        center: ["left-1/2", "translate-x-[-50%]"],
+      },
+    },
+    compoundVariants: [],
+    defaultVariants: {
+      vertical: "down",
+      horizontal: "right",
+    },
+  },
+);
+
+// type ToastsWrapperVariantsType<T extends Record<string, any>> = T extends { vertical?: infer V; horizontal?: infer H }
+//   ? V extends undefined | null
+//     ? { vertical?: V; horizontal?: H extends undefined | null ? H : never }
+//     : H extends undefined | null
+//       ? { vertical?: V extends undefined | null ? V : never; horizontal?: H }
+//       : V extends "center"
+//         ? { vertical: V; horizontal: H extends "center" ? never : H }
+//         : H extends "center"
+//           ? { vertical: V extends "center" ? never : V; horizontal: H }
+//           : T
+//   : T;
+
+type CheckCenter<T, F extends keyof T, S extends keyof T, CK> = T extends {
+  [p in F]?: infer FV;
+} & { [p in S]?: infer SV }
+  ? FV extends CK
+    ? { [p in S]?: Exclude<SV, CK> } & Omit<T, S>
+    : SV extends CK
+      ? { [p in F]?: Exclude<FV, CK> } & Omit<T, F>
+      : T
+  : never;
+
+type CheckSwipe<T> = T extends {
+  vertical?: infer V;
+  horizontal?: infer H;
+  swipeDirection?: infer D;
 }
+  ? D extends "up"
+    ? { vertical: Exclude<V, "down"> } & Omit<T, "vertical">
+    : D extends "down"
+      ? { vertical: Exclude<V, "up"> } & Omit<T, "vertical">
+      : D extends "left"
+        ? { horizontal: Exclude<H, "right"> } & Omit<T, "horizontal">
+        : D extends "right"
+          ? { horizontal: Exclude<H, "left"> } & Omit<T, "horizontal">
+          : T
+  : never;
+
+// type Test1 = VariantProps<typeof toastsWrapperVariants>;
+//
+// type Test3 = CheckCenter<
+//   VariantProps<typeof toastsWrapperVariants>,
+//   "vertical",
+//   "horizontal",
+//   "center"
+// > & { swipeDirection: SwipeDirection };
+//
+// type Test4 = {
+//   swipeDirection: SwipeDirection;
+//   vertical: "center" | "up" | "down" | null | undefined;
+//   horizontal: "center" | "left" | "right" | null | undefined;
+// };
+//
+// type Test5 = CheckCenter<Test4, "vertical", "horizontal", "center">;
+//
+// const t1: Test3 = {
+//   vertical: "center",
+//   horizontal: "center",
+// };
+//
+// const t2: Test5 = {
+//   vertical: "center",
+//   horizontal: "center",
+// };
+//
+// const t12: CheckSwipe<Test3> = {
+//   vertical: "up",
+//   horizontal: "left",
+//   swipeDirection: "left",
+// };
+//
+// const t22: CheckSwipe<Test5> = {
+//   vertical: "down",
+//   horizontal: "center",
+//   swipeDirection: "up",
+// };
+
+type ToastProps = CheckSwipe<
+  ToastProviderProps &
+    CheckCenter<VariantProps<typeof toastsWrapperVariants>, "vertical", "horizontal", "center">
+>;
 
 export const ToastsWrapper = (props: ToastProps) => {
-  const { children, ...other } = props;
+  const { children, vertical, horizontal, swipeDirection, ...other } = props;
 
   const [toasts, setToasts] = useState<Map<string, IToast>>(new Map());
   const toastElementsMapRef = useRef<Map<string, RefObject<HTMLLIElement>>>(new Map());
+  const { checkSwipeDirection } = useToastCommon();
 
   const sortToasts = useCallback(() => {
     const toastElements = Array.from(toastElementsMapRef.current).reverse();
@@ -59,30 +163,31 @@ export const ToastsWrapper = (props: ToastProps) => {
   }, []);
 
   const handleDispatchDefault = useCallback(
-    (payload: Partial<IToast>) => handleAddToast({ status: EToastStatus.MESSAGE, ...payload }),
+    (payload: IToastProps) => handleAddToast({ status: EToastStatus.MESSAGE, ...payload }),
     [handleAddToast],
   );
 
   const handleDispatchMessage = useCallback(
-    (payload: Partial<IToast>) => handleAddToast({ ...payload, status: EToastStatus.MESSAGE }),
+    (payload: IToastProps) => handleAddToast({ ...payload, status: EToastStatus.MESSAGE }),
     [handleAddToast],
   );
 
   const handleDispatchSuccess = useCallback(
-    (payload: Partial<IToast>) => handleAddToast({ ...payload, status: EToastStatus.SUCCESS }),
+    (payload: IToastProps) => handleAddToast({ ...payload, status: EToastStatus.SUCCESS }),
     [handleAddToast],
   );
 
   const handleDispatchWarning = useCallback(
-    (payload: Partial<IToast>) => handleAddToast({ ...payload, status: EToastStatus.WARNING }),
+    (payload: IToastProps) => handleAddToast({ ...payload, status: EToastStatus.WARNING }),
     [handleAddToast],
   );
 
   const handleDispatchError = useCallback(
-    (payload: Partial<IToast>) => handleAddToast({ ...payload, status: EToastStatus.ERROR }),
+    (payload: IToastProps) => handleAddToast({ ...payload, status: EToastStatus.ERROR }),
     [handleAddToast],
   );
 
+  const swipe = checkSwipeDirection(vertical, horizontal, swipeDirection);
   return (
     <ToastContext.Provider
       value={useMemo(
@@ -102,18 +207,26 @@ export const ToastsWrapper = (props: ToastProps) => {
         ],
       )}
     >
-      <ToastPrimitive.Provider {...other} duration={100000}>
+      <ToastPrimitive.Provider {...other} swipeDirection={swipe}>
         {children}
         {Array.from(toasts).map(([key, toast]) => (
           <ToastView
             key={key}
             id={key}
+            swipe={swipe}
             toast={toast}
+            vertical={vertical}
+            horizontal={horizontal}
             sortToasts={sortToasts}
             toastElementsMapRef={toastElementsMapRef}
-            onAnimationEnd={(e) => {
-              if (e.animationName === "slide-right-out") {
-                console.log("animationName", e.animationName);
+            onAnimationEndCapture={(e) => {
+              const outAnimation = [
+                "toast-slide-right-out",
+                "toast-slide-left-out",
+                "toast-slide-down-out",
+                "toast-slide-up-out",
+              ];
+              if (outAnimation.includes(e.animationName)) {
                 handleRemoveToast(key);
               }
             }}
@@ -125,19 +238,7 @@ export const ToastsWrapper = (props: ToastProps) => {
             }}
           />
         ))}
-        <ToastPrimitive.Viewport
-          className={cn([
-            "[--stack-gap:_10px]",
-            "group/viewport",
-            "fixed",
-            "bottom-0",
-            "right-0",
-            "z-[2147483647]",
-            "w-[390px]",
-            "list-none",
-            "outline-none",
-          ])}
-        />
+        <ToastPrimitive.Viewport className={toastsWrapperVariants({ vertical, horizontal })} />
       </ToastPrimitive.Provider>
     </ToastContext.Provider>
   );

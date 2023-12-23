@@ -9,5 +9,9 @@ interface Props {
 }
 
 export default function ToastLayout({ children }: Props) {
-  return <Toasts>{children}</Toasts>;
+  return (
+    <Toasts vertical="center" horizontal="left" swipeDirection="left">
+      {children}
+    </Toasts>
+  );
 }
