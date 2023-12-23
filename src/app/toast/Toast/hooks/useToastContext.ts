@@ -1,17 +1,17 @@
 import { createContext, useContext } from "react";
 
-import { IToast } from "@/app/toast/Toast/interfaces/toast.interface";
+import { IToastProps } from "@/app/toast/Toast/interfaces/toast.interface";
 
 export interface IToastContext {
-  (toast: Partial<IToast>): void;
+  (toast: IToastProps): void;
 
-  message(toast: Partial<IToast>): void;
+  message(toast: IToastProps): void;
 
-  success(toast: Partial<IToast>): void;
+  success(toast: IToastProps): void;
 
-  warning(toast: Partial<IToast>): void;
+  warning(toast: IToastProps): void;
 
-  error(toast: Partial<IToast>): void;
+  error(toast: IToastProps): void;
 }
 
 export const ToastContext = createContext<IToastContext>(
