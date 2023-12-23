@@ -1,15 +1,17 @@
 "use client";
 
 import {
-  ControlBar,
   GridLayout,
   LiveKitRoom,
   ParticipantTile,
-  RoomAudioRenderer,
+  TrackReference,
+  useConnectionQualityIndicator,
   useTracks,
 } from "@livekit/components-react";
-import { Track } from "livekit-client";
+import { Track, ConnectionQuality } from "livekit-client";
 import { useEffect, useState } from "react";
+
+import { env } from "../../../env.mjs";
 
 import "@livekit/components-styles";
 
@@ -25,7 +27,7 @@ export default function Page() {
       method: "POST",
       body: JSON.stringify({
         user_id: "365920e5-bd87-4499-9c10-bbe84e0b1e33",
-        livestream_id: "cdc24840-a275-40a7-80d8-41691301fd45",
+        livestream_id: "fd5eacab-f0fa-47ef-b6d8-5d6b12925b3a",
         identity: "join",
       }),
     })
@@ -34,25 +36,21 @@ export default function Page() {
         return res.json();
       })
       .then((res: { streamingToken: string; securityToken: string; viewingToken: string }) => {
-        console.log("res", res);
+        console.log("res", JSON.stringify(res));
         setToken(res);
       });
   }, []);
 
   if (token) {
     return (
-      <LiveKitRoom
-        token={token.viewingToken}
-        serverUrl={process.env.NEXT_PUBLIC_LIVEKIT_URL}
-        data-lk-theme="default"
-      >
+      <LiveKitRoom token={token.viewingToken} serverUrl={env.NEXT_PUBLIC_LIVEKIT_WS_URL}>
         {/* Your custom component with basic video conferencing functionality. */}
         <MyVideoConference />
         {/* The RoomAudioRenderer takes care of room-wide audio for you. */}
-        <RoomAudioRenderer />
+        {/*<RoomAudioRenderer />*/}
         {/* Controls for the user to start/stop audio, video, and screen
       share tracks and to leave the room. */}
-        <ControlBar />
+        {/*<ControlBar />*/}
       </LiveKitRoom>
     );
   } else {
@@ -63,18 +61,28 @@ export default function Page() {
 function MyVideoConference() {
   // `useTracks` returns all camera and screen share tracks. If a user
   // joins without a published camera track, a placeholder track is returned.
-  const tracks = useTracks(
-    [
-      { source: Track.Source.Camera, withPlaceholder: true },
-      { source: Track.Source.ScreenShare, withPlaceholder: false },
-    ],
-    { onlySubscribed: false },
-  );
+  const tracks = useTracks([Track.Source.Camera, Track.Source.Microphone]);
+  // const tracks = useTracks(
+  //   [
+  //     { source: Track.Source.Camera, withPlaceholder: true },
+  //     { source: Track.Source.ScreenShare, withPlaceholder: false },
+  //   ],
+  //   { onlySubscribed: false },
+  // );
+  console.log("tracks", tracks);
   return (
-    <GridLayout tracks={tracks} style={{ height: "calc(100vh - var(--lk-control-bar-height))" }}>
-      {/* The GridLayout accepts zero or one child. The child is used
+    <>
+      {tracks[0] && <Test track={tracks[0]} />}
+      <GridLayout tracks={tracks} style={{ height: "calc(100vh - var(--lk-control-bar-height))" }}>
+        {/* The GridLayout accepts zero or one child. The child is used
       as a template to render all passed in tracks. */}
-      <ParticipantTile />
-    </GridLayout>
+        <ParticipantTile />
+      </GridLayout>
+    </>
   );
 }
+
+const Test = ({ track }: { track: TrackReference }) => {
+  const { quality } = useConnectionQualityIndicator({ participant: track.participant });
+  return <div>{quality}</div>;
+};

@@ -39,6 +39,7 @@ export function Clans() {
           name="tag"
           value={tag}
           disabled={loading}
+          autoComplete="off"
           onChange={handleChangeTag}
           placeholder="Search your Clan"
         />

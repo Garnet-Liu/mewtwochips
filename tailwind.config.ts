@@ -55,7 +55,7 @@ const config: Config = {
             transform:
               "translateY(calc(var(--slot-machine-winner) * var(--slot-machine-translate-y) + 0.6%))",
           },
-          "85% ": {
+          "85%": {
             transform:
               "translateY(calc(var(--slot-machine-winner) * var(--slot-machine-translate-y) - 0.3%))",
           },
@@ -65,6 +65,41 @@ const config: Config = {
             filter: "none",
           },
         },
+        // "slide-down": {
+        //   from: {
+        //     transform: "translate3d(0, var(calc(1px - (var(--stack-gap) * var(--index)))), 0)",
+        //   },
+        //   to: {
+        //     transform: "translate3d(0, calc(var(--height,1000px)+16px), 0)",
+        //   },
+        // },
+        "slide-right-in": {
+          from: {
+            transform: "translateX(calc(100% + var(--viewport-padding)))",
+          },
+          to: {
+            transform: "translateX(0)",
+          },
+        },
+        "slide-right-out": {
+          from: {
+            transform:
+              "translate3d(var(--radix-toast-swipe-end-x, 0), calc(var(--hover-offset-y) - var(--stack-gap) * var(--index)), 0)",
+          },
+          to: {
+            transform:
+              "translate3d(calc(100% + var(--viewport-padding)), calc(var(--hover-offset-y) - var(--stack-gap) * var(--index)), 0)",
+          },
+        },
+        // "slide-left": {
+        //   from: {
+        //     transform:
+        //       "translate3d(var(--radix-toast-swipe-end-x), calc(1px - (var(--stack-gap) * var(--index))), 0)",
+        //   },
+        //   to: {
+        //     transform: "translate3d(-100%, calc(1px - (var(--stack-gap) * var(--index))), 0)",
+        //   },
+        // },
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

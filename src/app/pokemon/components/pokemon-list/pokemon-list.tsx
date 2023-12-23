@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 
-import { useApiPokemonList } from "@/services/pokemon.service";
+import { usePokemonList } from "@/app/pokemon/hooks/usePokemonList";
 import PokemonItem from "@/app/pokemon/components/pokemon-list/pokemon-item/pokemon-item";
 
 interface IPokemonCardProps {
@@ -12,7 +12,7 @@ interface IPokemonCardProps {
 
 export default function PokemonList(props: IPokemonCardProps) {
   const { page, rowsPage } = props;
-  const { data, error, isLoading } = useApiPokemonList(page, rowsPage);
+  const { data, error, isLoading } = usePokemonList(page, rowsPage);
 
   return (
     <div className="flex min-h-[560px] flex-wrap">
@@ -25,7 +25,7 @@ export default function PokemonList(props: IPokemonCardProps) {
           <p className="text-center text-2xl font-bold">Loading pokemon error...</p>
         </div>
       ) : (
-        (data?.data?.pokemon || []).map((pokemon, index) => (
+        (data?.pokemon || []).map((pokemon, index) => (
           <div key={index} className="flex w-1/5 flex-col items-center justify-center p-2">
             <Link
               className="w-full transition ease-in-out hover:scale-105"

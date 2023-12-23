@@ -40,7 +40,7 @@ export async function POST(request: Request) {
       const viewingAt = new AccessToken(env.LIVE_KIT_API_KEY, env.LIVE_KIT_API_SECRET, {
         identity: `${participantName}-viewing`,
       });
-      streamingAt.addGrant({
+      viewingAt.addGrant({
         room: roomName,
         roomJoin: true,
         canPublish: true,
