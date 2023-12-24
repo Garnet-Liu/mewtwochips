@@ -65,74 +65,38 @@ const config: Config = {
             filter: "none",
           },
         },
-        "toast-slide-up-in": {
+        "toast-slide-vertical-in": {
           from: {
-            transform: "translateY(calc(-100% - var(--viewport-padding)))",
+            transform: "translateY(calc(var(--viewport) * var(--direction-y) * -1))",
           },
           to: {
-            transform: "translateY(calc(var(--stack-gap) * var(--index)))",
+            transform: "translateY(calc(var(--y) * var(--direction-y)))",
           },
         },
-        "toast-slide-up-out": {
+        "toast-slide-vertical-out": {
+          from: {
+            transform: "translateY(calc(var(--y) * var(--direction-y)))",
+          },
+          to: {
+            transform: "translateY(calc(var(--viewport) * var(--direction-y) * -1))",
+          },
+        },
+        "toast-slide-horizontal-in": {
           from: {
             transform:
-              "translateY(calc(calc(var(--hover-offset-y) - var(--stack-gap) * var(--index) - var(--radix-toast-swipe-end-y, 0px)) * -1))",
+              "translate3d(calc(var(--viewport) * var(--direction-x)), calc(var(--offset-y) * var(--direction-y)), 0)",
           },
           to: {
-            transform: "translateY(calc(-100% - var(--viewport-padding)))",
+            transform: "translate3d(var(--x), calc(var(--offset-y) * var(--direction-y)), 0)",
           },
         },
-        "toast-slide-down-in": {
+        "toast-slide-horizontal-out": {
           from: {
-            transform: "translateY(calc(100% + var(--viewport-padding)))",
-          },
-          to: {
-            transform: "translateY(0)",
-          },
-        },
-        "toast-slide-down-out": {
-          from: {
-            transform:
-              "translateY(calc(var(--hover-offset-y) - var(--stack-gap) * var(--index) + var(--radix-toast-swipe-end-y, 0)))",
-          },
-          to: {
-            transform: "translateY(calc(100% + var(--viewport-padding)))",
-          },
-        },
-        "toast-slide-right-in": {
-          from: {
-            transform: "translateX(calc(100% + var(--viewport-padding)))",
-          },
-          to: {
-            transform: "translateX(0)",
-          },
-        },
-        "toast-slide-right-out": {
-          from: {
-            transform:
-              "translate3d(var(--radix-toast-swipe-end-x, 0), calc(var(--hover-offset-y) - var(--stack-gap) * var(--index)), 0)",
+            transform: "translate3d(var(--x), calc(var(--y) * var(--direction-y)), 0)",
           },
           to: {
             transform:
-              "translate3d(calc(100% + var(--viewport-padding)), calc(var(--hover-offset-y) - var(--stack-gap) * var(--index)), 0)",
-          },
-        },
-        "toast-slide-left-in": {
-          from: {
-            transform: "translateX(calc(-100% - var(--viewport-padding)))",
-          },
-          to: {
-            transform: "translateX(0)",
-          },
-        },
-        "toast-slide-left-out": {
-          from: {
-            transform:
-              "translate3d(var(--radix-toast-swipe-end-x, 0), calc(var(--hover-offset-y) - var(--stack-gap) * var(--index)), 0)",
-          },
-          to: {
-            transform:
-              "translate3d(calc(-100% - var(--viewport-padding)), calc(var(--hover-offset-y) - var(--stack-gap) * var(--index)), 0)",
+              "translate3d(calc(var(--viewport) * var(--direction-x)), calc(var(--y) * var(--direction-y)), 0)",
           },
         },
       },
