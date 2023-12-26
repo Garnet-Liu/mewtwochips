@@ -1,7 +1,7 @@
 import { headers } from "next/headers";
 
-import { IProfile } from "@/interfaces/profile.interface";
-import { IClanDetail } from "@/interfaces/clashOfClans.interface";
+import { IProfile } from "@/types/profile.interface";
+import { IClanDetail } from "@/types/clashOfClans";
 import { fetchRequest } from "@/context/fetch-request";
 import AddClan from "@/app/clash-of-clans/componsnts/clan-features/add-clan/add-clan";
 import ClanTable from "@/app/clash-of-clans/componsnts/clan-features/add-clan/clan-tabel/clan-table";

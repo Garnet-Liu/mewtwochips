@@ -1,7 +1,7 @@
 const path = require("path");
 const fs = require("fs");
 
-const locationOfSvgComponentsInProject = "../../src/components/svg/index.ts";
+const locationOfSvgComponentsInProject = "../../src/components/Svgs/index.ts";
 
 function readExistingImports(existingIndexFile) {
   const filePath = path.join(__dirname, existingIndexFile);
@@ -37,9 +37,7 @@ function defaultIndexTemplate(filePaths) {
     .concat(existingImports)
     .filter(onlyUnique)
     .forEach((exportName) => {
-      imports += `import ${exportName} from './${removeNamedSyntax(
-        exportName,
-      )}';\n`;
+      imports += `import ${exportName} from './${removeNamedSyntax(exportName)}';\n`;
       exports += removeNamedSyntax(exportName) + ",\n";
     });
 

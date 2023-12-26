@@ -2,9 +2,9 @@ import { NextResponse } from "next/server";
 
 import { env } from "../../../../../env.mjs";
 
-import { IBaseResponse } from "@/interfaces/api.interface";
+import { IBaseResponse } from "@/types/api.interface";
 import { tagPattern1, tagPattern2 } from "@/context/pattern.tool";
-import { IClanDetail } from "@/interfaces/clashOfClans.interface";
+import { IClanDetail } from "@/types/clashOfClans";
 import { fetchRequest } from "@/context/fetch-request";
 
 export async function POST(request: Request): Promise<NextResponse<IBaseResponse<IClanDetail[]>>> {

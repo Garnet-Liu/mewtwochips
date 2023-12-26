@@ -1,4 +1,4 @@
-import { IBaseResponse } from "@/interfaces/api.interface";
+import { IBaseResponse } from "@/types/api.interface";
 
 export const fetchRequest = async <T = void>(url: string, init?: RequestInit): Promise<T> => {
   const result = await baseFetchRequest<IBaseResponse<T>>(url, init);

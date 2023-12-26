@@ -1,21 +1,10 @@
-"use client";
+import { Events } from "@/app/libs";
 
-import { useSession } from "next-auth/react";
-
-import { UserProfile } from "@/app/components/UserProfile/UserProfile";
-import { LoginProvider } from "@/app/components/LoginProvider/LoginProvider";
-
-export default function Home() {
-  const { data: session, status } = useSession();
+export default function Page() {
   return (
-    <main className="flex h-full flex-col items-center justify-center">
-      {status === "authenticated" ? (
-        <UserProfile session={session} />
-      ) : status === "unauthenticated" ? (
-        <LoginProvider />
-      ) : (
-        <div>Loading</div>
-      )}
+    <main className="container mx-auto w-full flex-1 px-4">
+      <Events />
+      This is Clash Of clans home page.
     </main>
   );
 }

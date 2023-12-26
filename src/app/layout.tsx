@@ -2,8 +2,8 @@ import { Roboto } from "next/font/google";
 import { Theme } from "@radix-ui/themes";
 import { ReactNode } from "react";
 
-import { Navigation } from "@/components/Navigation/Navigation";
-import { NextAuthProvider } from "@/components/NextAuthProvider/NextAuthProvider";
+import { Footer, Header } from "@/app/libs";
+import { DarkProviders, NextAuthProvider } from "@/components";
 
 import "@radix-ui/themes/styles.css";
 import "./globals.css";
@@ -22,26 +22,24 @@ export const metadata = {
 
 interface ILayoutProps {
   children: ReactNode;
-  modal: ReactNode;
 }
 
 export default function RootLayout(props: ILayoutProps) {
-  const { children, modal } = props;
+  const { children } = props;
   return (
-    <html lang="en" className="dark">
-      <body className={roboto.className}>
-        <Theme>
-          <NextAuthProvider>
-            <div className="flex h-screen w-screen gap-4">
-              <Navigation />
-
-              <div className="flex-1 overflow-auto bg-white/[.1]">
+    <html suppressHydrationWarning className={roboto.className}>
+      <body>
+        <DarkProviders attribute="class">
+          <Theme>
+            <NextAuthProvider>
+              <main className="flex h-screen w-screen flex-col overflow-auto">
+                <Header />
                 {children}
-                {modal}
-              </div>
-            </div>
-          </NextAuthProvider>
-        </Theme>
+                <Footer />
+              </main>
+            </NextAuthProvider>
+          </Theme>
+        </DarkProviders>
       </body>
     </html>
   );
