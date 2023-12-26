@@ -3,8 +3,8 @@
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
-import { IProfile } from "@/interfaces/profile.interface";
-import { IClanDetail } from "@/interfaces/clashOfClans.interface";
+import { IProfile } from "@/types/profile.interface";
+import { IClanDetail } from "@/types/clashOfClans";
 import { fetchRequest } from "@/context/fetch-request";
 
 interface IClanTableProps {

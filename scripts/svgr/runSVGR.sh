@@ -1,6 +1,6 @@
 #!/bin/zsh
 source_svg_components="./svgrComponents"
-destination_svg_components="../../src/components/svg/"
+destination_svg_components="../../src/components/Svgs/"
 
 original_svgs_input="./originalSvgs"
 destination_original_svgs="../../public/assets/images/svgs"

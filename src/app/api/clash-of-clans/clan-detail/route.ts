@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { fetchRequest } from "@/context/fetch-request";
-import { IClanDetail, IClanError } from "@/interfaces/clashOfClans.interface";
+import { IClanDetail, IClanError } from "@/types/clashOfClans";
 import { env } from "../../../../../env.mjs";
 
 export async function POST(request: Request) {

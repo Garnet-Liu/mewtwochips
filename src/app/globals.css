@@ -5,5 +5,5 @@
 @tailwind utilities;
 
 .max-container {
-  @apply max-w-[1200px];
+  @apply max-w-[1200px] min-w-[1000px];
 }

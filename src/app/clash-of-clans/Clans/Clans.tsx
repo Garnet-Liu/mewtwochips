@@ -5,7 +5,7 @@ import { ChangeEvent, useState } from "react";
 import Image from "next/image";
 
 import { fetchRequest } from "@/context/fetch-request";
-import { IClanDetail } from "@/interfaces/clashOfClans.interface";
+import { IClanDetail } from "@/types/clashOfClans";
 
 export function Clans() {
   const [tag, setTag] = useState("");

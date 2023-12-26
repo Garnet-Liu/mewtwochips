@@ -1,5 +1,5 @@
-import { PageHeader } from "@/components/PageHeader/PageHeader";
-import { Events } from "@/app/clash-of-clans/componsnts/Events/Events";
+import { PageHeader } from "@/app/features/components/PageHeader/PageHeader";
+import { Events } from "@/app/libs";
 
 import { Clans } from "./Clans/Clans";
 import { Players } from "./Players/Players";
