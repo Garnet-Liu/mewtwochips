@@ -4,7 +4,7 @@ import { ReactNode, useEffect, useRef, useState } from "react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 
 import { cn } from "@/context/cn";
-import { Maybe } from "@/types/baseTypes";
+import { Maybe } from "@/types/globals";
 
 interface DrawerProps {
   children: ReactNode;
@@ -36,6 +36,7 @@ export function Drawer(props: DrawerProps) {
             "fixed",
             "inset-0",
             "bg-black/25",
+            "dark:bg-white/25",
           ])}
         />
 
@@ -45,6 +46,7 @@ export function Drawer(props: DrawerProps) {
             "fixed",
             "right-0",
             "top-0",
+            "z-10",
             "h-[100vh]",
             "w-[40vw]",
             "bg-[var(--color-page-background)]",
@@ -55,7 +57,7 @@ export function Drawer(props: DrawerProps) {
             "data-[state=closed]:slide-out-to-right",
           ])}
         >
-          <div className={cn(["h-full", "dark:bg-white/25", "bg-black/25"])}>{content}</div>
+          <div className={cn(["h-full"])}>{content}</div>
         </DialogPrimitive.Content>
       </DialogPrimitive.Portal>
     </DialogPrimitive.Root>

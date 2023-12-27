@@ -1,0 +1,20 @@
+{
+  "state-tracker": "状态追踪",
+  "upgrade-tracker": "升级追踪",
+  "languages": {
+    "zh": "中文",
+    "en": "English"
+  },
+  "event": {
+    "event-time": "{{d}}天{{h}}小时{{m}}分钟{{s}}秒",
+    "event-cwl-active": "部落联赛结束",
+    "event-cwl-inactive": "部落联赛开始",
+    "event-raid-weekend-active": "突袭周末结束",
+    "event-raid-weekend-inactive": "突袭周末开始",
+    "event-trader-refresh": "商店刷新",
+    "event-clash-game-active": "部落竞赛结束",
+    "event-clash-game-inactive": "部落竞赛开始",
+    "event-league-reset-inactive": "赛季重置",
+    "event-gold-pass-inactive": "月卡结算"
+  }
+}

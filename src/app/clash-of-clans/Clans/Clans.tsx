@@ -4,7 +4,7 @@ import { Button, TextField } from "@radix-ui/themes";
 import { ChangeEvent, useState } from "react";
 import Image from "next/image";
 
-import { fetchRequest } from "@/context/fetch-request";
+import { apiFetchRequest } from "@/context/apiFetchRequest";
 import { IClanDetail } from "@/types/clashOfClans";
 
 export function Clans() {
@@ -20,7 +20,7 @@ export function Clans() {
     setLoading(true);
     try {
       console.log("handleSearch tag", tag);
-      const data = await fetchRequest<IClanDetail>(`/api/clash-of-clans/clan?tag=${tag}`);
+      const data = await apiFetchRequest<IClanDetail>(`/api/clash-of-clans/clan?tag=${tag}`);
 
       console.log("data", data);
       setDetail(data);

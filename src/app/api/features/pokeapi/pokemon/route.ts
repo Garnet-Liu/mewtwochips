@@ -2,7 +2,7 @@ import { NamedAPIResourceList, Pokemon, PokemonSpecies } from "pokenode-ts";
 import { NextResponse } from "next/server";
 
 import { IBaseResponse } from "@/types/api.interface";
-import { IPokemon, IPokemonList } from "@/app/features/pokemon/types/pokemon.interface";
+import { IPokemon, IPokemonList } from "@/app/[lng]/features/pokemon/types/pokemon.interface";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);

@@ -30,7 +30,7 @@ export const env = createEnv({
     NEXT_PUBLIC_API_BASE_URL: z.string().min(1),
     NEXT_PUBLIC_LIVEKIT_WS_URL: z.string().min(1),
     NEXT_PUBLIC_CHAT_STREAM_API_KEY: z.string().min(1),
-    NODE_ENV: z.enum(["development", "test", "production"])
+    NEXT_PUBLIC_NODE_ENV: z.enum(["development", "test", "production"])
   },
   /*
    * Due to how Next.js bundles environment variables on Edge and Client,
@@ -40,6 +40,7 @@ export const env = createEnv({
    */
   runtimeEnv: {
     NODE_ENV: process.env.NODE_ENV,
+    NEXT_PUBLIC_NODE_ENV: process.env.NODE_ENV,
     LIVE_KIT_API_KEY: process.env.LIVE_KIT_API_KEY,
     LIVE_KIT_API_SECRET: process.env.LIVE_KIT_API_SECRET,
     NEXT_PUBLIC_LIVEKIT_WS_URL: process.env.NEXT_PUBLIC_LIVEKIT_WS_URL,

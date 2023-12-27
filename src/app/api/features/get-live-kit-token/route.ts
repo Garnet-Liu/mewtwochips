@@ -49,9 +49,14 @@ export async function POST(request: Request) {
       });
 
       return NextResponse.json({
-        streamingToken: streamingAt.toJwt(),
-        securityToken: securityAt.toJwt(),
-        viewingToken: viewingAt.toJwt(),
+        code: 200,
+        message: "success",
+        success: true,
+        data: {
+          streamingToken: streamingAt.toJwt(),
+          securityToken: securityAt.toJwt(),
+          viewingToken: viewingAt.toJwt(),
+        },
       });
     } catch (error) {
       console.log("live kit error");
