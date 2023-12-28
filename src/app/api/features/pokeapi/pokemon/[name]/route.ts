@@ -2,7 +2,7 @@ import { Pokemon, PokemonSpecies, Stat } from "pokenode-ts";
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 
-import { IPokemonDetail } from "@/app/features/pokemon/types/pokemon.interface";
+import { IPokemonDetail } from "@/app/[lng]/features/pokemon/types/pokemon.interface";
 
 export async function GET(request: Request, { params }: { params: { name: string } }) {
   console.log("request pokemon name", params.name);
@@ -32,9 +32,22 @@ export async function GET(request: Request, { params }: { params: { name: string
         };
       }),
     };
-    return NextResponse.json(apiResponseData);
+    return NextResponse.json({
+      code: 200,
+      success: true,
+      message: "success",
+      data: apiResponseData,
+    });
   } catch (error) {
     console.log("error", error);
-    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+    return NextResponse.json(
+      {
+        code: 500,
+        success: false,
+        data: null,
+        message: "Internal Server Error",
+      },
+      { status: 500 },
+    );
   }
 }

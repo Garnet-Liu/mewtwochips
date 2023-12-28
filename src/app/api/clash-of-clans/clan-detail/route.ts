@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-import { fetchRequest } from "@/context/fetch-request";
+import { apiFetchRequest } from "@/context/apiFetchRequest";
 import { IClanDetail, IClanError } from "@/types/clashOfClans";
 import { env } from "../../../../../env.mjs";
 
@@ -9,7 +9,7 @@ export async function POST(request: Request) {
   const { tag } = await request.json();
   console.log("tag", tag);
 
-  return fetchRequest<IClanDetail | IClanError>(
+  return apiFetchRequest<IClanDetail | IClanError>(
     `https://api.clashofclans.com/v1/clans/${encodeURIComponent(tag)}`,
     { headers: { Authorization: `Bearer ${env.CLASH_OF_CLANS_API_TOKEN}` } },
   ).then((clan) => {
