@@ -1,30 +1,27 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import { ReactNode, useEffect } from "react";
-import { useSession } from "next-auth/react";
+import { SessionProvider } from "next-auth/react";
+import { ReactNode } from "react";
 
-interface IAuthProviderProps {
+import { useFirebaseAuth } from "@/hooks/useFirebaseAuth";
+
+interface Props {
   children: ReactNode;
-  intercept?: IIntercept[];
 }
 
-interface IIntercept {
-  state: 'authenticated' | 'unauthenticated' | 'loading';
-  redirect: string;
-}
+export const AuthProvider = (props: Props) => {
+  const { children } = props;
+  return (
+    <SessionProvider>
+      <SyncFirebaseAuth>{children}</SyncFirebaseAuth>
+    </SessionProvider>
+  );
+};
 
-export default function AuthProvider({ children, intercept = [] }: IAuthProviderProps) {
-  const {data, status} = useSession()
-  const router = useRouter();
+const SyncFirebaseAuth = (props: Props) => {
+  const { children } = props;
 
-  const isRedirect = intercept.find((s) => s.state === status);
+  useFirebaseAuth();
 
-  if (status === 'authenticated') {
-    return <>{children}</>;
-  } else if (status === "unauthenticated") {
-    isRedirect && router.push(isRedirect.redirect);
-  } else {
-    return <div className="w-full text-xl flex items-center justify-center mt-60">Loading...</div>;
-  }
-}
+  return <>{children}</>;
+};

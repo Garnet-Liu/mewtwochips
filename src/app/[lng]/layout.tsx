@@ -5,7 +5,7 @@ import { dir } from "i18next";
 
 import { Footer, Header } from "@/app/[lng]/libs";
 import { languages } from "@/context/i18nSettings";
-import { DarkProviders, NextAuthProvider } from "@/components";
+import { DarkProviders, AuthProvider } from "@/components";
 
 import "@radix-ui/themes/styles.css";
 import "./globals.css";
@@ -43,13 +43,13 @@ export default function RootLayout(props: ILayoutProps) {
       <body>
         <DarkProviders attribute="class">
           <Theme>
-            <NextAuthProvider>
+            <AuthProvider>
               <main className="flex h-screen w-screen flex-col overflow-auto">
                 <Header lng={params.lng} />
                 {children}
-                <Footer />
+                <Footer lng={params.lng} />
               </main>
-            </NextAuthProvider>
+            </AuthProvider>
           </Theme>
         </DarkProviders>
       </body>
