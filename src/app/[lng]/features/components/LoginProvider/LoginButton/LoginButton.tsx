@@ -1,10 +1,11 @@
 "use client";
 
-import { ClientSafeProvider, signIn } from "next-auth/react";
+import { signIn } from "next-auth/react";
 import { Button } from "@radix-ui/themes";
+import { CommonProviderOptions } from "@auth/core/providers";
 
 interface Props {
-  provider: ClientSafeProvider;
+  provider: CommonProviderOptions;
 }
 
 export function LoginButton(props: Props) {
@@ -35,10 +36,10 @@ export function LoginButton(props: Props) {
   };
 
   const handleSignIn = () => {
-    if (provider.id == "google") {
+    if (provider.name == "google") {
       return handlePopupCenter("/auth/sign-in-google", provider.name);
     } else {
-      return signIn(provider.id);
+      return signIn(provider.name);
     }
   };
 

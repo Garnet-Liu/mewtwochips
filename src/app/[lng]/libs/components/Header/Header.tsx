@@ -44,7 +44,7 @@ export async function Header(props: Props) {
 
           <Translate lng={lng} />
 
-          <DarkMode />
+          <DarkMode lng={lng} />
         </nav>
 
         <nav className="sm:hidden">

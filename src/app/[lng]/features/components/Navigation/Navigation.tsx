@@ -51,7 +51,7 @@ export function Navigation() {
       ])}
     >
       <div className="w-full px-4 text-2xl font-extrabold">
-        <Link href="/public">Mewtwochips</Link>
+        <Link href={"/features"}>Mewtwochips</Link>
       </div>
 
       <div className="w-full flex-1">

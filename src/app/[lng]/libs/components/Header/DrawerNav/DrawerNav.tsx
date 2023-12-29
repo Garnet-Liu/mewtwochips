@@ -41,7 +41,7 @@ export function DrawerNav(props: Props) {
       <div className="m-2 flex items-center justify-between">
         <Translate lng={lng} />
 
-        <DarkMode />
+        <DarkMode lng={lng} />
       </div>
     </div>
   );

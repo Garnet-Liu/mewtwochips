@@ -7,6 +7,7 @@ import { LoginProvider } from "@/app/[lng]/features/components/LoginProvider/Log
 
 export default function Page() {
   const { data: session, status } = useSession();
+  console.log("home page session => ", session);
   return (
     <main className="flex h-full flex-col items-center justify-center">
       {status === "authenticated" ? (

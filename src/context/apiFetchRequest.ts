@@ -9,6 +9,7 @@ export const apiFetchRequest = async <T = void>(url: string, init?: RequestInit)
   if (result.success) {
     return result.data;
   } else {
+    console.log(result);
     throw new Error(result.message);
   }
 };

@@ -12,7 +12,8 @@ export const locales: Record<string, Locale> = { en: enUS, zh: zhCN };
 
 export function getOptions(lng = fallbackLng, ns = defaultNS): InitOptions {
   return {
-    debug: env.NEXT_PUBLIC_NODE_ENV !== "production",
+    debug: false,
+    // debug: env.NEXT_PUBLIC_NODE_ENV !== "production",
     supportedLngs: languages,
     fallbackLng,
     lng,

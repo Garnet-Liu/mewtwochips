@@ -1,5 +1,7 @@
-import { initFirestore } from "@auth/firebase-adapter";
 import { cert, getApps, initializeApp } from "firebase-admin/app";
+import { initFirestore } from "@auth/firebase-adapter";
+import { getDatabase } from "firebase-admin/database";
+import { getAuth } from "firebase-admin/auth";
 
 import { env } from "../../env.mjs";
 
@@ -21,3 +23,7 @@ export const firestore = initFirestore({
     privateKey: env.FIREBASE_PRIVATE_KEY,
   }),
 });
+
+export const adminAuth = getAuth(firebaseAdmin);
+
+export const db = getDatabase();

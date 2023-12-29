@@ -2,14 +2,14 @@ import { DecodedIdToken } from "firebase-admin/auth";
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 
-import { auth } from "@/context/firebase-admin.service";
+import { adminAuth } from "@/context/firebaseAdmin";
 
 export const verifyTokenTool = async <T>(
   callback: (d: DecodedIdToken) => NextResponse<T> | Promise<NextResponse<T>>,
 ) => {
   const idToken = cookies().get("token");
   try {
-    const decodedIdToken = await auth.verifyIdToken(idToken?.value || "");
+    const decodedIdToken = await adminAuth.verifyIdToken(idToken?.value || "");
     console.log("decodedIdToken", decodedIdToken);
     return callback(decodedIdToken);
   } catch (error) {
