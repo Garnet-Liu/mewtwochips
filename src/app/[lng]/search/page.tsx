@@ -1,22 +1,28 @@
 "use client";
 
-import { Box, Tabs, Text } from "@radix-ui/themes";
+import { Box, Heading, Tabs, Text } from "@radix-ui/themes";
 import { useSearchParams } from "next/navigation";
 
 import { cn } from "@/context/cn";
+import { SearchVillage } from "@/app/[lng]/search/libs";
 
 export default function Page() {
   const searchParams = useSearchParams();
   const target = searchParams.get("target");
+
   return (
-    <main className="container mx-auto flex w-full flex-1 flex-col gap-8 px-4">
+    <main className="container mx-auto my-20 flex w-full flex-1 flex-col gap-8 px-4">
+      <Heading size="8" align="center">
+        添加你的村庄
+      </Heading>
+
       <Tabs.Root defaultValue={target === "clans" ? "clans" : "players"}>
         <Tabs.List>
           <Tabs.Trigger value="players">查找玩家</Tabs.Trigger>
           <Tabs.Trigger value="clans">查找部落</Tabs.Trigger>
         </Tabs.List>
 
-        <Box px="4" pt="3" pb="2">
+        <Box px="4" py="8">
           <Tabs.Content
             className={cn([
               "data-[state=active]:duration-700",
@@ -25,7 +31,7 @@ export default function Page() {
             ])}
             value="players"
           >
-            <Text size="2">This search your</Text>
+            <SearchVillage />
           </Tabs.Content>
 
           <Tabs.Content
@@ -36,7 +42,7 @@ export default function Page() {
             ])}
             value="clans"
           >
-            <Text size="2">Access and update your documents.</Text>
+            <Text size="2">建筑工人正在努力施工，在此期间请等待施工完成。。。</Text>
           </Tabs.Content>
         </Box>
       </Tabs.Root>

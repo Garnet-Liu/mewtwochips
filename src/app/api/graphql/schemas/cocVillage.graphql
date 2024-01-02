@@ -1,0 +1,128 @@
+"每个村庄的详细信息"
+type TVillage {
+  tag: String
+  name: String
+  expLevel: Int
+  trophies: Int
+  bestTrophies: Int
+  donations: Int
+  donationsReceived: Int
+  builderHallLevel: Int
+  builderBaseTrophies: Int
+  bestBuilderBaseTrophies: Int
+  warStars: Int
+  clanCapitalContributions: Int
+  league: TLeague
+  builderBaseLeague: TBuilderBaseLeague
+  clan: TClan
+  role: ERole
+  warPreference: EWarPreference
+  attackWins: Int
+  defenseWins: Int
+  townHallLevel: Int
+  townHallWeaponLevel: Int
+  troops: [TTroop]
+  heroes: [THero]
+  heroEquipment: [TEquipment]
+  spells: [TSpell]
+  labels: [TLabel]
+  achievements: [TAchievement]
+  playerHouse: TPlayerHouse
+}
+
+type TLeague {
+  id: String
+  name: String
+  iconUrls: TIconUrls
+}
+
+type TBuilderBaseLeague {
+  id: String
+  name: String
+}
+
+type TClan {
+  tag: String
+  clanLevel: Int
+  name: String
+  badgeUrls: TIconUrls
+}
+
+type THero {
+  level: Int
+  maxLevel: Int
+  name: String
+  village: String
+  equipment: [TEquipment]
+}
+
+type TEquipment {
+  level: Int
+  maxLevel: Int
+  name: String
+  village: EVillageType
+}
+
+type TTroop {
+  level: Int
+  maxLevel: Int
+  name: String
+  village: EVillageType
+}
+
+type TSpell {
+  level: Int
+  maxLevel: Int
+  name: String
+  village: String
+}
+
+type TAchievement {
+  completionInfo: String
+  info: String
+  name: String
+  stars: Int
+  target: Int
+  value: Int
+  village: EVillageType
+}
+
+type TPlayerHouse {
+  elements: [TElement]
+}
+
+type TElement {
+  id: Int
+  type: String
+}
+
+type TLabel {
+  iconUrls: TIconUrls
+  id: Int
+  name: String
+}
+
+type TIconUrls {
+  medium: String
+  small: String
+  tiny: String
+}
+
+enum EVillageType {
+  home
+  builderBase
+  clanCapital
+}
+
+enum ERole {
+  not_member
+  member
+  leader
+  admin
+  coLeader
+}
+
+enum EWarPreference {
+  in
+  out
+}

@@ -1,0 +1,6 @@
+type TClientError {
+  type: String
+  reason: String
+  detail: String
+  message: String
+}

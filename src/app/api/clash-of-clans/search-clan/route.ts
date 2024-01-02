@@ -2,8 +2,8 @@ import { NextResponse } from "next/server";
 
 import { env } from "../../../../../env.mjs";
 
-import { IBaseResponse } from "@/types/api.interface";
-import { tagPattern1, tagPattern2 } from "@/context/pattern.tool";
+import { IBaseResponse } from "@/types/apiResponse";
+import { tagPattern1, tagPattern2 } from "@/context/pattern";
 import { IClanDetail } from "@/types/clashOfClans";
 import { apiFetchRequest } from "@/context/apiFetchRequest";
 

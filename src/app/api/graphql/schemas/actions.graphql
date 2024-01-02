@@ -1,0 +1,11 @@
+type Query {
+  village(tag: String!): VillageQuery
+}
+
+type Mutation {
+  addVillage(tag: String!): TTest
+}
+
+type TTest {
+  success: Boolean
+}

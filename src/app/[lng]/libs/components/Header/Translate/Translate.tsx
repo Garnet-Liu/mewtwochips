@@ -30,7 +30,7 @@ export function Translate(props: Props) {
 
       <DropdownMenu.Content>
         {languagesOptions.map((language) => (
-          <Link key={language.key} href={`${language.key}/${segments.join("/")}`}>
+          <Link key={language.key} href={`/${language.key}/${segments.join("/")}`}>
             <DropdownMenu.Item>{language.label}</DropdownMenu.Item>
           </Link>
         ))}

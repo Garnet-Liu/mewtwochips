@@ -19,7 +19,7 @@ export function Events(props: Props) {
   } = useEventTime();
   const { t } = useTranslation(lng);
   return (
-    <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+    <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
       <EventItem
         t={t}
         getCurrentDate={getCWLTime}

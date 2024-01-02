@@ -183,6 +183,7 @@ export function ToastView(props: ToastViewProps) {
     <ToastPrimitive.Root
       {...toastProps}
       ref={ref}
+      open={toast.open}
       type={toast.type}
       duration={toast.duration}
       className={toastViewVariants(toastProps)}
@@ -205,39 +206,45 @@ export function ToastView(props: ToastViewProps) {
         ])}
         data-status={toast.status}
       >
-        <ToastStatusIcon status={toast.status} />
+        {toast.Component ? (
+          toast.Component
+        ) : (
+          <>
+            <ToastStatusIcon status={toast.status} />
 
-        <ToastPrimitive.Description className="flex-1 text-xs">
-          <ToastPrimitive.Title className="mb-1 text-sm font-medium">
-            <p>Scheduled: Catch up</p>
-          </ToastPrimitive.Title>
+            <ToastPrimitive.Description className="flex-1 text-xs">
+              <ToastPrimitive.Title className="mb-1 text-sm font-medium">
+                <p>Scheduled: Catch up</p>
+              </ToastPrimitive.Title>
 
-          {toast.description}
-        </ToastPrimitive.Description>
+              {toast.description}
+            </ToastPrimitive.Description>
 
-        <ToastPrimitive.Action
-          onClick={() => {
-            ref.current?.setAttribute("data-close", "action");
-          }}
-          className={cn([
-            "inline-flex",
-            "items-center",
-            "justify-center",
-            "rounded",
-            "border",
-            "border-white/50",
-            "px-2",
-            "leading-6",
-            "h-6",
-            "text-xs",
-            "bg-white/[.15]",
-            "leading-6",
-            "font-medium",
-          ])}
-          altText="Goto schedule to undo"
-        >
-          Undo
-        </ToastPrimitive.Action>
+            <ToastPrimitive.Action
+              onClick={() => {
+                ref.current?.setAttribute("data-close", "action");
+              }}
+              className={cn([
+                "inline-flex",
+                "items-center",
+                "justify-center",
+                "rounded",
+                "border",
+                "border-white/50",
+                "px-2",
+                "leading-6",
+                "h-6",
+                "text-xs",
+                "bg-white/[.15]",
+                "leading-6",
+                "font-medium",
+              ])}
+              altText="Goto schedule to undo"
+            >
+              Undo
+            </ToastPrimitive.Action>
+          </>
+        )}
 
         <ToastPrimitive.Close
           onClick={() => {
