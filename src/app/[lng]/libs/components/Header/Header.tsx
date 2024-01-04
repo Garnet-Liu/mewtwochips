@@ -14,9 +14,10 @@ interface Props extends ILanguage {}
 export async function Header(props: Props) {
   const { lng } = props;
   const { t } = await getTranslation(lng);
-  const navigations = [
+  const navigations: Array<{ path: string; label: string }> = [
     { path: "/upgrade-tracker", label: t("upgrade-tracker") },
     { path: "/state-tracker", label: t("state-tracker") },
+    { path: "/upgrade-data", label: t("upgrade-data") },
   ];
 
   return (
@@ -27,7 +28,7 @@ export async function Header(props: Props) {
           Mewtwochips
         </NextLink>
 
-        <nav className="bg-primary hidden sm:flex sm:h-full sm:flex-1 sm:items-center sm:gap-4">
+        <nav className="bg-primary hidden md:flex md:h-full md:flex-1 md:items-center md:gap-4">
           <div className="flex h-full flex-1 items-center gap-4 font-semibold">
             {navigations.map((navigation, index) => (
               <Link
@@ -42,12 +43,12 @@ export async function Header(props: Props) {
             ))}
           </div>
 
-          <Translate lng={lng} />
-
           <DarkMode lng={lng} />
+
+          <Translate lng={lng} />
         </nav>
 
-        <nav className="sm:hidden">
+        <nav className="md:hidden">
           <Drawer content={<DrawerNav navigations={navigations} lng={lng} />}>
             <IconButton variant="soft">
               <span className="material-symbols-outlined">menu_open</span>

@@ -1,6 +1,7 @@
 {
   "state-tracker": "State Tracker",
   "upgrade-tracker": "Upgrade Tracker",
+  "upgrade-data": "Upgrade Data",
   "theme": {
     "dark": "Dark",
     "light": "Light",

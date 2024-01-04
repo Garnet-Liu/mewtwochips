@@ -4,6 +4,7 @@ import { NextResponse } from "next/server";
 import EventEmitter from "node:events";
 
 import { env } from "../../../../../env.mjs";
+import { baseFetchRequest } from "@/context/apiFetchRequest";
 
 const clashAxios = axios.create({
   baseURL: "https://api.clashofclans.com/v1",
@@ -15,24 +16,32 @@ export async function GET(request: Request) {
   console.log(`========= tag: ${tag} =========`);
   let message = "Don't have tag field.";
   if (tag) {
-    const response = await creatRequestList(tag);
+    // const response = await creatRequestList(tag);
+    //
+    // const success = response.find((d) => (d as AxiosResponse)?.data);
+    const ipResponse = await fetch(`https://ident.me/ip`);
+    const ip = await ipResponse.text();
+    console.log("ip", ip);
+    const response = await baseFetchRequest(
+      `https://api.clashofclans.com/v1/players/${encodeURIComponent(`#${tag}`)}`,
+      {
+        headers: { Authorization: `Bearer ${env.CLASH_OF_CLANS_API_TOKEN}` },
+      },
+    );
 
-    const success = response.find((d) => (d as AxiosResponse)?.data);
+    console.log("response", response);
 
-    console.log("success", !!success);
-    if (success) {
-      return NextResponse.json(
-        {
-          code: 200,
-          success: true,
-          message: "success",
-          data: (success as AxiosResponse).data,
-        },
-        { status: 200 },
-      );
-    }
+    return NextResponse.json(
+      {
+        code: 200,
+        success: true,
+        message: "success",
+        data: response,
+      },
+      { status: 200 },
+    );
 
-    message = (response[0] as AxiosError)?.message;
+    // message = (response[0] as AxiosError)?.message;
   }
   return NextResponse.json(
     {
@@ -70,7 +79,7 @@ const createRequestItem = async (
   try {
     const responseData = await clashAxios.request({
       url: `/clans/${encodeURIComponent(`#${tag}`)}`,
-      httpsAgent: new HttpsProxyAgent(`http://36.37.146.119:32650`),
+      httpsAgent: new HttpsProxyAgent(`http://45.92.108.112:80`),
       proxy: false,
       timeout: 5000,
       signal: controller.signal,

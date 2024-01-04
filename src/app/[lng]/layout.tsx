@@ -5,7 +5,8 @@ import { dir } from "i18next";
 
 import { Footer, Header } from "@/app/[lng]/libs";
 import { languages } from "@/context/i18nSettings";
-import { DarkProviders, AuthProvider } from "@/components";
+import { DarkProviders, AuthProvider, Toasts } from "@/components";
+import { ApolloProvider } from "@/components/ApolloProvider/ApolloProvider";
 
 import "@radix-ui/themes/styles.css";
 import "./globals.css";
@@ -44,11 +45,17 @@ export default function RootLayout(props: ILayoutProps) {
         <DarkProviders attribute="class">
           <Theme>
             <AuthProvider>
-              <main className="flex h-screen w-screen flex-col overflow-auto">
-                <Header lng={params.lng} />
-                {children}
-                <Footer lng={params.lng} />
-              </main>
+              <ApolloProvider>
+                <Toasts>
+                  <main className="flex h-screen w-screen flex-col overflow-auto">
+                    <Header lng={params.lng} />
+
+                    {children}
+
+                    <Footer lng={params.lng} />
+                  </main>
+                </Toasts>
+              </ApolloProvider>
             </AuthProvider>
           </Theme>
         </DarkProviders>

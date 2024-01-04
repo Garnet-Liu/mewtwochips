@@ -15,7 +15,7 @@ export const verifyTokenTool = async <T>(
   } catch (error) {
     console.log("error", error);
     return NextResponse.json(
-      { code: 400, success: false, message: "token inv alid" },
+      { code: 400, success: false, message: "token invalid" },
       { status: 400 },
     );
   }

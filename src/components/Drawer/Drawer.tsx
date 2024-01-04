@@ -47,8 +47,8 @@ export function Drawer(props: DrawerProps) {
             "right-0",
             "top-0",
             "z-10",
-            "h-[100vh]",
-            "w-[40vw]",
+            "h-screen",
+            "min-w-[42vw]",
             "bg-[var(--color-page-background)]",
             "focus:outline-none",
             "data-[state=open]:animate-in",
@@ -57,7 +57,7 @@ export function Drawer(props: DrawerProps) {
             "data-[state=closed]:slide-out-to-right",
           ])}
         >
-          <div className={cn(["h-full"])}>{content}</div>
+          <div className={cn(["h-screen"])}>{content}</div>
         </DialogPrimitive.Content>
       </DialogPrimitive.Portal>
     </DialogPrimitive.Root>

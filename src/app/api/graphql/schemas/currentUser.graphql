@@ -1,0 +1,12 @@
+type TCurrentUser {
+  villageTracker: [TVillageTracker]
+  clanTracker: [TClanTracker]
+}
+
+type TVillageTracker {
+  tag: String
+}
+
+type TClanTracker {
+  tag: String
+}

@@ -1,6 +1,7 @@
 {
   "state-tracker": "状态追踪",
   "upgrade-tracker": "升级追踪",
+  "upgrade-data": "升级数据",
   "languages": {
     "zh": "中文",
     "en": "English"

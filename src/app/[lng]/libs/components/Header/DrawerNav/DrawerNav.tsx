@@ -14,9 +14,10 @@ interface Props extends ILanguage {
 
 export function DrawerNav(props: Props) {
   const { navigations, lng } = props;
+
   return (
-    <div className="flex h-full flex-col gap-4">
-      <div className="m-2 flex items-center justify-between">
+    <div className="flex h-full flex-col gap-4 py-2">
+      <div className="mx-2 flex items-center justify-between">
         <DialogPrimitive.Close className="m-4" asChild>
           <IconButton variant="soft">
             <span className="material-symbols-outlined rotate-180">menu_open</span>
@@ -38,7 +39,7 @@ export function DrawerNav(props: Props) {
         ))}
       </div>
 
-      <div className="m-2 flex items-center justify-between">
+      <div className="mx-2 flex items-center justify-between">
         <Translate lng={lng} />
 
         <DarkMode lng={lng} />

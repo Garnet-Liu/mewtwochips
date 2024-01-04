@@ -1,5 +1,5 @@
 import { env } from "../../env.mjs";
-import { IBaseResponse } from "@/types/api.interface";
+import { IBaseResponse } from "@/types/apiResponse";
 
 export const apiFetchRequest = async <T = void>(url: string, init?: RequestInit): Promise<T> => {
   const result = await baseFetchRequest<IBaseResponse<T>>(

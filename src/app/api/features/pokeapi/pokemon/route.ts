@@ -1,7 +1,7 @@
 import { NamedAPIResourceList, Pokemon, PokemonSpecies } from "pokenode-ts";
 import { NextResponse } from "next/server";
 
-import { IBaseResponse } from "@/types/api.interface";
+import { IBaseResponse } from "@/types/apiResponse";
 import { IPokemon, IPokemonList } from "@/app/[lng]/features/pokemon/types/pokemon.interface";
 
 export async function GET(request: Request) {

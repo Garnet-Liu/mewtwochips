@@ -24,11 +24,8 @@ export function middleware(req: NextRequest) {
   if (req.headers.has("referer")) {
     const refererUrl = new URL(req.headers.get("referer")!);
     const lngInReferer = languages.find((l) => refererUrl.pathname.startsWith(`/${l}`));
-    const response = NextResponse.next();
     if (lngInReferer) {
-      response.cookies.set(cookieName, lngInReferer);
-    } else {
-      return response;
+      NextResponse.next().cookies.set(cookieName, lngInReferer);
     }
   }
 
@@ -39,7 +36,6 @@ const getLanguage = (req: NextRequest) => {
   if (req.cookies.has(cookieName)) {
     return acceptLanguage.get(req.cookies.get(cookieName)?.value);
   } else {
-    console.log(req.headers.get("Accept-Language"));
     return acceptLanguage.get(req.headers.get("Accept-Language")) || fallbackLng;
   }
 };

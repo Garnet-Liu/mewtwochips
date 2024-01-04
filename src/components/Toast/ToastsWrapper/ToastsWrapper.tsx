@@ -68,19 +68,39 @@ export const ToastsWrapper = (props: ToastProps) => {
     });
   }, []);
 
-  const handleAddToast = useCallback((toast: Partial<IToast>) => {
+  const handleCloseToast = useCallback((key: string) => {
     setToasts((currentToasts) => {
       const newMap = new Map(currentToasts);
-      newMap.set(String(Date.now()), {
-        open: true,
-        type: toast?.type ?? "foreground",
-        duration: toast?.duration ?? 6000,
-        description: toast?.description ?? "",
-        status: toast?.status ?? EToastStatus.MESSAGE,
-      });
+      const toast = newMap.get(key);
+      if (toast) {
+        newMap.set(key, { ...toast, open: false });
+      }
       return newMap;
     });
   }, []);
+
+  const handleAddToast = useCallback(
+    (toast: Partial<IToast>) => {
+      const key = String(Date.now());
+      setToasts((currentToasts) => {
+        const newMap = new Map(currentToasts);
+        newMap.set(key, {
+          ...toast,
+          open: true,
+          type: toast?.type ?? "foreground",
+          duration: toast?.duration ?? 6000,
+          description: toast?.description ?? "",
+          status: toast?.status ?? EToastStatus.MESSAGE,
+        });
+        return newMap;
+      });
+
+      return () => {
+        handleCloseToast(key);
+      };
+    },
+    [handleCloseToast],
+  );
 
   const handleRemoveToast = useCallback((key: string) => {
     setToasts((currentToasts) => {
