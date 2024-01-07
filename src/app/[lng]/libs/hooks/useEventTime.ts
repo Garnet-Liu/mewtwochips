@@ -101,25 +101,28 @@ export const useEventTime = (): IEventTimes => {
     // 获取当前日期和时间
     const now = new Date();
 
-    // 获取当前是星期几，date-fns 中的 getDay 返回的是 0（星期天）到 6（星期六）的数字
     const nowWeekDay = getDay(now);
-    // 获取当前的小时数
     const nowHours = now.getHours();
-
-    // 计算距离下一个Raid的开始时间，规定在星期五下午3点开始，星期一下午3点结束
     let raidWeekendTime;
-    if (nowWeekDay < 5 || (nowWeekDay === 5 && nowHours < 15)) {
-      // 如果今天是星期四或更早，或者是星期五但还没到下午3点，Raid在本周五开始
-      raidWeekendTime = setHours(
-        setMinutes(setSeconds(setMilliseconds(addDays(now, 5 - nowWeekDay), 0), 0), 0),
-        15,
-      );
+
+    if (
+      (nowWeekDay === 5 && nowHours >= 15) ||
+      nowWeekDay === 6 ||
+      nowWeekDay === 0 ||
+      (nowWeekDay === 1 && nowHours < 15)
+    ) {
+      // 如果当前时刻是周五下午3点之后，或者是周六、周日任意时间，或者是周一下午3点之前，表示活动正在进行中
+      // 活动结束时间是下一个周一的下午3点
+      raidWeekendTime = setHours(startOfDay(addDays(now, (8 - nowWeekDay) % 7 || 7)), 15);
     } else {
-      // 否则，下一次Raid是下周一开始
-      raidWeekendTime = setHours(
-        setMinutes(setSeconds(setMilliseconds(addWeeks(addDays(now, 8 - nowWeekDay), 1), 0), 0), 0),
-        15,
-      );
+      // 如果活动没有处于进行状态，我们需要计算下一个活动的开始时间
+      if (nowWeekDay < 5 || (nowWeekDay === 5 && nowHours < 15)) {
+        // 如果当前是周五下午3点之前的任意时间或周一至周四，下一个活动开始时间是本周五的下午3点
+        raidWeekendTime = setHours(startOfDay(addDays(now, 5 - nowWeekDay)), 15);
+      } else {
+        // 否则，活动下一个开始时间是下周五的下午3点
+        raidWeekendTime = setHours(startOfDay(addDays(now, (12 - nowWeekDay) % 7)), 15);
+      }
     }
 
     return {
@@ -136,18 +139,18 @@ export const useEventTime = (): IEventTimes => {
     const now = new Date(); // date-fns 使用原生的 Date 对象
 
     // 获取当前是星期几，date-fns 中的 getDay 返回的是 0（星期天）到 6（星期六）的数字
-    const nowWeekDay = getDay(now) + 1; // +1 使其从1（星期天）到7（星期六）
+    const nowWeekDay = (getDay(now) + 1) % 7 || 7; // 确保结果在星期天（1）到星期六（7）之间
     // 获取当前的小时数
     const nowHours = getHours(now);
 
     // 计算交易员刷新时间，根据条件选择当前周或下一周的星期二下午4点
     let traderRefreshTime;
-    if (nowWeekDay < 2 || (nowWeekDay === 2 && nowHours < 16)) {
+    if (nowWeekDay < 3 || (nowWeekDay === 3 && nowHours < 16)) {
       // 如果今天是星期一或者是星期二但还没到下午4点，交易员刷新于本周星期二
-      traderRefreshTime = setDay(now, 2, { weekStartsOn: 1 });
+      traderRefreshTime = setDay(now, 2, { weekStartsOn: 0 });
     } else {
       // 否则，交易员在下周星期二刷新
-      traderRefreshTime = addWeeks(setDay(now, 2, { weekStartsOn: 1 }), 1);
+      traderRefreshTime = addWeeks(setDay(now, 2, { weekStartsOn: 0 }), 1);
     }
 
     // 设置具体的时间为下午4点整

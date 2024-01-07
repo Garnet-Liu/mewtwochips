@@ -1,65 +1,64 @@
-import { GoogleAuthProvider, signInWithCredential } from "@firebase/auth";
-import { FirestoreAdapter } from "@auth/firebase-adapter";
+import CredentialsProvider from "next-auth/providers/credentials";
+import { signInWithEmailAndPassword } from "@firebase/auth";
+// import { FirestoreAdapter } from "@auth/firebase-adapter";
 import GoogleProvider from "next-auth/providers/google";
-import NextAuth from "next-auth";
+import NextAuth, { NextAuthConfig } from "next-auth";
 
 import { env } from "../../env.mjs";
+// import { firestore } from "@/context/firebaseAdmin";
 import { clientAuth } from "@/context/firebaseClient";
-import { adminAuth, firestore } from "@/context/firebaseAdmin";
 
-export const {
-  handlers: { GET, POST },
-  auth,
-} = NextAuth({
+export const config: NextAuthConfig = {
   providers: [
-    GoogleProvider({
-      clientId: env.FIREBASE_GOOGLE_ID,
-      clientSecret: env.FIREBASE_GOOGLE_SECRET,
+    CredentialsProvider({
+      name: "Credentials",
+      credentials: {
+        email: { label: "Email", type: "email" },
+        password: { label: "Password", type: "password" },
+      },
+      async authorize(credentials) {
+        console.log("credentials", credentials);
+        const userCredential = await signInWithEmailAndPassword(
+          clientAuth,
+          credentials.email as string,
+          credentials.password as string,
+        );
+
+        console.log("userCredential uid", userCredential.user.uid);
+
+        return {
+          id: userCredential.user.uid,
+          name: userCredential.user.displayName,
+          email: userCredential.user.email,
+          image: userCredential.user.photoURL,
+          emailVerified: userCredential.user.emailVerified,
+        };
+      },
     }),
+    GoogleProvider,
   ],
-  adapter: FirestoreAdapter({ firestore, namingStrategy: "snake_case" }),
+  // adapter: FirestoreAdapter({ firestore, namingStrategy: "snake_case" }),
   callbacks: {
-    async signIn(params) {
-      const { account } = params;
-      return !!account?.id_token;
-    },
-    async jwt(params) {
-      const { token, account } = params;
-      // Persist the OAuth access_token and or the user id to the token right after signin
-      // console.log("=================== jwt ===================");
-      // console.log("==============> jwt user", user);
-      // console.log("==============> jwt token", token);
-      // console.log("==============> jwt trigger", trigger);
-      // console.log("==============> jwt profile", profile);
-      // console.log("==============> jwt account", account);
-      if (account?.id_token) {
-        token.id_token = account.id_token;
-        token.uid = account.uid;
+    authorized({ request, auth }) {
+      const { pathname } = request.nextUrl;
+      const path = pathname.split("/");
+      path.splice(1, 1);
+      const isAuthPath = path.join("/").startsWith("/auth");
+      console.log("authorized isAuthPath", isAuthPath);
+      if (isAuthPath) {
+        return !auth;
       }
-
-      if (!clientAuth.currentUser && token.id_token) {
-        const credential = GoogleAuthProvider.credential(token.id_token as string);
-        await signInWithCredential(clientAuth, credential);
-      }
-
-      return token;
+      return true;
     },
-    async session({ session }) {
-      // console.log("=================== session ===================");
-      // console.log("==============> session user", user);
-      // console.log("==============> session token", token);
-      // console.log("==============> session session", session);
-      // console.log("currentUser", !!auth.currentUser);
-      // console.log("currentUser uid", auth.currentUser?.uid);
-      if (session.user && clientAuth.currentUser?.uid) {
-        session.user.firebaseToken = await adminAuth.createCustomToken(clientAuth.currentUser.uid);
+    async session(params) {
+      const { token, session } = params;
+      if (token && session.user) {
+        session.user.token = token;
       }
       return session;
     },
   },
-  session: {
-    strategy: "jwt",
-  },
   debug: env.NODE_ENV !== "production",
-  // debug: false,
-});
+};
+
+export const { handlers, auth, signIn, signOut } = NextAuth(config);

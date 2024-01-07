@@ -1,8 +1,10 @@
 import { InMemoryLRUCache, KeyValueCache } from "@apollo/utils.keyvaluecache";
 import { doc, Firestore, getDoc } from "@firebase/firestore";
+import { GraphQLError } from "graphql/error";
+import { Session } from "next-auth";
 
-import { TCurrentUser } from "@/gql/graphql";
-import { firestore } from "@/context/firebaseClient";
+import { Maybe, TCurrentUser } from "@/gql/graphql";
+import { clientAuth, firestore } from "@/context/firebaseClient";
 
 export class FirebaseDataSource {
   private readonly store: Firestore;
@@ -13,19 +15,25 @@ export class FirebaseDataSource {
     this.cache = cache ?? new InMemoryLRUCache();
   }
 
-  async getCurrentUser(id: string): Promise<TCurrentUser> {
-    const c = await this.cache.get("");
-    // return { clanTracker: [{ tag: "tag1" }] };
-
-    const docRef = doc(this.store, "users", id);
-    const querySnapshot = await getDoc(docRef);
-
-    console.log("querySnapshot", querySnapshot.data());
-
-    if (c) {
-      return c as TCurrentUser;
+  async getCurrentUser(session: Maybe<Session>): Promise<TCurrentUser> {
+    console.log(session);
+    console.log("\x1b[34m", "clientAuth => currentUser => uid", clientAuth.currentUser?.uid, "\n");
+    if (clientAuth.currentUser) {
+      const docRef = doc(this.store, "users", clientAuth.currentUser.uid);
+      const querySnapshot = await getDoc(docRef);
+      const user = querySnapshot.data();
+      if (user) {
+        return user;
+      } else {
+        return {};
+      }
     } else {
-      return { clanTracker: [{ tag: "tag1" }] };
+      throw new GraphQLError("User is not authenticated", {
+        extensions: {
+          code: "UNAUTHENTICATED",
+          http: { status: 401 },
+        },
+      });
     }
   }
 

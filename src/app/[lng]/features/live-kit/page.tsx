@@ -36,7 +36,7 @@ export default function Page() {
       }),
     }).then((res) => {
       console.log("res", res);
-      setToken(res);
+      // setToken(res);
     });
   }, []);
 

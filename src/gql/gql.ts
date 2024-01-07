@@ -13,6 +13,8 @@ import { TypedDocumentNode as DocumentNode } from "@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
+  "\n  query queryCurrentUser {\n    currentUser {\n      __typename\n    }\n  }\n":
+    types.QueryCurrentUserDocument,
   "\n  mutation mutationAddVillage($tag: String!) {\n    addVillage(tag: $tag) {\n      success\n    }\n  }\n":
     types.MutationAddVillageDocument,
   "\n  query queryVillage($tag: String!) {\n    village(tag: $tag) {\n      __typename\n      ... on TClientError {\n        reason\n        message\n      }\n      ... on TVillage {\n        tag\n        name\n        clan {\n          tag\n          name\n          badgeUrls {\n            medium\n          }\n        }\n        league {\n          id\n          name\n          iconUrls {\n            medium\n          }\n        }\n      }\n    }\n  }\n":
@@ -33,6 +35,12 @@ const documents = {
  */
 export function graphql(source: string): unknown;
 
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: "\n  query queryCurrentUser {\n    currentUser {\n      __typename\n    }\n  }\n",
+): (typeof documents)["\n  query queryCurrentUser {\n    currentUser {\n      __typename\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

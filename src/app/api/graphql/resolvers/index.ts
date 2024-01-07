@@ -17,8 +17,9 @@ export const resolvers: IExecutableSchemaDefinition<IContextValue>["resolvers"] 
   },
   Query: {
     village: (_, { tag }, { coc }) => coc.getPlayer(tag),
+    currentUser: (_, __, { firebase, session }) => firebase.getCurrentUser(session),
   },
   Mutation: {
-    addVillage: (_, { tag }, { firebase }) => firebase.getCurrentUser("KRxXb7cFRy6b4csV6oAa"),
+    addVillage: (_, { tag }, { firebase, session }) => firebase.getCurrentUser(session),
   },
 };
