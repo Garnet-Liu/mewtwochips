@@ -56,6 +56,7 @@ export type Profile = {
 
 export type Query = {
   __typename?: "Query";
+  currentUser?: Maybe<TCurrentUser>;
   village?: Maybe<VillageQuery>;
 };
 
@@ -217,6 +218,13 @@ export type TVillageTracker = {
 
 export type VillageQuery = TClientError | TVillage;
 
+export type QueryCurrentUserQueryVariables = Exact<{ [key: string]: never }>;
+
+export type QueryCurrentUserQuery = {
+  __typename?: "Query";
+  currentUser?: { __typename: "TCurrentUser" } | null;
+};
+
 export type MutationAddVillageMutationVariables = Exact<{
   tag: Scalars["String"]["input"];
 }>;
@@ -254,6 +262,29 @@ export type QueryVillageQuery = {
     | null;
 };
 
+export const QueryCurrentUserDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "queryCurrentUser" },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "currentUser" },
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [{ kind: "Field", name: { kind: "Name", value: "__typename" } }],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<QueryCurrentUserQuery, QueryCurrentUserQueryVariables>;
 export const MutationAddVillageDocument = {
   kind: "Document",
   definitions: [

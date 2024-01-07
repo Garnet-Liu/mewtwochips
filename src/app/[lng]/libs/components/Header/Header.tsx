@@ -7,6 +7,7 @@ import { ILanguage } from "@/types/globals";
 import { DarkMode } from "./DarkMode/DarkMode";
 import { DrawerNav } from "./DrawerNav/DrawerNav";
 import { Translate } from "./Translate/Translate";
+import { AvatarDropdown } from "@/app/[lng]/libs";
 import { getTranslation } from "@/app/i18n/server";
 
 interface Props extends ILanguage {}
@@ -14,6 +15,7 @@ interface Props extends ILanguage {}
 export async function Header(props: Props) {
   const { lng } = props;
   const { t } = await getTranslation(lng);
+
   const navigations: Array<{ path: string; label: string }> = [
     { path: "/upgrade-tracker", label: t("upgrade-tracker") },
     { path: "/state-tracker", label: t("state-tracker") },
@@ -46,6 +48,8 @@ export async function Header(props: Props) {
           <DarkMode lng={lng} />
 
           <Translate lng={lng} />
+
+          <AvatarDropdown />
         </nav>
 
         <nav className="md:hidden">

@@ -1,5 +1,6 @@
 type Query {
   village(tag: String!): VillageQuery
+  currentUser: TCurrentUser
 }
 
 type Mutation {

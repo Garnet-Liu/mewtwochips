@@ -7,12 +7,14 @@ import {
 import { HttpLink } from "@apollo/client";
 
 import { env } from "../../env.mjs";
+import { headers } from "next/headers";
 
 export const { getClient } = registerApolloClient(() => {
   return new NextSSRApolloClient({
     cache: new NextSSRInMemoryCache(),
     link: new HttpLink({
       uri: `${env.NEXT_PUBLIC_API_BASE_URL}/api/graphql`,
+      headers: Object.fromEntries(headers()),
     }),
   });
 });
