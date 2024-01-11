@@ -5,8 +5,7 @@ import { dir } from "i18next";
 
 import { Footer, Header } from "@/app/[lng]/libs";
 import { languages } from "@/context/i18nSettings";
-import { DarkProviders, AuthProvider, Toasts } from "@/components";
-import { ApolloProvider } from "@/components/ApolloProvider/ApolloProvider";
+import { ApolloProvider, AuthProvider, DarkProviders, Toasts } from "@/components";
 
 import "@radix-ui/themes/styles.css";
 import "./globals.css";
@@ -35,13 +34,8 @@ export async function generateStaticParams() {
 export default function RootLayout(props: ILayoutProps) {
   const { children, params } = props;
   return (
-    <html
-      suppressHydrationWarning
-      className={roboto.className}
-      lang={params.lng}
-      dir={dir(params.lng)}
-    >
-      <body>
+    <html suppressHydrationWarning lang={params.lng} dir={dir(params.lng)}>
+      <body className={roboto.className}>
         <DarkProviders attribute="class">
           <Theme>
             <AuthProvider>

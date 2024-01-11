@@ -2,11 +2,11 @@ import { Button, Card, Flex, Heading, Text } from "@radix-ui/themes";
 import Link from "next/link";
 
 import { ILanguage } from "@/types/globals";
-import { TCurrentUser } from "@/gql/graphql";
+import { CurrentUser } from "@/gql/graphql";
 import { getTranslation } from "@/app/i18n/server";
 
 interface Props extends ILanguage {
-  user?: TCurrentUser;
+  user?: CurrentUser;
 }
 
 export async function Villages(props: Props) {

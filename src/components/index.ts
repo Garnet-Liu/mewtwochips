@@ -1,4 +1,3 @@
-export * from "./AuthGuardProvider/AuthGuardProvider";
 export * from "./ApolloProvider/ApolloProvider";
 export * from "./DarkProvider/DarkProvider";
 export * from "./AuthProvider/AuthProvider";

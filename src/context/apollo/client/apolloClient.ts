@@ -5,7 +5,7 @@ import {
   SSRMultipartLink,
 } from "@apollo/experimental-nextjs-app-support/ssr";
 
-import { env } from "../../env.mjs";
+import { env } from "../../../../env.mjs";
 
 export const makeClient = () => {
   const httpLink = new HttpLink({

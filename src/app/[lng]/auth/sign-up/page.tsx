@@ -4,11 +4,14 @@ import { Box, Button, Card, Flex, Heading, Link, Text, TextField } from "@radix-
 import { createUserWithEmailAndPassword } from "@firebase/auth";
 import { Label } from "@radix-ui/react-label";
 import { useForm } from "react-hook-form";
-import { signIn } from "next-auth/react";
-import NextLink from "next/link";
 import { useState } from "react";
+import NextLink from "next/link";
 
-import { clientAuth } from "@/context/firebaseClient";
+import { useRouter } from "next/navigation";
+import { ILanguageParams } from "@/types/globals";
+import { clientAuth } from "@/context/firebase/client";
+
+interface Props extends ILanguageParams {}
 
 interface FormInput {
   email: string;
@@ -16,10 +19,12 @@ interface FormInput {
   confirmPassword: string;
 }
 
-export default function Page() {
+export default function Page(props: Props) {
+  const { params } = props;
   const { handleSubmit, register, formState } = useForm<FormInput>({
     mode: "onTouched",
   });
+  const router = useRouter();
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -27,14 +32,8 @@ export default function Page() {
 
   const handleCreatAccount = async (values: FormInput) => {
     console.log("handleCreatAccount", values);
-    const createRes = await createUserWithEmailAndPassword(
-      clientAuth,
-      values.email,
-      values.password,
-    );
-    console.log("createRes", createRes);
-    const res = await signIn("credentials", { ...values, redirect: false });
-    console.log("res", res);
+    await createUserWithEmailAndPassword(clientAuth(), values.email, values.password);
+    router.push(`/${params.lng}`);
   };
   return (
     <main className="container mx-auto flex w-full flex-1 flex-col items-center justify-center px-4">

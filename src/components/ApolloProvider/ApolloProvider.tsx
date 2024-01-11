@@ -3,7 +3,7 @@
 import { ApolloNextAppProvider } from "@apollo/experimental-nextjs-app-support/ssr";
 import { ReactNode } from "react";
 
-import { makeClient } from "@/context/apolloClient";
+import { makeClient } from "@/context/apollo/client";
 
 interface Props {
   children: ReactNode;

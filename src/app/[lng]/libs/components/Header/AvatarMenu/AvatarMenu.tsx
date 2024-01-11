@@ -1,21 +1,22 @@
 import { forwardRef, HTMLAttributes, ReactNode } from "react";
 import { Avatar } from "@radix-ui/themes";
-import { Session } from "next-auth";
+import { User } from "firebase/auth";
 
 import { cn } from "@/context/cn";
 import { Maybe } from "@/gql/graphql";
+import { EAuthState } from "@/context/firebase/client";
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
+  user: Maybe<User>;
   status: string;
   fallback?: ReactNode;
-  session?: Maybe<Session>;
 }
 
 export const AvatarMenu = forwardRef<HTMLDivElement, Props>(function AvatarMenuRef(props, ref) {
-  const { session, fallback, status, className, ...other } = props;
+  const { user, fallback, status, className, ...other } = props;
   return (
     <div ref={ref} className={cn("relative", className)} {...other}>
-      {status === "loading" && (
+      {status === EAuthState.LOADING && (
         <div
           className={cn([
             "absolute",
@@ -40,10 +41,8 @@ export const AvatarMenu = forwardRef<HTMLDivElement, Props>(function AvatarMenuR
       <Avatar
         size="3"
         radius="full"
-        fallback={
-          session?.user?.name?.charAt(0) ?? session?.user?.email?.charAt(0) ?? fallback ?? "?"
-        }
-        src={session?.user?.image ?? undefined}
+        fallback={user?.displayName?.charAt(0) ?? user?.email?.charAt(0) ?? fallback ?? "?"}
+        src={user?.photoURL ?? undefined}
       />
     </div>
   );

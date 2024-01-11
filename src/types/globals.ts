@@ -1,7 +1,7 @@
 export type Maybe<T> = T | null;
 
 export interface ILanguageParams {
-  params: { lng: string };
+  params: ILanguage;
 }
 
 export interface ILanguage {

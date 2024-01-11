@@ -1,36 +1,38 @@
 "use client";
 
 import { useMutation } from "@apollo/client";
-import { useSession } from "next-auth/react";
 import { Button } from "@radix-ui/themes";
 
+import { Maybe } from "@/gql/graphql";
 import { useToast } from "@/components";
+import { useRouter } from "next/navigation";
+import { ILanguage } from "@/types/globals";
+import { useCurrentUser } from "@/context/firebase/client";
 import { MutationAddVillage, SignInToast } from "@/app/[lng]/search/libs";
 
-interface Props {
-  tag: string;
+interface Props extends ILanguage {
+  tag?: Maybe<string>;
 }
 
 export function AddVillage(props: Props) {
-  const { tag } = props;
+  const { tag, lng } = props;
+
   const [mutationAddVillage] = useMutation(MutationAddVillage);
-  const { data } = useSession();
+  const { currentUser } = useCurrentUser();
+  const router = useRouter();
   const toast = useToast();
+
   const handleAddVillage = async () => {
-    console.log("data", data);
-    const result = await mutationAddVillage({ variables: { tag: tag } });
-    console.log("result", result);
-    // if (data) {
-    //   console.log("handleAddVillage", tag);
-    //   const result = await mutationAddVillage({ variables: { tag: tag } });
-    //   console.log("result", result);
-    // } else {
-    //   const close = toast({
-    //     description: "",
-    //     Component: <SignInToast close={() => close()} />,
-    //     duration: Infinity,
-    //   });
-    // }
+    if (currentUser && tag) {
+      await mutationAddVillage({ variables: { tag: tag } });
+      router.push(`/${lng}/tracker/villages/${encodeURIComponent(tag)}/update`);
+    } else {
+      const close = toast({
+        description: "",
+        Component: <SignInToast close={() => close()} />,
+        duration: Infinity,
+      });
+    }
   };
 
   return (

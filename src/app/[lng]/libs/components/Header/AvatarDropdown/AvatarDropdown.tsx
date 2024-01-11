@@ -1,20 +1,24 @@
 "use client";
 
 import { DropdownMenu } from "@radix-ui/themes";
-import { useSession } from "next-auth/react";
 import Link from "next/link";
 
 import { AvatarMenu } from "@/app/[lng]/libs";
 import { handleLogout } from "@/context/logout";
+import { clientAuth, EAuthState, useCurrentUser } from "@/context/firebase/client";
 
 export function AvatarDropdown() {
-  const { data: session, status } = useSession();
+  const { currentUser, status } = useCurrentUser();
 
-  if (status === "authenticated") {
+  if (status === EAuthState.AUTHENTICATED) {
+    const handleSubmit = async () => {
+      await handleLogout();
+      await clientAuth().signOut();
+    };
     return (
       <DropdownMenu.Root>
         <DropdownMenu.Trigger>
-          <AvatarMenu session={session} status={status} />
+          <AvatarMenu user={currentUser} status={status} />
         </DropdownMenu.Trigger>
 
         <DropdownMenu.Content>
@@ -23,29 +27,25 @@ export function AvatarDropdown() {
             <span className="material-symbols-outlined">account_circle</span>
           </DropdownMenu.Item>
 
-          <form action={handleLogout}>
-            <button className="w-full">
-              <DropdownMenu.Item className="gap-2">
-                Logout
-                <span className="material-symbols-outlined">logout</span>
-              </DropdownMenu.Item>
-            </button>
-          </form>
+          <DropdownMenu.Item className="gap-2" onClick={handleSubmit}>
+            Logout
+            <span className="material-symbols-outlined">logout</span>
+          </DropdownMenu.Item>
         </DropdownMenu.Content>
       </DropdownMenu.Root>
     );
-  } else if (status === "unauthenticated") {
+  } else if (status === EAuthState.UNAUTHENTICATED) {
     return (
       <Link href={"/auth/sign-in"}>
         <AvatarMenu
           className="cursor-pointer"
-          session={session}
+          user={currentUser}
           status={status}
           fallback={<span className="material-symbols-outlined">login</span>}
         />
       </Link>
     );
   } else {
-    return <AvatarMenu className="cursor-pointer" session={session} status={status} />;
+    return <AvatarMenu className="cursor-pointer" user={currentUser} status={status} />;
   }
 }

@@ -1,13 +1,16 @@
 "use client";
 
 import { Box, Button, Flex, Link, Text, TextField } from "@radix-ui/themes";
+import { AuthError, signInWithEmailAndPassword } from "@firebase/auth";
 import { Label } from "@radix-ui/react-label";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
 import NextLink from "next/link";
 
-interface Props {
-  callback: (formData: FormData) => void;
-}
+import { ILanguage } from "@/types/globals";
+import { clientAuth } from "@/context/firebase/client";
+
+interface Props extends ILanguage {}
 
 interface FormInput {
   email: string;
@@ -15,21 +18,22 @@ interface FormInput {
 }
 
 export function SignInForm(props: Props) {
-  const { callback } = props;
+  const { lng } = props;
   const { handleSubmit, register, formState } = useForm<FormInput>({
     mode: "onTouched",
   });
+  const router = useRouter();
 
   const { errors } = formState;
 
   const handleSignIn = async (values: FormInput) => {
-    const formDate = new FormData();
-
-    Object.keys(values).forEach((key) => {
-      formDate.set(key, values[key as keyof FormInput]);
-    });
-
-    callback(formDate);
+    try {
+      await signInWithEmailAndPassword(clientAuth(), values.email, values.password);
+      router.push(`/${lng}`);
+    } catch (e) {
+      const error = e as AuthError;
+      console.log("signInWithEmailAndPassword error", error);
+    }
   };
 
   return (

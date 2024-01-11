@@ -1,5 +1,5 @@
 "每个村庄的详细信息"
-type TVillage {
+type Village implements IVillage {
   tag: String
   name: String
   expLevel: Int
@@ -12,72 +12,105 @@ type TVillage {
   bestBuilderBaseTrophies: Int
   warStars: Int
   clanCapitalContributions: Int
-  league: TLeague
-  builderBaseLeague: TBuilderBaseLeague
-  clan: TClan
+  league: League
+  builderBaseLeague: BuilderBaseLeague
+  clan: Clan
+  role: ERole
+  warPreference: EWarPreference
+  labels: [Label]
+  attackWins: Int
+  defenseWins: Int
+  townHallLevel: Int
+  playerHouse: PlayerHouse
+  townHallWeaponLevel: Int
+  troops: [Troop]
+  heroes: [Hero]
+  heroEquipment: [Equipment]
+  spells: [Spell]
+  achievements: [Achievement]
+}
+
+interface IVillage {
+  tag: String
+  name: String
+  expLevel: Int
+  trophies: Int
+  bestTrophies: Int
+  donations: Int
+  donationsReceived: Int
+  builderHallLevel: Int
+  builderBaseTrophies: Int
+  bestBuilderBaseTrophies: Int
+  warStars: Int
+  clanCapitalContributions: Int
+  league: League
+  builderBaseLeague: BuilderBaseLeague
+  clan: Clan
   role: ERole
   warPreference: EWarPreference
   attackWins: Int
   defenseWins: Int
   townHallLevel: Int
   townHallWeaponLevel: Int
-  troops: [TTroop]
-  heroes: [THero]
-  heroEquipment: [TEquipment]
-  spells: [TSpell]
-  labels: [TLabel]
-  achievements: [TAchievement]
-  playerHouse: TPlayerHouse
+  troops: [Troop]
+  heroes: [Hero]
+  heroEquipment: [Equipment]
+  spells: [Spell]
+  labels: [Label]
+  achievements: [Achievement]
+  playerHouse: PlayerHouse
 }
 
-type TLeague {
+"家乡的联赛的等级"
+type League {
   id: String
   name: String
-  iconUrls: TIconUrls
+  iconUrls: IconUrls
 }
 
-type TBuilderBaseLeague {
+"建筑大师的联赛等级"
+type BuilderBaseLeague {
   id: String
   name: String
 }
 
-type TClan {
+type Clan {
   tag: String
   clanLevel: Int
   name: String
-  badgeUrls: TIconUrls
+  badgeUrls: IconUrls
 }
 
-type THero {
+type Hero {
   level: Int
   maxLevel: Int
   name: String
   village: String
-  equipment: [TEquipment]
+  equipment: [Equipment]
 }
 
-type TEquipment {
+type Equipment {
   level: Int
   maxLevel: Int
   name: String
   village: EVillageType
 }
 
-type TTroop {
+type Troop {
   level: Int
   maxLevel: Int
   name: String
   village: EVillageType
 }
 
-type TSpell {
+type Spell {
   level: Int
   maxLevel: Int
   name: String
   village: String
 }
 
-type TAchievement {
+type Achievement {
   completionInfo: String
   info: String
   name: String
@@ -87,22 +120,22 @@ type TAchievement {
   village: EVillageType
 }
 
-type TPlayerHouse {
-  elements: [TElement]
+type PlayerHouse {
+  elements: [Element]
 }
 
-type TElement {
+type Element {
   id: Int
   type: String
 }
 
-type TLabel {
-  iconUrls: TIconUrls
+type Label {
+  iconUrls: IconUrls
   id: Int
   name: String
 }
 
-type TIconUrls {
+type IconUrls {
   medium: String
   small: String
   tiny: String

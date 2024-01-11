@@ -1,18 +1,17 @@
 "use client";
 
 import { Avatar, Button } from "@radix-ui/themes";
-import { signOut } from "next-auth/react";
-import { Session } from "next-auth";
+import { DecodedIdToken } from "firebase-admin/auth";
 
 interface Props {
-  session: Session;
+  session: DecodedIdToken;
 }
 
 export function UserProfile(props: Props) {
   const { session } = props;
 
   const handleSignOut = () => {
-    return signOut();
+    // return signOut();
   };
   return (
     <div className="flex flex-col gap-8">
@@ -20,19 +19,19 @@ export function UserProfile(props: Props) {
         <Avatar
           size="9"
           radius="full"
-          fallback={session?.user?.name?.charAt(0) ?? "?"}
-          src={session?.user?.image ?? undefined}
+          fallback={session?.display_name?.charAt(0) ?? "?"}
+          src={session.picture ?? undefined}
         />
 
         <div className="flex flex-col gap-3">
           <div className="flex gap-2">
             <p className="w-32 font-semibold">Username:</p>
-            <p>{session.user?.name}</p>
+            <p>{session?.name}</p>
           </div>
 
           <div className="flex gap-2">
             <p className="w-32 font-semibold">Email: </p>
-            <p>{session.user?.email}</p>
+            <p>{session?.email}</p>
           </div>
 
           <p className="font-black">A site for lovers of Pokémon and chips</p>

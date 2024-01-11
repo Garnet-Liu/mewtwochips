@@ -1,10 +1,10 @@
 "use client";
 
-import { useSession } from "next-auth/react";
 import { Avatar } from "@radix-ui/themes";
 
 export function AvatarMenu() {
-  const { data: session, status } = useSession();
+  const session = { name: "", image: "" };
+  const status = "loading";
   return (
     <div className="relative">
       {status === "loading" && (
@@ -14,8 +14,8 @@ export function AvatarMenu() {
       <Avatar
         size="4"
         radius="full"
-        fallback={session?.user?.name?.charAt(0) ?? "?"}
-        src={session?.user?.image ?? undefined}
+        fallback={session?.name?.charAt(0) ?? "?"}
+        src={session?.image ?? undefined}
       />
     </div>
   );

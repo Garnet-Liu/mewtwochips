@@ -3,23 +3,24 @@ import { Callout, Flex, Text } from "@radix-ui/themes";
 import Image from "next/image";
 
 import { cn } from "@/context/cn";
+import { ILanguage } from "@/types/globals";
 import { AddVillage, QuerySearchVillage } from "@/app/[lng]/search/libs";
 
-interface Props {
+interface Props extends ILanguage {
   search: string;
   className?: string;
 }
 
 export function VillageInfo(props: Props) {
-  const { className, search } = props;
+  const { className, search, lng } = props;
   const { data } = useSuspenseQuery(QuerySearchVillage, {
-    variables: { tag: search },
+    variables: { tag: `#${search}` },
     skip: !search,
   });
 
   console.log("data", data);
 
-  if (data?.village?.__typename === "TVillage") {
+  if (data?.village?.__typename === "Village") {
     return (
       <div className="grid grid-cols-2 gap-2">
         <div className="flex flex-col items-center gap-1">
@@ -56,11 +57,11 @@ export function VillageInfo(props: Props) {
 
           <span className="col-span-1" />
 
-          <AddVillage tag={data.village.clan?.tag ?? ""} />
+          <AddVillage lng={lng} tag={data.village?.tag} />
         </div>
       </div>
     );
-  } else if (data?.village?.__typename === "TClientError") {
+  } else if (data?.village?.__typename === "ClientError") {
     return (
       <div className="flex flex-col gap-2">
         <p>{data.village?.reason}</p>
