@@ -7,9 +7,9 @@ export const resolvers: IExecutableSchemaDefinition<IContextValue>["resolvers"] 
   VillageQuery: {
     __resolveType(obj: VillageQuery) {
       if ("reason" in obj) {
-        return "TClientError";
+        return "ClientError";
       } else if ("tag" in obj) {
-        return "TVillage";
+        return "Village";
       } else {
         return null; // GraphQLError is thrown
       }
@@ -17,9 +17,9 @@ export const resolvers: IExecutableSchemaDefinition<IContextValue>["resolvers"] 
   },
   Query: {
     village: (_, { tag }, { coc }) => coc.getPlayer(tag),
-    currentUser: (_, __, { firebase, session }) => firebase.getCurrentUser(session),
+    currentUser: (_, __, { firebase, user }) => firebase.getCurrentUser(user),
   },
   Mutation: {
-    addVillage: (_, { tag }, { firebase, session }) => firebase.getCurrentUser(session),
+    addVillage: (_, { tag }, { firebase, coc, user }) => firebase.addVillage(coc, tag, user),
   },
 };

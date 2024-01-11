@@ -1,14 +1,14 @@
 import { graphql } from "@/gql";
 
 export const QuerySearchVillage = graphql(`
-  query queryVillage($tag: String!) {
+  query querySearchVillage($tag: String!) {
     village(tag: $tag) {
       __typename
-      ... on TClientError {
+      ... on ClientError {
         reason
         message
       }
-      ... on TVillage {
+      ... on Village {
         tag
         name
         clan {

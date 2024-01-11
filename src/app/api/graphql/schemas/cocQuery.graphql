@@ -1,1 +1,1 @@
-union VillageQuery = TClientError | TVillage
+union VillageQuery = ClientError | Village

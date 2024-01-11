@@ -1,4 +1,4 @@
-type TClientError {
+type ClientError {
   type: String
   reason: String
   detail: String

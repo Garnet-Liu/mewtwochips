@@ -1,7 +1,10 @@
 "use server";
 
-import { signOut } from "@/context/nextAuth";
+import { cookies } from "next/headers";
+
+import { FIREBASE_SESSION } from "@/context/constant";
 
 export const handleLogout = async () => {
-  return await signOut();
+  const options = { name: FIREBASE_SESSION, value: "", maxAge: -1 };
+  cookies().set(options);
 };

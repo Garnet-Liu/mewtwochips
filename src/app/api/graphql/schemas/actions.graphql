@@ -1,12 +1,8 @@
 type Query {
   village(tag: String!): VillageQuery
-  currentUser: TCurrentUser
+  currentUser: CurrentUser
 }
 
 type Mutation {
-  addVillage(tag: String!): TTest
-}
-
-type TTest {
-  success: Boolean
+  addVillage(tag: String!): CurrentUser
 }

@@ -1,13 +1,12 @@
 import { Card, Heading } from "@radix-ui/themes";
 
-import { signIn } from "@/context/nextAuth";
+import { ILanguageParams } from "@/types/globals";
 import { SignInForm } from "@/app/[lng]/auth/libs";
 
-export default async function Page() {
-  const handleSignIn = async (formData: FormData) => {
-    "use server";
-    await signIn("credentials", formData);
-  };
+interface Props extends ILanguageParams {}
+
+export default async function Page(props: Props) {
+  const { params } = props;
 
   return (
     <main className="container mx-auto flex w-full flex-1 flex-col items-center justify-center px-4">
@@ -16,7 +15,7 @@ export default async function Page() {
           Sign in to your account
         </Heading>
 
-        <SignInForm callback={handleSignIn} />
+        <SignInForm lng={params.lng} />
       </Card>
     </main>
   );

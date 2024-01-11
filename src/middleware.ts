@@ -1,9 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import acceptLanguage from "accept-language";
-import { Session } from "next-auth";
 
-import { Maybe } from "@/gql/graphql";
-import { auth } from "@/context/nextAuth";
+import { FIREBASE_SESSION } from "@/context/constant";
 import { cookieName, fallbackLng, languages } from "@/context/i18nSettings";
 
 acceptLanguage.languages(languages);
@@ -19,24 +17,30 @@ const getLanguage = (req: NextRequest) => {
 const signInAfterBank = ["/tracker"];
 const signInBeforeBank = ["/auth"];
 
-const authPageCheck = (req: NextRequest, auth: Maybe<Session>) => {
-  const path = req.nextUrl.pathname.split("/");
-  path.splice(1, 1);
-  const basePath = path.join("/");
-  if (auth) {
-    return signInBeforeBank.some((p) => basePath.startsWith(p)) && "/";
-  } else {
-    return signInAfterBank.some((p) => basePath.startsWith(p)) && "/auth/sign-in";
+const authPageCheck = async (req: NextRequest) => {
+  if (req.method === "GET") {
+    const session = req.cookies.get(FIREBASE_SESSION)?.value;
+
+    const path = req.nextUrl.pathname.split("/");
+    path.splice(1, 1);
+    const basePath = path.join("/");
+    console.log("authPageCheck", !!session);
+    if (session) {
+      return signInBeforeBank.some((p) => basePath.startsWith(p)) && "/";
+    } else {
+      return signInAfterBank.some((p) => basePath.startsWith(p)) && "/auth/sign-in";
+    }
   }
 };
 
-export const middleware = auth((req) => {
+export const middleware = async (req: NextRequest) => {
   const lng = getLanguage(req);
 
-  const path = authPageCheck(req, req.auth);
+  const redirectPath = await authPageCheck(req);
 
-  if (path) {
-    return NextResponse.redirect(new URL(`/${lng}${path}`, req.url));
+  if (redirectPath) {
+    console.log("auth redirect path", redirectPath);
+    return NextResponse.redirect(new URL(`/${lng}${redirectPath}`, req.url));
   }
 
   // Redirect if lng in path is not supported
@@ -56,9 +60,15 @@ export const middleware = auth((req) => {
   }
 
   return NextResponse.next();
-});
+};
 
 export const config = {
-  // matcher: '/:lng*'
+  /*
+   * Match all request paths except for the ones starting with:
+   * - api (API routes)
+   * - _next/static (static files)
+   * - _next/image (image optimization files)
+   * - favicon.ico (favicon file)
+   */
   matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
 };

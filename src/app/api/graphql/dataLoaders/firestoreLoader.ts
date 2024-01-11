@@ -1,43 +1,60 @@
 import { InMemoryLRUCache, KeyValueCache } from "@apollo/utils.keyvaluecache";
-import { doc, Firestore, getDoc } from "@firebase/firestore";
+import { FirebaseError, firestore } from "firebase-admin";
+import { FieldValue } from "firebase-admin/firestore";
 import { GraphQLError } from "graphql/error";
-import { Session } from "next-auth";
+import { User } from "firebase/auth";
 
-import { Maybe, TCurrentUser } from "@/gql/graphql";
-import { clientAuth, firestore } from "@/context/firebaseClient";
+import { FgRed, Reset } from "@/context/nodeColor";
+import { CurrentUser, Maybe } from "@/gql/graphql";
+import { adminFirestore } from "@/context/firebase/server";
+import { COSDataSource } from "@/app/api/graphql/dataLoaders/cocLoader";
 
 export class FirebaseDataSource {
-  private readonly store: Firestore;
+  private readonly store: firestore.Firestore;
   private readonly cache: KeyValueCache;
 
   constructor({ cache }: { cache?: KeyValueCache }) {
-    this.store = firestore;
+    this.store = adminFirestore();
     this.cache = cache ?? new InMemoryLRUCache();
   }
 
-  async getCurrentUser(session: Maybe<Session>): Promise<TCurrentUser> {
-    console.log(session);
-    console.log("\x1b[34m", "clientAuth => currentUser => uid", clientAuth.currentUser?.uid, "\n");
-    if (clientAuth.currentUser) {
-      const docRef = doc(this.store, "users", clientAuth.currentUser.uid);
-      const querySnapshot = await getDoc(docRef);
-      const user = querySnapshot.data();
-      if (user) {
-        return user;
-      } else {
+  async getCurrentUser(user: Maybe<User>): Promise<CurrentUser> {
+    if (user?.uid) {
+      const userDocRef = this.store.collection("users").doc(user.uid);
+      const queryUserSnapshot = await userDocRef.get();
+      if (!queryUserSnapshot.exists) {
+        console.log(`${FgRed}No such document!${Reset}`);
         return {};
+      } else {
+        return queryUserSnapshot.data()!;
       }
     } else {
-      throw new GraphQLError("User is not authenticated", {
-        extensions: {
-          code: "UNAUTHENTICATED",
-          http: { status: 401 },
-        },
-      });
+      return {};
     }
   }
 
-  async load(key: string) {
-    return;
+  async addVillage(coc: COSDataSource, tag: string, user: Maybe<User>) {
+    if (user?.uid) {
+      try {
+        const userDocRef = this.store.collection("users").doc(user.uid);
+        const docSnapshot = await userDocRef.get();
+        const player = await coc.getPlayer(tag);
+        if (docSnapshot.exists) {
+          await userDocRef.update({
+            villageTracker: FieldValue.arrayUnion(player),
+          });
+        } else {
+          await userDocRef.set({ villageTracker: [player] });
+        }
+        return this.getCurrentUser(user);
+      } catch (e) {
+        const error = e as FirebaseError;
+        console.log("error", error);
+      }
+    } else {
+      throw new GraphQLError("You are not authorized to perform this action.", {
+        extensions: { code: "UNAUTHENTICATED" },
+      });
+    }
   }
 }

@@ -4,9 +4,13 @@ import { Box, Heading, Tabs, Text } from "@radix-ui/themes";
 import { useSearchParams } from "next/navigation";
 
 import { cn } from "@/context/cn";
+import { ILanguageParams } from "@/types/globals";
 import { SearchVillage } from "@/app/[lng]/search/libs";
 
-export default function Page() {
+interface Props extends ILanguageParams {}
+
+export default function Page(props: Props) {
+  const { params } = props;
   const searchParams = useSearchParams();
   const target = searchParams.get("target");
 
@@ -31,7 +35,7 @@ export default function Page() {
             ])}
             value="players"
           >
-            <SearchVillage />
+            <SearchVillage lng={params.lng} />
           </Tabs.Content>
 
           <Tabs.Content

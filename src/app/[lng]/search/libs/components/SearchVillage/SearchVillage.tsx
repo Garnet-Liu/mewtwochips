@@ -6,13 +6,17 @@ import { ErrorBoundary } from "react-error-boundary";
 
 import { BaseLoading } from "@/components";
 import { VillageError, VillageInfo } from "@/app/[lng]/search/libs";
+import { ILanguage } from "@/types/globals";
+
+interface Props extends ILanguage {}
 
 interface State {
   tag: string;
   search: string;
 }
 
-export function SearchVillage() {
+export function SearchVillage(props: Props) {
+  const { lng } = props;
   const [state, setState] = useState<State>({
     tag: "QU990YJUR",
     search: "",
@@ -51,7 +55,7 @@ export function SearchVillage() {
 
       <ErrorBoundary fallbackRender={VillageError} resetKeys={[state.tag]} onReset={handleReset}>
         <Suspense fallback={<BaseLoading />}>
-          <VillageInfo search={state.search} className="col-span-1" />
+          <VillageInfo lng={lng} search={state.search} className="col-span-1" />
         </Suspense>
       </ErrorBoundary>
     </div>
