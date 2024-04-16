@@ -3,12 +3,12 @@ import { translateTime } from "@/app/api/coc/web-crawler/crawler-function/transl
 
 export const createLevelKey = () => {
   return [
-    { name: ["Level"], key: "level", index: 0 },
-    { name: ["Hitpoints"], key: "hitpoints", index: 1 },
-    { name: ["Cost", "Build Cost"], key: "buildCost", index: 2 },
-    { name: ["Build Time"], key: "buildTime", index: 3 },
-    { name: ["Experience Gained"], key: "experienceGained", index: 4 },
-    { name: ["Town Hall Level Required"], key: "townHallLevelRequired", index: 5 },
+    { name: ["Level"], key: "level", index: -1 },
+    { name: ["Hitpoints"], key: "hitpoints", index: 11 },
+    { name: ["Cost", "Build Cost"], key: "buildCost", index: -1 },
+    { name: ["Build Time"], key: "buildTime", index: -1 },
+    { name: ["Experience Gained"], key: "experienceGained", index: -1 },
+    { name: ["Town Hall Level Required"], key: "townHallLevelRequired", index: -1 },
   ];
 };
 
@@ -85,5 +85,6 @@ export const setLevelTownHallLevelRequired = (
 };
 
 export const formatStringNumber = (value: string) => {
-  return Number(value.replace(/,/g, ""));
+  const replaceValue = value.replace(/,/g, "");
+  return !isNaN(Number(replaceValue)) ? Number(replaceValue) : 0;
 };
