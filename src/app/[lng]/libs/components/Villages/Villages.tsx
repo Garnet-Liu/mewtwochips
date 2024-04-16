@@ -10,7 +10,7 @@ interface Props extends ILanguage {
 }
 
 export async function Villages(props: Props) {
-  const { lng } = props;
+  const { lng, user } = props;
   const { t } = await getTranslation(lng);
   return (
     <Card className="w-full">
@@ -28,11 +28,27 @@ export async function Villages(props: Props) {
         </Link>
       </Flex>
 
-      <Flex gap="3" pt="6" align="center" direction="column" justify="center">
-        <Text className="max-w-[60%]" align="center">
-          {t("village.empty")}
-        </Text>
-      </Flex>
+      {user?.villageTracker?.map((village) => {
+        return (
+          <Flex key={village?.tag} gap="3" align="center">
+            <Text>{village?.name}</Text>
+            <Link href={`/village/${village?.tag}`}>
+              <Button>
+                <span className="material-symbols-outlined">edit</span>
+                {t("village.button-edit")}
+              </Button>
+            </Link>
+          </Flex>
+        );
+      })}
+
+      {!user?.villageTracker?.length ? (
+        <Flex gap="3" pt="6" align="center" direction="column" justify="center">
+          <Text className="max-w-[60%]" align="center">
+            {t("village.empty")}
+          </Text>
+        </Flex>
+      ) : null}
     </Card>
   );
 }

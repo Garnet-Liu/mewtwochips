@@ -89,6 +89,51 @@ export type Defences = {
   village?: Maybe<EVillageType>;
 };
 
+export type Defense = {
+  __typename?: "Defense";
+  attackSpeed?: Maybe<Scalars["Int"]["output"]>;
+  count?: Maybe<Array<Maybe<Scalars["Int"]["output"]>>>;
+  damageType?: Maybe<DefenseDamageType>;
+  gearUp?: Maybe<DefenseGearUp>;
+  level?: Maybe<Array<Maybe<LevelData>>>;
+  name?: Maybe<Scalars["String"]["output"]>;
+  rang?: Maybe<Scalars["Int"]["output"]>;
+  size?: Maybe<DefenseSize>;
+  unitTypeTargeted?: Maybe<UnitTypeTargeted>;
+};
+
+export type DefenseBuildCost = {
+  __typename?: "DefenseBuildCost";
+  darkElixir?: Maybe<Scalars["Int"]["output"]>;
+  elixir?: Maybe<Scalars["Int"]["output"]>;
+  gold?: Maybe<Scalars["Int"]["output"]>;
+};
+
+export enum DefenseDamageType {
+  Multi = "Multi",
+  Single = "Single",
+}
+
+export type DefenseGearUp = {
+  __typename?: "DefenseGearUp";
+  cost?: Maybe<DefenseBuildCost>;
+  require?: Maybe<Array<Maybe<DefenseGearUpRequire>>>;
+  time?: Maybe<Scalars["Int"]["output"]>;
+};
+
+export type DefenseGearUpRequire = {
+  __typename?: "DefenseGearUpRequire";
+  level?: Maybe<Scalars["Int"]["output"]>;
+  name?: Maybe<Scalars["String"]["output"]>;
+  village?: Maybe<EVillageType>;
+};
+
+export type DefenseSize = {
+  __typename?: "DefenseSize";
+  height?: Maybe<Scalars["Int"]["output"]>;
+  width?: Maybe<Scalars["Int"]["output"]>;
+};
+
 export enum ERole {
   Admin = "admin",
   CoLeader = "coLeader",
@@ -184,6 +229,17 @@ export type League = {
   name?: Maybe<Scalars["String"]["output"]>;
 };
 
+export type LevelData = {
+  __typename?: "LevelData";
+  buildCost?: Maybe<DefenseBuildCost>;
+  buildTime?: Maybe<Scalars["Int"]["output"]>;
+  experienceGained?: Maybe<Scalars["Int"]["output"]>;
+  hitpoints?: Maybe<Scalars["Int"]["output"]>;
+  level?: Maybe<Scalars["Int"]["output"]>;
+  normal?: Maybe<Scalars["String"]["output"]>;
+  townHallLevelRequired?: Maybe<Scalars["Int"]["output"]>;
+};
+
 export type Mutation = {
   __typename?: "Mutation";
   addVillage?: Maybe<CurrentUser>;
@@ -245,6 +301,11 @@ export type Troop = {
   name?: Maybe<Scalars["String"]["output"]>;
   village?: Maybe<EVillageType>;
 };
+
+export enum UnitTypeTargeted {
+  Air = "Air",
+  Ground = "Ground",
+}
 
 /** 每个村庄的详细信息 */
 export type Village = IVillage & {

@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { AnimationEvent, useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import { cn } from "@/context/cn";
 import { FanaticsFlag } from "@/components/Svgs";
@@ -15,6 +15,7 @@ type Props = {
 export function SlotMachine(props: Props) {
   const slotMachineRef = useRef<HTMLDivElement>(null);
   const [startAnimate, setStartAnimate] = useState(false);
+  const [secondAnimate, setSecondAnimate] = useState(false);
   const [finishAnimate, setFinishAnimate] = useState(false);
   const { enteredUsernames = [], animationDuration = 5000, onFinished, winnerName } = props;
 
@@ -40,10 +41,23 @@ export function SlotMachine(props: Props) {
     animationDelay: `0s, ${animationDuration}ms`,
   };
 
-  const animationEndHandle = useCallback(() => {
-    setFinishAnimate(true);
-    onFinished?.();
-  }, [onFinished]);
+  const animationEndHandle = useCallback(
+    (e: AnimationEvent<HTMLDivElement>) => {
+      console.log("animationEndHandle useCallback", e.animationName);
+      setFinishAnimate(true);
+      setStartAnimate(false);
+      setSecondAnimate(false);
+      onFinished?.();
+    },
+    [onFinished],
+  );
+
+  const animationStartHandle = useCallback((e: AnimationEvent<HTMLDivElement>) => {
+    console.log("animationStartHandle useCallback", e.animationName);
+    if (e.animationName === "slot-machine-num") {
+      setSecondAnimate(true);
+    }
+  }, []);
 
   return (
     <div className="flex w-96 flex-col gap-3 rounded-lg bg-black/25 px-4 py-6 text-white">
@@ -65,10 +79,14 @@ export function SlotMachine(props: Props) {
           <div
             style={boxStyle}
             ref={slotMachineRef}
+            onAnimationStart={animationStartHandle}
             className={cn(
               "mx-auto",
-              startAnimate &&
-                "animate-[slot-machine_1s_linear_infinite,slot-machine-num_1s_forwards]",
+              startAnimate
+                ? secondAnimate
+                  ? "animate-[slot-machine-num_1s_forwards]"
+                  : "animate-[slot-machine_1s_linear_infinite,slot-machine-num_1s_forwards]"
+                : "",
             )}
           >
             {enteredUsernames.map((username) => (

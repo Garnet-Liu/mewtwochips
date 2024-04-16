@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 
 export interface IToast {
   open: boolean;
+  title: string;
   duration: number;
   description: string;
   status: EToastStatus;

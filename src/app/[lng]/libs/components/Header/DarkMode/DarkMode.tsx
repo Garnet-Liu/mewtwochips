@@ -7,7 +7,7 @@ import { useTheme } from "next-themes";
 import { ILanguage } from "@/types/globals";
 import { useTranslation } from "@/app/i18n/client";
 
-enum EThemeMode {
+export enum EThemeMode {
   SYSTEM = "system",
   LIGHT = "light",
   DARK = "dark",

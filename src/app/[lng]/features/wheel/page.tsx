@@ -20,8 +20,8 @@ export default function Page() {
 
   const slotMachine = useMemo(() => {
     return [
-      "Garnet",
-      "Garnet1",
+      "Garnet01",
+      "Garnet02",
       // , "Garnet2", "Garnet3", "Garnet4", "Garnet5", "Garnet6", "Garnet7"
     ];
   }, []);

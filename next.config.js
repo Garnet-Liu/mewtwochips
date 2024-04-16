@@ -13,6 +13,12 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
+        hostname: "static.wikia.nocookie.net",
+        port: "",
+        pathname: "/clashofclans/images/**",
+      },
+      {
+        protocol: "https",
         hostname: "raw.githubusercontent.com",
         port: "",
         pathname: "/PokeAPI/sprites/master/sprites/pokemon/**",

@@ -7,8 +7,8 @@ import { Footer, Header } from "@/app/[lng]/libs";
 import { languages } from "@/context/i18nSettings";
 import { ApolloProvider, AuthProvider, DarkProviders, Toasts } from "@/components";
 
-import "@radix-ui/themes/styles.css";
 import "./globals.css";
+import "@radix-ui/themes/styles.css";
 
 const roboto = Roboto({
   weight: ["300", "400", "500", "700"],

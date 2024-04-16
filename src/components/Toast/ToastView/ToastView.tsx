@@ -1,6 +1,13 @@
 "use client";
 
-import { AnimationEvent, MutableRefObject, RefObject, useLayoutEffect, useRef } from "react";
+import {
+  AnimationEvent,
+  MutableRefObject,
+  RefObject,
+  useCallback,
+  useLayoutEffect,
+  useRef,
+} from "react";
 import { cva, VariantProps } from "class-variance-authority";
 import * as ToastPrimitive from "@radix-ui/react-toast";
 import { IconButton } from "@radix-ui/themes";
@@ -179,6 +186,10 @@ export function ToastView(props: ToastViewProps) {
     }
   }, [id, sortToasts, toastElementsMap]);
 
+  const handleClose = useCallback(() => {
+    ref.current?.setAttribute("data-close", "action");
+  }, []);
+
   return (
     <ToastPrimitive.Root
       {...toastProps}
@@ -192,9 +203,10 @@ export function ToastView(props: ToastViewProps) {
         className={cn([
           "relative",
           "group/item",
-          "bg-black",
-          "border",
-          "border-white/25",
+          "bg-white",
+          "dark:bg-black",
+          "dark:border",
+          "dark:border-white/25",
           "p-4",
           "rounded-lg",
           "h-[var(--front-height)]",
@@ -213,29 +225,30 @@ export function ToastView(props: ToastViewProps) {
             <ToastStatusIcon status={toast.status} />
 
             <ToastPrimitive.Description className="flex-1 text-xs">
-              <ToastPrimitive.Title className="mb-1 text-sm font-medium">
-                <p>Scheduled: Catch up</p>
-              </ToastPrimitive.Title>
+              {toast.title && (
+                <ToastPrimitive.Title className="mb-1 text-sm font-medium">
+                  <p>Scheduled: Catch up</p>
+                </ToastPrimitive.Title>
+              )}
 
               {toast.description}
             </ToastPrimitive.Description>
 
             <ToastPrimitive.Action
-              onClick={() => {
-                ref.current?.setAttribute("data-close", "action");
-              }}
+              onClick={handleClose}
               className={cn([
                 "inline-flex",
                 "items-center",
                 "justify-center",
                 "rounded",
                 "border",
-                "border-white/50",
+                "border-black/50",
+                "dark:border-white/50",
                 "px-2",
                 "leading-6",
                 "h-6",
                 "text-xs",
-                "bg-white/[.15]",
+                "dark:border-white/[.15]",
                 "leading-6",
                 "font-medium",
               ])}
@@ -247,9 +260,7 @@ export function ToastView(props: ToastViewProps) {
         )}
 
         <ToastPrimitive.Close
-          onClick={() => {
-            ref.current?.setAttribute("data-close", "action");
-          }}
+          onClick={handleClose}
           asChild
           aria-label="Close"
           className={cn([

@@ -1,3 +1,42 @@
 {
-
+  "name": "cannon",
+  "count": [2],
+  "size": {
+    "width": 3,
+    "height": 3
+  },
+  "level": [
+    {
+      "damagePerSecond": 9,
+      "damagePerShot": 7.2,
+      "hitpoints": 420,
+      "buildCost": {
+        "gold": 250
+      },
+      "buildTime": "10s",
+      "experienceGained": 3,
+      "townHallLevelRequired": 1,
+      "normal": "https://vignette2.wikia.nocookie.net/clashofclans/images/0/0d/Cannon_info.png/revision/latest/scale-to-width-down/100?cb=20121117180407",
+      "gearedUpNormal": "",
+      "GearedUpBurst": ""
+    }
+  ],
+  "rang": 9,
+  "attackSpeed": 0.8,
+  "damageType": "Single Target",
+  "unitTypeTargeted": "Ground",
+  "gearUp": {
+    "cost": {
+      "gold": 1500000
+    },
+    "time": "2d",
+    "require": {
+      "homeVillage": {
+        "cannon": 7
+      },
+      "builderVillage": {
+        "doubleCannon": 4
+      }
+    }
+  }
 }
