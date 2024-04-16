@@ -2,14 +2,12 @@ import * as cheerio from "cheerio";
 import https from "https";
 
 import { Defense } from "@/gql/graphql";
-import { cannon } from "@/app/api/coc/web-crawler/crawler-function/defenses/cannon";
-import { defense } from "@/app/api/coc/web-crawler/crawler-function/defenses/defense";
+import { loadPage } from "@/app/api/coc/web-crawler/crawler-function/loadPage";
+import { AnalyzingData } from "@/app/api/coc/web-crawler/crawler-function/AnalyzingData";
 
-export const defenseList = async () => {
+export const defenseList = async (url: string) => {
   return new Promise((resolve) => {
-    const baseUrl = "https://clashofclans.fandom.com";
-
-    https.get(`${baseUrl}/wiki/Defensive_Buildings/Home_Village`, (res) => {
+    https.get(`${url}/wiki/Defensive_Buildings/Home_Village`, (res) => {
       // 分段返回的 自己拼接
       let html = "";
       // 有数据产生的时候 拼接
@@ -21,8 +19,7 @@ export const defenseList = async () => {
         const $ = cheerio.load(html);
         const defenseLoad: Array<Promise<Defense>> = [];
         $("div.flexbox-display.bold-text.hovernav>div>div>a").each((i, element) => {
-          // const names = ["Air Defense"];
-          const name = $(element).text();
+          const name = $(element).text().trim();
           const filename = name.toLowerCase().replace(" ", "_");
 
           switch (filename) {
@@ -48,7 +45,14 @@ export const defenseList = async () => {
             case "giga_inferno (th14)":
             case "giga_inferno (th15)":
               // case "giga_inferno (th16)":
-              defenseLoad.push(defense(`${baseUrl}${$(element).attr("href")}`, name, cannon));
+              defenseLoad.push(
+                loadPage(
+                  `${url}${$(element).attr("href")}`,
+                  name,
+                  `${process.cwd()}/src/app/api/coc/web-crawler/crawler-function/defense/data`,
+                  AnalyzingData,
+                ),
+              );
               break;
             default:
               console.log("default filename", filename);

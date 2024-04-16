@@ -1,9 +1,13 @@
 import { NextResponse } from "next/server";
 
-import { defenseList } from "@/app/api/coc/web-crawler/crawler-function/defenses/defense-list";
+import { trapsList } from "@/app/api/coc/web-crawler/crawler-function/traps/trapsList";
+import { defenseList } from "@/app/api/coc/web-crawler/crawler-function/defenses/defenseList";
 
 export async function GET() {
-  const defense = await defenseList();
+  const baseUrl = "https://clashofclans.fandom.com";
 
-  return NextResponse.json({ success: true, data: defense });
+  // const defense = await defenseList(baseUrl);
+  const traps = await trapsList(baseUrl);
+
+  return NextResponse.json({ success: true, data: traps });
 }
