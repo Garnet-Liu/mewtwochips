@@ -87,6 +87,7 @@ export const ToastsWrapper = (props: ToastProps) => {
         newMap.set(key, {
           ...toast,
           open: true,
+          title: toast?.title ?? "",
           type: toast?.type ?? "foreground",
           duration: toast?.duration ?? 6000,
           description: toast?.description ?? "",
@@ -176,6 +177,7 @@ export const ToastsWrapper = (props: ToastProps) => {
               if (!open) {
                 toastElementsMapRef.current.delete(key);
                 sortToasts();
+                handleCloseToast(key);
               }
             }}
           />

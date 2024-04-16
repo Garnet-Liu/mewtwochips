@@ -3,11 +3,13 @@
 import { Box, Button, Flex, Link, Text, TextField } from "@radix-ui/themes";
 import { AuthError, signInWithEmailAndPassword } from "@firebase/auth";
 import { Label } from "@radix-ui/react-label";
-import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
 import NextLink from "next/link";
+import { useState } from "react";
 
 import { ILanguage } from "@/types/globals";
+import { ToastStatus, useToast } from "@/components";
 import { clientAuth } from "@/context/firebase/client";
 
 interface Props extends ILanguage {}
@@ -19,21 +21,27 @@ interface FormInput {
 
 export function SignInForm(props: Props) {
   const { lng } = props;
+  const [loading, setLoading] = useState(false);
   const { handleSubmit, register, formState } = useForm<FormInput>({
     mode: "onTouched",
   });
-  const router = useRouter();
-
   const { errors } = formState;
 
+  const router = useRouter();
+
+  const toast = useToast();
+
   const handleSignIn = async (values: FormInput) => {
+    setLoading(true);
     try {
       await signInWithEmailAndPassword(clientAuth(), values.email, values.password);
       router.push(`/${lng}`);
     } catch (e) {
       const error = e as AuthError;
       console.log("signInWithEmailAndPassword error", error);
+      toast({ description: error.message, status: ToastStatus.ERROR });
     }
+    setLoading(false);
   };
 
   return (
@@ -82,7 +90,7 @@ export function SignInForm(props: Props) {
       </Box>
 
       <Flex mt="6" justify="end" gap="3">
-        <Button className="w-full" tabIndex={-1}>
+        <Button className="w-full" tabIndex={-1} disabled={loading}>
           Sign in
         </Button>
       </Flex>

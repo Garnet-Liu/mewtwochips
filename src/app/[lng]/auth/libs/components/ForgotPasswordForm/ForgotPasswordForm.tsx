@@ -5,9 +5,10 @@ import { Label } from "@radix-ui/react-label";
 import { useForm } from "react-hook-form";
 import NextLink from "next/link";
 
+import { ToastStatus, useToast } from "@/components";
 import { ILanguage } from "@/types/globals";
 import { clientAuth } from "@/context/firebase/client";
-import { sendPasswordResetEmail } from "@firebase/auth";
+import { AuthError, sendPasswordResetEmail } from "@firebase/auth";
 
 interface Props extends ILanguage {}
 
@@ -23,12 +24,17 @@ export function ForgotPasswordForm(props: Props) {
 
   const { errors } = formState;
 
+  const toast = useToast();
+
   const handleForgotPassword = async (values: FormInput) => {
     console.log("handleCreatAccount", values);
     try {
       await sendPasswordResetEmail(clientAuth(), values.email);
+      toast({ description: "重置密码邮件已发送到您的邮箱", status: ToastStatus.SUCCESS });
     } catch (e) {
-      console.log(e);
+      const error = e as AuthError;
+      console.log("sendPasswordResetEmail error", e);
+      toast({ description: error.message, status: ToastStatus.ERROR });
     }
   };
 
