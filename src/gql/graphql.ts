@@ -39,6 +39,13 @@ export type Army = {
   village?: Maybe<EVillageType>;
 };
 
+export type BuildCost = {
+  __typename?: "BuildCost";
+  darkElixir?: Maybe<Scalars["Int"]["output"]>;
+  elixir?: Maybe<Scalars["Int"]["output"]>;
+  gold?: Maybe<Scalars["Int"]["output"]>;
+};
+
 export type Builder = {
   __typename?: "Builder";
   endAt?: Maybe<Scalars["String"]["output"]>;
@@ -52,6 +59,37 @@ export type BuilderBaseLeague = {
   __typename?: "BuilderBaseLeague";
   id?: Maybe<Scalars["String"]["output"]>;
   name?: Maybe<Scalars["String"]["output"]>;
+};
+
+export type Building = {
+  __typename?: "Building";
+  attackSpeed?: Maybe<Scalars["Int"]["output"]>;
+  count?: Maybe<Array<Maybe<Scalars["Int"]["output"]>>>;
+  damageType?: Maybe<DefenseDamageType>;
+  gearUp?: Maybe<DefenseGearUp>;
+  level?: Maybe<Array<Maybe<BuildingLevelData>>>;
+  name?: Maybe<Scalars["String"]["output"]>;
+  rang?: Maybe<Scalars["Int"]["output"]>;
+  size?: Maybe<BuildingSize>;
+  unitTypeTargeted?: Maybe<UnitTypeTargeted>;
+};
+
+export type BuildingLevelData = {
+  __typename?: "BuildingLevelData";
+  cost?: Maybe<BuildCost>;
+  experienceGained?: Maybe<Scalars["Int"]["output"]>;
+  hitpoints?: Maybe<Scalars["Int"]["output"]>;
+  laboratoryLevelRequired?: Maybe<Scalars["Int"]["output"]>;
+  level?: Maybe<Scalars["Int"]["output"]>;
+  normal?: Maybe<Scalars["String"]["output"]>;
+  time?: Maybe<Scalars["Int"]["output"]>;
+  townHallLevelRequired?: Maybe<Scalars["Int"]["output"]>;
+};
+
+export type BuildingSize = {
+  __typename?: "BuildingSize";
+  height?: Maybe<Scalars["Int"]["output"]>;
+  width?: Maybe<Scalars["Int"]["output"]>;
 };
 
 export type Clan = {
@@ -89,26 +127,6 @@ export type Defences = {
   village?: Maybe<EVillageType>;
 };
 
-export type Defense = {
-  __typename?: "Defense";
-  attackSpeed?: Maybe<Scalars["Int"]["output"]>;
-  count?: Maybe<Array<Maybe<Scalars["Int"]["output"]>>>;
-  damageType?: Maybe<DefenseDamageType>;
-  gearUp?: Maybe<DefenseGearUp>;
-  level?: Maybe<Array<Maybe<LevelData>>>;
-  name?: Maybe<Scalars["String"]["output"]>;
-  rang?: Maybe<Scalars["Int"]["output"]>;
-  size?: Maybe<DefenseSize>;
-  unitTypeTargeted?: Maybe<UnitTypeTargeted>;
-};
-
-export type DefenseBuildCost = {
-  __typename?: "DefenseBuildCost";
-  darkElixir?: Maybe<Scalars["Int"]["output"]>;
-  elixir?: Maybe<Scalars["Int"]["output"]>;
-  gold?: Maybe<Scalars["Int"]["output"]>;
-};
-
 export enum DefenseDamageType {
   Multi = "Multi",
   Single = "Single",
@@ -116,7 +134,7 @@ export enum DefenseDamageType {
 
 export type DefenseGearUp = {
   __typename?: "DefenseGearUp";
-  cost?: Maybe<DefenseBuildCost>;
+  cost?: Maybe<BuildCost>;
   require?: Maybe<Array<Maybe<DefenseGearUpRequire>>>;
   time?: Maybe<Scalars["Int"]["output"]>;
 };
@@ -126,12 +144,6 @@ export type DefenseGearUpRequire = {
   level?: Maybe<Scalars["Int"]["output"]>;
   name?: Maybe<Scalars["String"]["output"]>;
   village?: Maybe<EVillageType>;
-};
-
-export type DefenseSize = {
-  __typename?: "DefenseSize";
-  height?: Maybe<Scalars["Int"]["output"]>;
-  width?: Maybe<Scalars["Int"]["output"]>;
 };
 
 export enum ERole {
@@ -227,17 +239,6 @@ export type League = {
   iconUrls?: Maybe<IconUrls>;
   id?: Maybe<Scalars["String"]["output"]>;
   name?: Maybe<Scalars["String"]["output"]>;
-};
-
-export type LevelData = {
-  __typename?: "LevelData";
-  buildCost?: Maybe<DefenseBuildCost>;
-  buildTime?: Maybe<Scalars["Int"]["output"]>;
-  experienceGained?: Maybe<Scalars["Int"]["output"]>;
-  hitpoints?: Maybe<Scalars["Int"]["output"]>;
-  level?: Maybe<Scalars["Int"]["output"]>;
-  normal?: Maybe<Scalars["String"]["output"]>;
-  townHallLevelRequired?: Maybe<Scalars["Int"]["output"]>;
 };
 
 export type Mutation = {

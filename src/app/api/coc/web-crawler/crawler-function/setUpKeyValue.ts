@@ -1,18 +1,19 @@
-import { Defense } from "@/gql/graphql";
+import { Building } from "@/gql/graphql";
 import { translateTime } from "@/app/api/coc/web-crawler/crawler-function/translateTime";
 
 export const createLevelKey = () => {
   return [
     { name: ["Level", "TH Level"], key: "level", index: -1 },
-    { name: ["Hitpoints"], key: "hitpoints", index: 11 },
-    { name: ["Cost", "Build Cost"], key: "buildCost", index: -1 },
-    { name: ["Build Time"], key: "buildTime", index: -1 },
+    { name: ["Hitpoints"], key: "hitpoints", index: -1 },
+    { name: ["Cost", "Build Cost", "Research Cost"], key: "cost", index: -1 },
+    { name: ["Build Time", "Research Time"], key: "time", index: -1 },
     { name: ["Experience Gained"], key: "experienceGained", index: -1 },
     { name: ["Town Hall Level Required"], key: "townHallLevelRequired", index: -1 },
+    { name: ["Laboratory Level Required"], key: "laboratoryLevelRequired", index: -1 },
   ];
 };
 
-export const setLevelNormal = (data: Defense, value: string, index: number): void => {
+export const setLevelNormal = (data: Building, value: string, index: number): void => {
   data.level = data.level || [];
   if (data?.level?.[index]) {
     data!.level![index]!.normal = value;
@@ -21,16 +22,16 @@ export const setLevelNormal = (data: Defense, value: string, index: number): voi
   }
 };
 
-export const setLevelLevel = (data: Defense, value: string, index: number): void => {
+export const setLevelLevel = (data: Building, value: string, index: number): void => {
   data.level = data.level || [];
   if (data?.level?.[index]) {
-    data!.level![index]!.level = Number(value);
+    data!.level![index]!.level = formatStringNumber(value);
   } else {
-    data!.level![index] = { level: Number(value) };
+    data!.level![index] = { level: formatStringNumber(value) };
   }
 };
 
-export const setLevelHitpoints = (data: Defense, value: string, index: number): void => {
+export const setLevelHitpoints = (data: Building, value: string, index: number): void => {
   data.level = data.level || [];
   if (data?.level?.[index]) {
     data!.level![index]!.hitpoints = formatStringNumber(value);
@@ -39,30 +40,25 @@ export const setLevelHitpoints = (data: Defense, value: string, index: number): 
   }
 };
 
-export const setLevelBuildCost = (
-  data: Defense,
-  value: string,
-  index: number,
-  type: string,
-): void => {
+export const setLevelCost = (data: Building, value: string, index: number, type: string): void => {
   data.level = data.level || [];
   if (data?.level?.[index]) {
-    data!.level![index]!.buildCost = { [type]: formatStringNumber(value) };
+    data!.level![index]!.cost = { [type]: formatStringNumber(value) };
   } else {
-    data!.level![index] = { buildCost: { [type]: formatStringNumber(value) } };
+    data!.level![index] = { cost: { [type]: formatStringNumber(value) } };
   }
 };
 
-export const setLevelBuildTime = (data: Defense, value: string, index: number): void => {
+export const setLevelTime = (data: Building, value: string, index: number): void => {
   data.level = data.level || [];
   if (data?.level?.[index]) {
-    data!.level![index]!.buildTime = translateTime(value);
+    data!.level![index]!.time = translateTime(value);
   } else {
-    data!.level![index] = { buildTime: translateTime(value) };
+    data!.level![index] = { time: translateTime(value) };
   }
 };
 
-export const setLevelExperienceGained = (data: Defense, value: string, index: number): void => {
+export const setLevelExperienceGained = (data: Building, value: string, index: number): void => {
   data.level = data.level || [];
   if (data?.level?.[index]) {
     data!.level![index]!.experienceGained = formatStringNumber(value);
@@ -72,15 +68,28 @@ export const setLevelExperienceGained = (data: Defense, value: string, index: nu
 };
 
 export const setLevelTownHallLevelRequired = (
-  data: Defense,
+  data: Building,
   value: string,
   index: number,
 ): void => {
   data.level = data.level || [];
   if (data?.level?.[index]) {
-    data!.level![index]!.townHallLevelRequired = Number(value);
+    data!.level![index]!.townHallLevelRequired = formatStringNumber(value);
   } else {
-    data!.level![index] = { townHallLevelRequired: Number(value) };
+    data!.level![index] = { townHallLevelRequired: formatStringNumber(value) };
+  }
+};
+
+export const setLevelLaboratoryLevelRequired = (
+  data: Building,
+  value: string,
+  index: number,
+): void => {
+  data.level = data.level || [];
+  if (data?.level?.[index]) {
+    data!.level![index]!.laboratoryLevelRequired = formatStringNumber(value);
+  } else {
+    data!.level![index] = { laboratoryLevelRequired: formatStringNumber(value) };
   }
 };
 

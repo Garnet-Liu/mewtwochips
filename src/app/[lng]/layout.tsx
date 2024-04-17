@@ -5,6 +5,7 @@ import { dir } from "i18next";
 
 import { Footer, Header } from "@/app/[lng]/libs";
 import { languages } from "@/context/i18nSettings";
+import StoreProvider from "@/app/[lng]/libs/store/StoreProvider";
 import { ApolloProvider, AuthProvider, DarkProviders, Toasts } from "@/components";
 
 import "./globals.css";
@@ -38,19 +39,21 @@ export default function RootLayout(props: ILayoutProps) {
       <body className={roboto.className}>
         <DarkProviders attribute="class">
           <Theme>
-            <AuthProvider>
-              <ApolloProvider>
-                <Toasts>
-                  <main className="flex h-screen w-screen flex-col overflow-auto">
-                    <Header lng={params.lng} />
+            <StoreProvider>
+              <AuthProvider>
+                <ApolloProvider>
+                  <Toasts>
+                    <main className="flex h-screen w-screen flex-col overflow-auto">
+                      <Header lng={params.lng} />
 
-                    {children}
+                      {children}
 
-                    <Footer lng={params.lng} />
-                  </main>
-                </Toasts>
-              </ApolloProvider>
-            </AuthProvider>
+                      <Footer lng={params.lng} />
+                    </main>
+                  </Toasts>
+                </ApolloProvider>
+              </AuthProvider>
+            </StoreProvider>
           </Theme>
         </DarkProviders>
       </body>
