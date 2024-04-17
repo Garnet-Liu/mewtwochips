@@ -1,7 +1,7 @@
 import * as cheerio from "cheerio";
 import https from "https";
 
-import { Defense } from "@/gql/graphql";
+import { Building } from "@/gql/graphql";
 import { loadPage } from "@/app/api/coc/web-crawler/crawler-function/loadPage";
 import { TrapsAnalyzingData } from "@/app/api/coc/web-crawler/crawler-function/traps/TrapsAnalyzingData";
 
@@ -17,7 +17,7 @@ export const trapsList = async (url: string) => {
 
       res.on("end", () => {
         const $ = cheerio.load(html);
-        const defenseLoad: Array<Promise<Defense>> = [];
+        const defenseLoad: Array<Promise<Building>> = [];
         $("div.flexbox-display.bold-text.hovernav").each((i, element) => {
           if (i === 0) {
             $(">div>div:not([class='center'])>a", element).each((i, element) => {
