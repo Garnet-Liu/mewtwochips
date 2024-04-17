@@ -5,9 +5,9 @@ import { Defense } from "@/gql/graphql";
 import { loadPage } from "@/app/api/coc/web-crawler/crawler-function/loadPage";
 import { AnalyzingData } from "@/app/api/coc/web-crawler/crawler-function/AnalyzingData";
 
-export const defenseList = async (url: string) => {
+export const resourceList = async (url: string) => {
   return new Promise((resolve) => {
-    https.get(`${url}/wiki/Defensive_Buildings/Home_Village`, (res) => {
+    https.get(`${url}/wiki/Resource_Buildings/Home_Village`, (res) => {
       // 分段返回的 自己拼接
       let html = "";
       // 有数据产生的时候 拼接
@@ -23,33 +23,19 @@ export const defenseList = async (url: string) => {
           const filename = name.toLowerCase().replace(/ /g, "_");
 
           switch (filename) {
-            case "cannon":
-            case "archer_tower":
-            case "mortar":
-            case "air_defense":
-            case "wizard_tower":
-            case "air_sweeper":
-            case "hidden_tesla":
-            case "bomb_tower":
-            case "x-bow":
-            case "inferno_tower":
-            case "eagle_artillery":
-            case "scattershot":
-            case "builder's_hut":
-            case "spell_tower":
-            case "monolith":
-            case "multi-archer_tower":
-            case "ricochet_cannon":
-            case "giga_tesla":
-            case "giga_inferno (th13)":
-            case "giga_inferno (th14)":
-            case "giga_inferno (th15)":
-              // case "giga_inferno (th16)":
+            case "town_hall":
+            case "gold_mine":
+            case "elixir_collector":
+            case "gold_storage":
+            case "elixir_storage":
+            case "dark_elixir_drill":
+            case "dark_elixir_storage":
+            case "clan_castle":
               defenseLoad.push(
                 loadPage(
                   `${url}${$(element).attr("href")}`,
                   name,
-                  `${process.cwd()}/src/app/api/coc/web-crawler/crawler-function/defenses/data`,
+                  `${process.cwd()}/src/app/api/coc/web-crawler/crawler-function/resource/data`,
                   AnalyzingData,
                 ),
               );

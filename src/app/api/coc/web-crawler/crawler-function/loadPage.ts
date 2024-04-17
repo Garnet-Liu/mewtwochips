@@ -29,7 +29,7 @@ export const loadPage = async (
         const analyzing = new callback($, data);
         const analyzingData = analyzing.buildBuildingData();
 
-        const filename = name.toLowerCase().replace(" ", "_");
+        const filename = name.toLowerCase().replace(/ /g, "_");
 
         fs.writeFile(`${writePath}/${filename}.json`, JSON.stringify(analyzingData), (err) => {
           if (!err) {

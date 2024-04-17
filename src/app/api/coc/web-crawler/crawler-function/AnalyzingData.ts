@@ -67,10 +67,10 @@ export class AnalyzingData {
   protected searchBuildingImage() {
     this.$("div.flexbox-display").each((i, element) => {
       if (i === 0) {
-        this.$("img", element).each((i, element) => {
-          const levelName = this.$("+div", element).text();
-          if (levelName.includes("Level")) {
-            const levelIndex = formatStringNumber(levelName.replace("Level ", "").trim()) - 1;
+        this.$(">div", element).each((i, element) => {
+          const text = this.$(element).text().trim();
+          if (text.includes("Level")) {
+            const levelIndex = formatStringNumber(text.replace("Level ", "").trim()) - 1;
             this.setLevelNormal(element, levelIndex);
           }
         });
@@ -79,7 +79,7 @@ export class AnalyzingData {
   }
 
   protected searchBuildingLevel() {
-    this.$("table.wikitable").each((i, element) => {
+    this.$("div.stats-background table.wikitable").each((i, element) => {
       if (i === 0) {
         const nameKeys = createLevelKey();
         let costType: string = "";
@@ -142,11 +142,11 @@ export class AnalyzingData {
   }
 
   protected setLevelNormal(element: cheerio.Element, index: number): void {
-    const src = this.$(element).attr("data-src");
+    const src = this.$(element).find("img").attr("data-src");
     if (src?.includes("https://")) {
       setLevelNormal(this.data, src, index);
     } else {
-      setLevelNormal(this.data, this.$(element).attr("src")!, index);
+      setLevelNormal(this.data, this.$(element).find("img").attr("src")!, index);
     }
   }
 }
