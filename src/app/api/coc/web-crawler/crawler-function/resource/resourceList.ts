@@ -1,7 +1,7 @@
 import * as cheerio from "cheerio";
 import https from "https";
 
-import { Defense } from "@/gql/graphql";
+import { Building } from "@/gql/graphql";
 import { loadPage } from "@/app/api/coc/web-crawler/crawler-function/loadPage";
 import { AnalyzingData } from "@/app/api/coc/web-crawler/crawler-function/AnalyzingData";
 
@@ -17,7 +17,7 @@ export const resourceList = async (url: string) => {
 
       res.on("end", () => {
         const $ = cheerio.load(html);
-        const defenseLoad: Array<Promise<Defense>> = [];
+        const defenseLoad: Array<Promise<Building>> = [];
         $("div.flexbox-display.bold-text.hovernav>div>div>a").each((i, element) => {
           const name = $(element).text().trim();
           const filename = name.toLowerCase().replace(/ /g, "_");

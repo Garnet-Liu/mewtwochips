@@ -2,7 +2,7 @@ import * as cheerio from "cheerio";
 import https from "https";
 import fs from "fs";
 
-import { Defense } from "@/gql/graphql";
+import { Building } from "@/gql/graphql";
 import { AnalyzingData } from "@/app/api/coc/web-crawler/crawler-function/AnalyzingData";
 
 export const loadPage = async (
@@ -10,7 +10,7 @@ export const loadPage = async (
   name: string,
   writePath: string,
   callback: typeof AnalyzingData,
-): Promise<Defense> => {
+): Promise<Building> => {
   return new Promise((resolve) => {
     https.get(url, (res) => {
       console.log("start===============", url, name);
@@ -24,7 +24,7 @@ export const loadPage = async (
       res.on("end", () => {
         const $ = cheerio.load(html);
 
-        const data: Defense = { name: name, level: [], count: [] };
+        const data: Building = { name: name, level: [], count: [] };
 
         const analyzing = new callback($, data);
         const analyzingData = analyzing.buildBuildingData();
