@@ -23,7 +23,7 @@ export class TrapsAnalyzingData extends AnalyzingData {
       if (i === 0) {
         this.$("tr", element).each((i, element) => {
           if (i === 0) {
-            this.$("img", element).each((i, element) => {
+            this.$("td", element).each((i, element) => {
               this.setLevelNormal(element, i);
             });
           } else {
@@ -45,8 +45,8 @@ export class TrapsAnalyzingData extends AnalyzingData {
   private createImageGiantBomb() {
     this.$("div.flexbox-display").each((i, element) => {
       if (i === 0) {
-        this.$("img", element).each((i, element) => {
-          const levelName = this.$("+div", element).text();
+        this.$(">div", element).each((i, element) => {
+          const levelName = this.$(element).text();
           const levels = this.createLevelKey(levelName.replace("Level", "").trim());
           if (levelName.includes("Level")) {
             levels.forEach((level) => {

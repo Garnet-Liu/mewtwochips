@@ -3,7 +3,7 @@ import { translateTime } from "@/app/api/coc/web-crawler/crawler-function/transl
 
 export const createLevelKey = () => {
   return [
-    { name: ["Level"], key: "level", index: -1 },
+    { name: ["Level", "TH Level"], key: "level", index: -1 },
     { name: ["Hitpoints"], key: "hitpoints", index: 11 },
     { name: ["Cost", "Build Cost"], key: "buildCost", index: -1 },
     { name: ["Build Time"], key: "buildTime", index: -1 },
