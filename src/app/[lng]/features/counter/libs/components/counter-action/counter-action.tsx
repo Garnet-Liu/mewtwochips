@@ -3,17 +3,20 @@
 import { Button, TextField } from "@radix-ui/themes";
 import { useEffect, useState } from "react";
 
-import { useCountStore } from "@/app/[lng]/features/counter/components/counter-action/store";
-import styles from "@/app/[lng]/features/counter/page.module.css";
+import { env } from "../../../../../../../../env.mjs";
 import { baseFetchRequest } from "@/context/apiFetchRequest";
-import { env } from "../../../../../../../env.mjs";
+import { useAppDispatch, useAppSelector } from "@/app/[lng]/libs/store/hooks";
+import { decrement, increment, incrementByAmount } from "@/app/[lng]/libs/store/features";
+
+import styles from "./counter-action.module.css";
 
 export function CounterAction() {
   const [incrementAmount, setIncrementAmount] = useState("2");
 
   const incrementValue = Number(incrementAmount) || 0;
 
-  const { count, increment, decrement } = useCountStore();
+  const count = useAppSelector((state) => state.counter.value);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     baseFetchRequest(`${env.NEXT_PUBLIC_API_BASE_URL}/api/features/counter`, {
@@ -27,13 +30,13 @@ export function CounterAction() {
   return (
     <>
       <div className={styles.row}>
-        <Button size="2" aria-label="Decrement value" onClick={() => decrement(1)}>
+        <Button size="2" aria-label="Decrement value" onClick={() => dispatch(decrement())}>
           -
         </Button>
 
         <span className={styles.value}>{count}</span>
 
-        <Button size="2" aria-label="Increment value" onClick={() => increment(1)}>
+        <Button size="2" aria-label="Increment value" onClick={() => dispatch(increment())}>
           +
         </Button>
       </div>
@@ -49,7 +52,7 @@ export function CounterAction() {
           />
         </TextField.Root>
 
-        <Button size="3" onClick={() => increment(incrementValue)}>
+        <Button size="3" onClick={() => dispatch(incrementByAmount(incrementValue))}>
           Add Amount
         </Button>
 
