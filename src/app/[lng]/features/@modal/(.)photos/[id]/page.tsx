@@ -1,6 +1,4 @@
-import Photo from "@/app/[lng]/features/components/Photo/Photo";
-import BaseModal from "@/app/[lng]/features/components/BaseModal/BaseModal";
-import { getPhotoDetail } from "@/app/[lng]/features/components/Photo/service/data.service";
+import { BaseModal, getPhotoDetail, Photo } from "@/app/[lng]/features/libs";
 
 interface IPageProps {
   params: { id: string };

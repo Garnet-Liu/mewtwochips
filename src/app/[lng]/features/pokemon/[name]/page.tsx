@@ -1,7 +1,7 @@
 import Image from "next/image";
 
+import { PageHeader } from "@/app/[lng]/features/libs";
 import { apiFetchRequest } from "@/context/apiFetchRequest";
-import { PageHeader } from "@/app/[lng]/features/components/PageHeader/PageHeader";
 import { IPokemonDetail } from "@/app/[lng]/features/pokemon/types/pokemon.interface";
 import { PokemonState } from "@/app/[lng]/features/pokemon/[name]/components/pokemon-state/pokemon-state";
 
