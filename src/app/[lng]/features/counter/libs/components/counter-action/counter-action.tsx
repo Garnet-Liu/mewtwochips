@@ -1,7 +1,7 @@
 "use client";
 
+import { useCallback, useEffect, useState } from "react";
 import { Button, TextField } from "@radix-ui/themes";
-import { useEffect, useState } from "react";
 
 import { env } from "../../../../../../../../env.mjs";
 import { baseFetchRequest } from "@/context/apiFetchRequest";
@@ -10,8 +10,15 @@ import { decrement, increment, incrementByAmount } from "@/app/[lng]/libs/store/
 
 import styles from "./counter-action.module.css";
 
+interface Player {
+  tag: string;
+  name: string;
+  donation: number;
+}
+
 export function CounterAction() {
   const [incrementAmount, setIncrementAmount] = useState("2");
+  const [players, setPlayers] = useState<Player[]>([]);
 
   const incrementValue = Number(incrementAmount) || 0;
 
@@ -23,8 +30,18 @@ export function CounterAction() {
       method: "post",
       body: JSON.stringify({ amount: 10 }),
     }).then((res) => {
-      console.log(res);
+      console.log("counter", res);
     });
+  }, []);
+
+  const requestThisMonthDonated = useCallback(async () => {
+    const thisMonthDonated = await baseFetchRequest<Player[]>(
+      `${env.NEXT_PUBLIC_API_BASE_URL}/api/coc/troop-donated`,
+      {
+        method: "get",
+      },
+    );
+    setPlayers(thisMonthDonated);
   }, []);
 
   return (
@@ -66,6 +83,20 @@ export function CounterAction() {
         >
           Add Amount
         </Button>
+      </div>
+
+      <div className="mt-4">
+        <Button onClick={requestThisMonthDonated}>拉取本月捐兵数量</Button>
+
+        <ul>
+          {players.map((player) => {
+            return (
+              <li key={player.tag}>
+                {player.name}: {player.donation}
+              </li>
+            );
+          })}
+        </ul>
       </div>
     </>
   );

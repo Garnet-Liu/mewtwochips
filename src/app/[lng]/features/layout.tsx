@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-import { Navigation } from "@/app/[lng]/features/components/Navigation/Navigation";
+import { Navigation } from "@/app/[lng]/features/libs";
 
 export const metadata = {
   title: "Mewtwochips-Features",

@@ -1,9 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 import { Button } from "@radix-ui/themes";
-import { cookies } from "next/headers";
 
 export function LoginProvider() {
   useEffect(() => {}, []);

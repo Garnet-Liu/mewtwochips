@@ -1,6 +1,4 @@
-import Photo from "@/app/[lng]/features/components/Photo/Photo";
-import { PageHeader } from "@/app/[lng]/features/components/PageHeader/PageHeader";
-import { getPhotoDetail } from "@/app/[lng]/features/components/Photo/service/data.service";
+import { getPhotoDetail, PageHeader, Photo } from "@/app/[lng]/features/libs";
 
 interface IPageProps {
   params: { id: string };

@@ -1,5 +1,5 @@
+import { PageHeader } from "@/app/[lng]/features/libs";
 import { CounterAction } from "@/app/[lng]/features/counter/libs";
-import { PageHeader } from "@/app/[lng]/features/components/PageHeader/PageHeader";
 
 export default async function Page() {
   console.log("Counter Page");

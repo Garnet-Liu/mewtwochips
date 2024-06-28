@@ -6,6 +6,8 @@ import { resourceList } from "@/app/api/coc/web-crawler/crawler-function/resourc
 import { defensiveList } from "@/app/api/coc/web-crawler/crawler-function/defensive/defensiveList";
 import { elixirTroopsList } from "@/app/api/coc/web-crawler/crawler-function/elixir-troops/elixirTroopsList";
 
+export const dynamic = "force-dynamic";
+
 export async function GET() {
   const baseUrl = "https://clashofclans.fandom.com";
 

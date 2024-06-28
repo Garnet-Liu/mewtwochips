@@ -3,7 +3,7 @@
 import { MouseEvent, ReactNode, useCallback, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 
-export default function BaseModal({ children }: { children: ReactNode }) {
+export function BaseModal({ children }: { children: ReactNode }) {
   const overlay = useRef<HTMLDivElement | null>(null);
   const wrapper = useRef<HTMLDivElement | null>(null);
   const router = useRouter();

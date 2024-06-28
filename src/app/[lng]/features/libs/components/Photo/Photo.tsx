@@ -1,12 +1,12 @@
 import Image from "next/image";
 
-import { IPhoto } from "@/app/[lng]/features/components/Photo/service/data.service";
+import { IPhoto } from "./service/data.service";
 
 interface IPhotoProps {
   photo: IPhoto;
 }
 
-export default function Photo({ photo }: IPhotoProps) {
+export function Photo({ photo }: IPhotoProps) {
   return (
     <>
       <Image

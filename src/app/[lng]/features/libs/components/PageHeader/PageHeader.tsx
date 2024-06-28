@@ -1,8 +1,8 @@
 import { Heading } from "@radix-ui/themes";
 
+import { BackRoute } from "./BackRoute/BackRoute";
+import { DateSection } from "./DateSection/DateSection";
 import { baseFetchRequest } from "@/context/apiFetchRequest";
-import { BackRoute } from "@/app/[lng]/features/components/PageHeader/BackRoute/BackRoute";
-import { DateSection } from "@/app/[lng]/features/components/PageHeader/DateSection/DateSection";
 
 interface IPageHeaderProps {
   pageTitle: string;

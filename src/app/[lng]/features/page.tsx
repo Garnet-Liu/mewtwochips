@@ -2,8 +2,7 @@ import { cookies } from "next/headers";
 
 import { FIREBASE_SESSION } from "@/context/constant";
 import { adminAuth } from "@/context/firebase/server/firebaseAdmin";
-import { UserProfile } from "@/app/[lng]/features/components/UserProfile/UserProfile";
-import { LoginProvider } from "@/app/[lng]/features/components/LoginProvider/LoginProvider";
+import { LoginProvider, UserProfile } from "@/app/[lng]/features/libs";
 
 export default async function Page() {
   const decodedIdToken = await getUser();
