@@ -34,6 +34,7 @@ export function Navigation() {
       { path: "/features/wheel", label: "Wheel", icon: Wheel },
       { path: "/features/react-hook-form", label: "React hooks form", icon: Form },
       { path: "/features/toast", label: "Toast", icon: Toast },
+      { path: "/features/post-message", label: "Post message", icon: Toast },
     ];
   }, []);
 
