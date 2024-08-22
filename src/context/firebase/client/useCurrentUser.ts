@@ -1,8 +1,9 @@
 "use client";
 
 import { createContext, useContext } from "react";
-import { Maybe } from "@/gql/graphql";
 import { User } from "firebase/auth";
+
+import { Maybe } from "@/gql/graphql";
 
 export interface IAuthContext {
   status: EAuthState;

@@ -2,6 +2,7 @@
 
 import { Controller, useFieldArray, useFormContext, useWatch } from "react-hook-form";
 import { Button, TextField, Text } from "@radix-ui/themes";
+
 import { FormInput } from "../../page";
 
 type Props = {
@@ -40,7 +41,7 @@ export function FormTitle(props: Props) {
           <label>
             <Text>Test title</Text>
             <TextField.Root>
-              <TextField.Input className={className} size="3" {...field} />
+              <TextField.Root className={className} size="3" {...field} />
             </TextField.Root>
           </label>
           // <TextInputForm

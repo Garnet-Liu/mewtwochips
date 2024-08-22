@@ -49,7 +49,7 @@ export function Drawer(props: DrawerProps) {
             "z-10",
             "h-screen",
             "min-w-[42vw]",
-            "bg-[var(--color-page-background)]",
+            "bg-[var(--color-background)]",
             "focus:outline-none",
             "data-[state=open]:animate-in",
             "data-[state=open]:slide-in-from-right",

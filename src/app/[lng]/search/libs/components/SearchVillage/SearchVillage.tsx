@@ -45,7 +45,7 @@ export function SearchVillage(props: Props) {
         <TextField.Root variant="soft" size="3">
           <TextField.Slot>#</TextField.Slot>
 
-          <TextField.Input value={state.tag} onChange={handleInput} placeholder="QU990YJUR" />
+          <TextField.Root value={state.tag} onChange={handleInput} placeholder="QU990YJUR" />
         </TextField.Root>
 
         <Button size="3" onClick={handleFetchData}>

@@ -40,7 +40,7 @@ export function FormAssignPrices() {
           }}
           render={({ field, fieldState: { error } }) => (
             <TextField.Root>
-              <TextField.Input size="3" {...field} />
+              <TextField.Root size="3" {...field} />
             </TextField.Root>
           )}
         />
@@ -55,7 +55,7 @@ export function FormAssignPrices() {
           }}
           render={({ field, fieldState: { error } }) => (
             <TextField.Root>
-              <TextField.Input size="3" {...field} />
+              <TextField.Root size="3" {...field} />
             </TextField.Root>
           )}
         />

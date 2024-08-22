@@ -1,6 +1,6 @@
-import { Building } from "@/gql/graphql";
 import * as cheerio from "cheerio";
 
+import { Building } from "@/gql/graphql";
 import {
   createLevelKey,
   formatStringNumber,

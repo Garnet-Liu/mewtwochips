@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 
 import counterReducer from "@/app/[lng]/libs/store/features/counter/counterSlice";
+import virtuosoWidthReducer from "@/app/[lng]/libs/store/features/virtuosoWidthSlice";
 
 export const makeStore = () => {
   return configureStore({
     reducer: {
       counter: counterReducer,
+      virtuoso: virtuosoWidthReducer,
     },
   });
 };
