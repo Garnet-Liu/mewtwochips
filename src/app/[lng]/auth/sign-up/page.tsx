@@ -6,8 +6,8 @@ import { Label } from "@radix-ui/react-label";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import NextLink from "next/link";
-
 import { useRouter } from "next/navigation";
+
 import { ILanguageParams } from "@/types/globals";
 import { clientAuth } from "@/context/firebase/client";
 
@@ -49,7 +49,7 @@ export default function Page(props: Props) {
                 Email address
               </Text>
 
-              <TextField.Input
+              <TextField.Root
                 {...register("email", {
                   required: "邮箱是必填项",
                   pattern: { value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: "请输入一个正确的邮箱" },
@@ -71,7 +71,7 @@ export default function Page(props: Props) {
               </Text>
 
               <TextField.Root>
-                <TextField.Input
+                <TextField.Root
                   {...register("password", {
                     required: "密码是必填的",
                     pattern: { value: /^.{8,}$/, message: "密码最少八位" },
@@ -103,7 +103,7 @@ export default function Page(props: Props) {
               </Text>
 
               <TextField.Root>
-                <TextField.Input
+                <TextField.Root
                   {...register("confirmPassword", {
                     required: "确认密码是必填的",
                     pattern: { value: /^.{8,}$/, message: "密码最少八位" },

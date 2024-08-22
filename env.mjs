@@ -19,7 +19,7 @@ export const env = createEnv({
     NEXT_PUBLIC_API_BASE_URL: z.string().min(1),
     CLASH_OF_CLANS_API_TOKEN: z.string().min(1),
     NEXT_PUBLIC_CHAT_STREAM_API_KEY: z.string().min(1),
-    NODE_ENV: z.enum(["development", "test", "production"])
+    NODE_ENV: z.enum(["development", "test", "production"]),
   },
   /*
    * Environment variables available on the client (and server).
@@ -30,7 +30,7 @@ export const env = createEnv({
     NEXT_PUBLIC_API_BASE_URL: z.string().min(1),
     NEXT_PUBLIC_LIVEKIT_WS_URL: z.string().min(1),
     NEXT_PUBLIC_CHAT_STREAM_API_KEY: z.string().min(1),
-    NEXT_PUBLIC_NODE_ENV: z.enum(["development", "test", "production"])
+    NEXT_PUBLIC_NODE_ENV: z.enum(["development", "test", "production"]),
   },
   /*
    * Due to how Next.js bundles environment variables on Edge and Client,
@@ -52,6 +52,6 @@ export const env = createEnv({
     FIREBASE_PRIVATE_KEY: process.env.FIREBASE_PRIVATE_KEY,
     FIREBASE_CLIENT_EMAIL: process.env.FIREBASE_CLIENT_EMAIL,
     CLASH_OF_CLANS_API_TOKEN: process.env.CLASH_OF_CLANS_API_TOKEN,
-    NEXT_PUBLIC_API_BASE_URL: process.env.NEXT_PUBLIC_API_BASE_URL
-  }
+    NEXT_PUBLIC_API_BASE_URL: process.env.NEXT_PUBLIC_API_BASE_URL,
+  },
 });

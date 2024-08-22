@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect } from "react";
-
 import { Button } from "@radix-ui/themes";
 
 export function LoginProvider() {

@@ -52,7 +52,7 @@ export function SignInForm(props: Props) {
             Email address
           </Text>
 
-          <TextField.Input
+          <TextField.Root
             {...register("email", { required: "邮箱是必填项" })}
             tabIndex={-1}
             placeholder="Enter your email"
@@ -76,7 +76,7 @@ export function SignInForm(props: Props) {
             Password
           </Text>
 
-          <TextField.Input
+          <TextField.Root
             {...register("password", { required: "密码是必填的" })}
             type="password"
             tabIndex={-1}

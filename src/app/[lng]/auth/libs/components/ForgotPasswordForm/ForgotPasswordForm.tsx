@@ -4,11 +4,11 @@ import { Box, Button, Flex, Link, Text, TextField } from "@radix-ui/themes";
 import { Label } from "@radix-ui/react-label";
 import { useForm } from "react-hook-form";
 import NextLink from "next/link";
+import { AuthError, sendPasswordResetEmail } from "@firebase/auth";
 
 import { ToastStatus, useToast } from "@/components";
 import { ILanguage } from "@/types/globals";
 import { clientAuth } from "@/context/firebase/client";
-import { AuthError, sendPasswordResetEmail } from "@firebase/auth";
 
 interface Props extends ILanguage {}
 
@@ -46,7 +46,7 @@ export function ForgotPasswordForm(props: Props) {
             Email address
           </Text>
 
-          <TextField.Input
+          <TextField.Root
             {...register("email", {
               required: "邮箱是必填项",
               pattern: { value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: "请输入一个正确的邮箱" },

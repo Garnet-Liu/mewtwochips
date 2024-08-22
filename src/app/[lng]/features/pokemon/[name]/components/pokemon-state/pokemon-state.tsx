@@ -1,7 +1,6 @@
 import classnames from "classnames";
 
 import { IPokemonDetail } from "@/app/[lng]/features/pokemon/types/pokemon.interface";
-
 import styles from "./pokemon-state.module.css";
 
 interface IPokemonStateProps {

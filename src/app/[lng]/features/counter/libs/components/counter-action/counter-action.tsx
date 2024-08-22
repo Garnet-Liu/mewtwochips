@@ -7,7 +7,6 @@ import { env } from "../../../../../../../../env.mjs";
 import { baseFetchRequest } from "@/context/apiFetchRequest";
 import { useAppDispatch, useAppSelector } from "@/app/[lng]/libs/store/hooks";
 import { decrement, increment, incrementByAmount } from "@/app/[lng]/libs/store/features";
-
 import styles from "./counter-action.module.css";
 
 interface Player {
@@ -60,7 +59,7 @@ export function CounterAction() {
 
       <div className={styles.row}>
         <TextField.Root className="w-14">
-          <TextField.Input
+          <TextField.Root
             size="3"
             value={incrementAmount}
             onChange={(e) => {
