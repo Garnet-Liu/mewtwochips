@@ -1,6 +1,0 @@
-type ClientError {
-  type: String
-  reason: String
-  detail: String
-  message: String
-}

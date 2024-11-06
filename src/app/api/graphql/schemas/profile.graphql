@@ -1,4 +1,0 @@
-type Profile {
-  clans: [String]
-  village: [String]
-}
