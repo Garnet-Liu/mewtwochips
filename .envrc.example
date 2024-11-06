@@ -1,0 +1,7 @@
+# Secrets
+eval $(ejson2env secrets.ejson)
+
+export NEXT_PUBLIC_API_BASE_URL=""
+export AUTH_SECRET=""
+export PORT=4000
+

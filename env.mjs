@@ -8,17 +8,11 @@ export const env = createEnv({
    * Will throw if you access these variables on the client.
    */
   server: {
-    LIVE_KIT_API_KEY: z.string().min(1),
-    // FIREBASE_GOOGLE_ID: z.string().min(1),
+    AUTH_GOOGLE_ID: z.string().min(1),
+    AUTH_GOOGLE_SECRET: z.string().min(1),
     FIREBASE_PROJECT_ID: z.string().min(1),
-    LIVE_KIT_API_SECRET: z.string().min(1),
     FIREBASE_PRIVATE_KEY: z.string().min(1),
     FIREBASE_CLIENT_EMAIL: z.string().min(1),
-    // FIREBASE_GOOGLE_SECRET: z.string().min(1),
-    STREAM_CHAT_API_SECRET: z.string().min(1),
-    NEXT_PUBLIC_API_BASE_URL: z.string().min(1),
-    CLASH_OF_CLANS_API_TOKEN: z.string().min(1),
-    NEXT_PUBLIC_CHAT_STREAM_API_KEY: z.string().min(1),
     NODE_ENV: z.enum(["development", "test", "production"]),
   },
   /*
@@ -27,10 +21,13 @@ export const env = createEnv({
    * 💡 You'll get type errors if these are not prefixed with NEXT_PUBLIC_.
    */
   client: {
-    NEXT_PUBLIC_API_BASE_URL: z.string().min(1),
-    NEXT_PUBLIC_LIVEKIT_WS_URL: z.string().min(1),
-    NEXT_PUBLIC_CHAT_STREAM_API_KEY: z.string().min(1),
-    NEXT_PUBLIC_NODE_ENV: z.enum(["development", "test", "production"]),
+    NEXT_PUBLIC_FIREBASE_APP_ID: z.string().min(1),
+    NEXT_PUBLIC_FIREBASE_API_KEY: z.string().min(1),
+    NEXT_PUBLIC_FIREBASE_PROJECT_ID: z.string().min(1),
+    NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN: z.string().min(1),
+    NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET: z.string().min(1),
+    NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID: z.string().min(1),
+    NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID: z.string().min(1),
   },
   /*
    * Due to how Next.js bundles environment variables on Edge and Client,
@@ -40,18 +37,17 @@ export const env = createEnv({
    */
   runtimeEnv: {
     NODE_ENV: process.env.NODE_ENV,
-    NEXT_PUBLIC_NODE_ENV: process.env.NODE_ENV,
-    LIVE_KIT_API_KEY: process.env.LIVE_KIT_API_KEY,
-    LIVE_KIT_API_SECRET: process.env.LIVE_KIT_API_SECRET,
-    NEXT_PUBLIC_LIVEKIT_WS_URL: process.env.NEXT_PUBLIC_LIVEKIT_WS_URL,
-    STREAM_CHAT_API_SECRET: process.env.STREAM_CHAT_API_SECRET,
-    NEXT_PUBLIC_CHAT_STREAM_API_KEY: process.env.NEXT_PUBLIC_CHAT_STREAM_API_KEY,
-    // FIREBASE_GOOGLE_ID: process.env.FIREBASE_GOOGLE_ID,
-    // FIREBASE_GOOGLE_SECRET: process.env.FIREBASE_GOOGLE_SECRET,
+    AUTH_GOOGLE_ID: process.env.AUTH_GOOGLE_ID,
+    AUTH_GOOGLE_SECRET: process.env.AUTH_GOOGLE_SECRET,
     FIREBASE_PROJECT_ID: process.env.FIREBASE_PROJECT_ID,
     FIREBASE_PRIVATE_KEY: process.env.FIREBASE_PRIVATE_KEY,
     FIREBASE_CLIENT_EMAIL: process.env.FIREBASE_CLIENT_EMAIL,
-    CLASH_OF_CLANS_API_TOKEN: process.env.CLASH_OF_CLANS_API_TOKEN,
-    NEXT_PUBLIC_API_BASE_URL: process.env.NEXT_PUBLIC_API_BASE_URL,
+    NEXT_PUBLIC_FIREBASE_APP_ID: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+    NEXT_PUBLIC_FIREBASE_API_KEY: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+    NEXT_PUBLIC_FIREBASE_PROJECT_ID: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+    NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+    NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+    NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
+    NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
   },
 });

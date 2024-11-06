@@ -1,7 +1,7 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
-  darkMode: "class",
+  darkMode: ["class"],
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -9,100 +9,52 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      keyframes: {
-        "slot-machine": {
-          "0%": {
-            transform: "translateY(-90%)",
-            filter: "blur(1px)",
-          },
-          "100%": {
-            transform: "translateY(1%)",
-            filter: "blur(1px)",
-          },
+      colors: {
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
+        card: {
+          DEFAULT: "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))",
         },
-        "slot-machine-border": {
-          "25%": {
-            transform: "translateY(7%)",
-          },
-          "50%": {
-            transform: "translateY(-3%)",
-          },
-          "70%": {
-            transform: "translateY(4%)",
-          },
-          "85%": {
-            transform: "translateY(-1%)",
-          },
-          "100%": {
-            transform: "translateY(0)",
-          },
+        popover: {
+          DEFAULT: "hsl(var(--popover))",
+          foreground: "hsl(var(--popover-foreground))",
         },
-        "slot-machine-num": {
-          "0%": {
-            transform:
-              "translateY(calc(var(--slot-machine-winner) * var(--slot-machine-translate-y)))",
-            filter: "none",
-          },
-          "25%": {
-            transform:
-              "translateY(calc(var(--slot-machine-winner) * var(--slot-machine-translate-y) + 3%))",
-          },
-          "50% ": {
-            transform:
-              "translateY(calc(var(--slot-machine-winner) * var(--slot-machine-translate-y) - 1%))",
-          },
-          "70%": {
-            transform:
-              "translateY(calc(var(--slot-machine-winner) * var(--slot-machine-translate-y) + 0.6%))",
-          },
-          "85%": {
-            transform:
-              "translateY(calc(var(--slot-machine-winner) * var(--slot-machine-translate-y) - 0.3%))",
-          },
-          "100%": {
-            transform:
-              "translateY(calc(var(--slot-machine-winner) * var(--slot-machine-translate-y)))",
-            filter: "none",
-          },
+        primary: {
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
         },
-        "toast-slide-vertical-in": {
-          from: {
-            transform: "translateY(calc(var(--viewport) * var(--direction-y) * -1))",
-          },
-          to: {
-            transform: "translateY(calc(var(--y) * var(--direction-y)))",
-          },
+        secondary: {
+          DEFAULT: "hsl(var(--secondary))",
+          foreground: "hsl(var(--secondary-foreground))",
         },
-        "toast-slide-vertical-out": {
-          from: {
-            transform: "translateY(calc(var(--y) * var(--direction-y)))",
-          },
-          to: {
-            transform: "translateY(calc(var(--viewport) * var(--direction-y) * -1))",
-          },
+        muted: {
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))",
         },
-        "toast-slide-horizontal-in": {
-          from: {
-            transform:
-              "translate3d(calc(var(--viewport) * var(--direction-x)), calc(var(--offset-y) * var(--direction-y)), 0)",
-          },
-          to: {
-            transform: "translate3d(var(--x), calc(var(--offset-y) * var(--direction-y)), 0)",
-          },
+        accent: {
+          DEFAULT: "hsl(var(--accent))",
+          foreground: "hsl(var(--accent-foreground))",
         },
-        "toast-slide-horizontal-out": {
-          from: {
-            transform: "translate3d(var(--x), calc(var(--y) * var(--direction-y)), 0)",
-          },
-          to: {
-            transform:
-              "translate3d(calc(var(--viewport) * var(--direction-x)), calc(var(--y) * var(--direction-y)), 0)",
-          },
+        destructive: {
+          DEFAULT: "hsl(var(--destructive))",
+          foreground: "hsl(var(--destructive-foreground))",
+        },
+        border: "hsl(var(--border))",
+        input: "hsl(var(--input))",
+        ring: "hsl(var(--ring))",
+        chart: {
+          "1": "hsl(var(--chart-1))",
+          "2": "hsl(var(--chart-2))",
+          "3": "hsl(var(--chart-3))",
+          "4": "hsl(var(--chart-4))",
+          "5": "hsl(var(--chart-5))",
         },
       },
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic": "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      borderRadius: {
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
       },
     },
   },

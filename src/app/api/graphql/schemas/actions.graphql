@@ -1,8 +1,0 @@
-type Query {
-  village(tag: String!): VillageQuery
-  currentUser: CurrentUser
-}
-
-type Mutation {
-  addVillage(tag: String!): CurrentUser
-}
