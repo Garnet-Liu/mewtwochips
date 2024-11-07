@@ -32,7 +32,7 @@ interface IProps {
 export default function RootLayout({ children, modal }: Readonly<IProps>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} bg-background antialiased`}>
         <SessionProvider>
           <FirebaseProvider>
             {children}

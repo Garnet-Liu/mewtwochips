@@ -1,6 +1,6 @@
 import { Photo } from "@/app/(protected)/photos/libs/components";
-import { getPhotoDetail } from "@/app/(protected)/photos/libs/services";
 import { BaseModal } from "@/app/@modal/libs/components/base-modal";
+import { getPhotoDetail } from "@/app/(protected)/photos/libs/services";
 
 interface IProps {
   params: Promise<{ id: string }>;

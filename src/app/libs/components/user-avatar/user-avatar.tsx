@@ -11,7 +11,7 @@ export function UserAvatar(props: Readonly<IProps>) {
   const { session, className } = props;
   return (
     <Avatar className={className}>
-      <AvatarImage src={session?.user?.image ?? undefined} />
+      <AvatarImage alt="avatar of user" src={session?.user?.image ?? undefined} />
       <AvatarFallback>{session?.user?.name?.charAt(0) ?? "?"}</AvatarFallback>
     </Avatar>
   );
