@@ -14,14 +14,16 @@ export function PokemonItem({ pokemon }: IPokemonItemProps) {
     <div className="flex w-full flex-col overflow-hidden rounded-xl border" style={boxStyle}>
       <div className="relative w-full bg-white">
         <div style={{ marginTop: "100%" }}></div>
-        <Image
-          src={pokemon.pokemon_photo}
-          fill
-          priority
-          sizes="full"
-          alt="pokemon"
-          className="object-cover"
-        />
+        {pokemon.pokemon_photo ? (
+          <Image
+            src={pokemon.pokemon_photo}
+            fill
+            priority
+            sizes="full"
+            alt="pokemon"
+            className="object-cover"
+          />
+        ) : null}
       </div>
 
       <div className="flex justify-between px-2 leading-10">

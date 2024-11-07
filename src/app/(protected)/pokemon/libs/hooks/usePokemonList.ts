@@ -1,30 +1,28 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useTransition } from "react";
 
 import { IPokemonList } from "@/app/(protected)/pokemon/libs/types";
 import { baseFetchRequest, IBaseResponse } from "@/lib/fetch-request";
 
 export const usePokemonList = (offset: number, limit: number) => {
-  const [loading, setLoading] = useState(false);
   const [pokemonList, setPokemonList] = useState<IPokemonList | undefined>(undefined);
 
+  const [isPending, startTransition] = useTransition();
+
   useEffect(() => {
-    setLoading(true);
-    baseFetchRequest<IBaseResponse<IPokemonList>>(
-      `/api/pokeapi/pokemon?offset=${offset * limit}&limit=${limit}`,
-    )
-      .then((data) => {
-        setPokemonList(data.data);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    startTransition(async () => {
+      const data = await baseFetchRequest<IBaseResponse<IPokemonList>>(
+        `/api/pokeapi/pokemon?offset=${offset * limit}&limit=${limit}`,
+      );
+
+      setPokemonList(data.data);
+    });
   }, [limit, offset]);
 
   return useMemo(() => {
     return {
       error: null,
       data: pokemonList,
-      isLoading: loading,
+      isLoading: isPending,
     };
-  }, [loading, pokemonList]);
+  }, [isPending, pokemonList]);
 };

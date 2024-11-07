@@ -1,38 +1,34 @@
 "use client";
 
-import { MouseEvent, useEffect, useState } from "react";
+import { MouseEvent, use, useCallback, useState } from "react";
 
-import { baseFetchRequest } from "@/lib/fetch-request";
 import { PokemonList, PokemonPagination } from "@/app/(protected)/pokemon/libs/components";
 
-export function PokemonContent() {
+const ROWS_PAGE = 15;
+
+interface IProps {
+  commentsPromise: Promise<{ count: number }>;
+}
+
+export function PokemonContent(props: IProps) {
+  const { commentsPromise } = props;
+
   const [page, setPage] = useState<number>(0);
-  const [count, setCount] = useState<number>(0);
 
-  const rowsPage = 15;
+  const { count } = use(commentsPromise);
 
-  useEffect(() => {
-    baseFetchRequest<{ count: number }>("https://pokeapi.co/api/v2/pokemon?offset=0&limit=1")
-      .then((data) => {
-        setCount(data.count);
-      })
-      .catch((error) => {
-        console.log("fetch data failed", error);
-      });
-  }, []);
-
-  const handleChangePage = (_: MouseEvent<HTMLButtonElement> | null, newPage: number) => {
+  const handleChangePage = useCallback((_: MouseEvent<HTMLAnchorElement>, newPage: number) => {
     setPage(newPage);
-  };
+  }, []);
 
   return (
     <>
-      <PokemonList page={page} rowsPage={rowsPage} />
+      <PokemonList page={page} rowsPage={ROWS_PAGE} />
 
       <PokemonPagination
         page={page}
         count={count}
-        rowsPage={rowsPage}
+        rowsPage={ROWS_PAGE}
         handleChangePage={handleChangePage}
       />
     </>
