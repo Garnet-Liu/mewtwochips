@@ -5,10 +5,6 @@ import { PageHeader } from "@/components/page-header";
 import { baseFetchRequest } from "@/lib/fetch-request";
 import { PokemonContent } from "@/app/(protected)/pokemon/libs/components";
 
-export const metadata = {
-  title: "Pokémon",
-};
-
 export default function Pokemon() {
   const commentsPromise = baseFetchRequest<{
     count: number;

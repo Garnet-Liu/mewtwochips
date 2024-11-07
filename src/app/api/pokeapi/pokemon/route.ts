@@ -1,10 +1,10 @@
 import { NamedAPIResourceList, Pokemon, PokemonSpecies } from "pokenode-ts";
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 
 import { IBaseResponse } from "@/lib/fetch-request";
 import { IPokemon, IPokemonList } from "@/app/(protected)/pokemon/libs/types";
 
-export async function GET(request: Request) {
+export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const offset = Number(searchParams.get("offset")) || 0;
   const limit = Number(searchParams.get("limit")) || 20;

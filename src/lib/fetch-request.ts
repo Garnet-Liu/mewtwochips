@@ -6,7 +6,6 @@ export interface IBaseResponse<T = void> {
 }
 
 export const apiFetchRequest = async <T = void>(url: string, init?: RequestInit): Promise<T> => {
-  console.log("url", url);
   const result = await baseFetchRequest<IBaseResponse<T>>(url, init);
   if (result.success) {
     return result.data;

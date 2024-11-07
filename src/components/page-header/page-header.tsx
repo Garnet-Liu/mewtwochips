@@ -5,7 +5,7 @@ interface IPageHeaderProps {
   backRoute: string;
 }
 
-export async function PageHeader({ pageTitle, backRoute }: IPageHeaderProps) {
+export function PageHeader({ pageTitle, backRoute }: IPageHeaderProps) {
   return (
     <div className="relative flex items-center gap-3">
       <BackRoute href={backRoute} />

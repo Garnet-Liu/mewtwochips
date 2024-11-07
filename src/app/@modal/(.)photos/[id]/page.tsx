@@ -8,6 +8,7 @@ interface IProps {
 
 export default async function PhotoModal({ params }: Readonly<IProps>) {
   const { id } = await params;
+
   const photo = await getPhotoDetail(id);
 
   if (photo) {
