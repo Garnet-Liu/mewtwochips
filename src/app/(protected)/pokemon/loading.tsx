@@ -1,3 +1,5 @@
+import { Spin } from "@/components/spin";
+
 export default function Loading() {
-  return <div className="mt-60 text-center">Loading pokemon...</div>;
+  return <Spin loading={true} className="h-full" />;
 }
