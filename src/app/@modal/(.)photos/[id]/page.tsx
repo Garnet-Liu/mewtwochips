@@ -1,5 +1,4 @@
 import { Photo } from "@/app/(protected)/photos/libs/components";
-import { BaseModal } from "@/app/@modal/libs/components/base-modal";
 import { getPhotoDetail } from "@/app/(protected)/photos/libs/services";
 
 interface IProps {
@@ -12,11 +11,7 @@ export default async function PhotoModal({ params }: Readonly<IProps>) {
   const photo = await getPhotoDetail(id);
 
   if (photo) {
-    return (
-      <BaseModal>
-        <Photo photo={photo} />
-      </BaseModal>
-    );
+    return <Photo photo={photo} />;
   } else {
     return <div>没找到</div>;
   }

@@ -1,4 +1,4 @@
-import { auth } from "@/auth";
+import { auth } from "@/next-auth/auth";
 import { UserAvatar } from "@/app/libs/components/user-avatar";
 import { UserSignOut } from "@/app/libs/components/user-sign-out";
 
