@@ -1,29 +1,20 @@
-export interface IQueryPokemonList {
-  limit: number;
-  offset: number;
-}
+import { ISpecies } from "@/app/api/pokeapi/pokemon/servers/request-genus";
 
 export interface IPokemonList {
   pokemon: IPokemon[];
   count: number;
 }
 
-export interface IPokemon {
+export interface IPokemon extends ISpecies {
   id: number;
   name: string;
   show: boolean;
-  pokemon_name: string;
   pokemon_photo: string;
-  pokemon_color: string;
-  pokemon_genera: string;
-  pokemon_flavor_text_entries: string;
 }
 
-export interface IPokemonDetail {
+export interface IPokemonDetail extends ISpecies {
   id: number;
   stats: IStat[];
-  pokemon_name: string;
-  pokemon_color: string;
   pokemon_photo: string;
 }
 

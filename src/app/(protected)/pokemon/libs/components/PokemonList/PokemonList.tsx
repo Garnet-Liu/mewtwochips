@@ -20,7 +20,7 @@ export function PokemonList(props: IPokemonCardProps) {
     <Spin loading={isLoading} className="grid min-h-[1009px] grid-cols-[1fr_1fr_1fr_1fr_1fr] gap-3">
       {(data?.pokemon || []).map((pokemon) => (
         <Link
-          key={`pokemon-${pokemon.pokemon_name}`}
+          key={`pokemon-${pokemon.id}`}
           className="transition ease-in-out hover:scale-105"
           href={`/pokemon/${pokemon.name}`}
         >

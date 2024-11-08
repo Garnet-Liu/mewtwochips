@@ -1,9 +1,10 @@
-import { Pokemon, PokemonSpecies, Stat } from "pokenode-ts";
+import { Pokemon, Stat } from "pokenode-ts";
 import { NextResponse } from "next/server";
 
 import { auth } from "@/auth";
+import { baseFetchRequest } from "@/lib/fetch-request";
 import { firebaseAdmin } from "@/firebase/firebase-admin";
-import { IPokemonDetail } from "@/app/(protected)/pokemon/libs/types";
+import { requestName, requestSpecies } from "@/app/api/pokeapi/pokemon/servers/request-genus";
 
 export const GET = auth(async (req, ctx) => {
   const params = await ctx.params;
@@ -12,36 +13,39 @@ export const GET = auth(async (req, ctx) => {
   try {
     const user = await firebaseAdmin.auth().verifyIdToken(req.auth?.user.idToken ?? "");
 
-    console.log("user =>", user.name);
-    const pokemonResponse = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`);
-    const pokemon: Pokemon = await pokemonResponse.json();
-    const fetchStatGroup: Array<Promise<Stat>> = pokemon.stats.map(async (stat) => {
-      const stateResponse = await fetch(stat.stat.url);
-      return stateResponse.json();
-    });
-    const statData = await Promise.all(fetchStatGroup);
-    const speciesResponse = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${name}`);
-    const species: PokemonSpecies = await speciesResponse.json();
-    const zh_Name = species.names.find((item) => item.language.name === "zh-Hans");
-    const apiResponseData: IPokemonDetail = {
-      id: pokemon.id,
-      pokemon_color: species.color.name,
-      pokemon_name: zh_Name?.name ?? species.name,
-      pokemon_photo: pokemon.sprites.other?.["official-artwork"].front_default || "",
-      stats: statData.map((stat) => {
+    console.log("===============>", user.name);
+
+    return baseFetchRequest<Pokemon>(`https://pokeapi.co/api/v2/pokemon/${name}`)
+      .then(async (p) => {
+        const species = await requestSpecies(`https://pokeapi.co/api/v2/pokemon-species/${name}`);
+
+        const stats = await Promise.allSettled(
+          p.stats.map((stat) => baseFetchRequest<Stat>(stat.stat.url)),
+        );
+        const statData = stats.map((r) => (r.status === "fulfilled" ? r.value : null));
+
         return {
-          name: stat.name,
-          stat_name: stat.names.find((item) => item.language.name === "zh-Hans")?.name ?? stat.name,
-          base_stat: pokemon.stats.find((item) => item.stat.name === stat.name)?.base_stat ?? 0,
+          id: p.id,
+          ...species,
+          pokemon_photo: p.sprites.other?.["official-artwork"].front_default || "",
+          stats: statData.map((stat) => {
+            const base_stat = p.stats.find((item) => item.stat.name === stat?.name);
+            return {
+              name: stat?.name,
+              stat_name: requestName(stat?.names ?? []) ?? stat?.name,
+              base_stat: base_stat?.base_stat ?? 0,
+            };
+          }),
         };
-      }),
-    };
-    return NextResponse.json({
-      code: 200,
-      success: true,
-      message: "success",
-      data: apiResponseData,
-    });
+      })
+      .then((pokemon) => {
+        return NextResponse.json({
+          code: 200,
+          success: true,
+          message: "success",
+          data: pokemon,
+        });
+      });
   } catch (error) {
     console.log("error", error);
     return NextResponse.json(
