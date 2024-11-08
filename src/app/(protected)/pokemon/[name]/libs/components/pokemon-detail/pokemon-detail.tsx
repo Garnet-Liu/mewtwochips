@@ -14,7 +14,7 @@ export function PokemonDetail(props: Readonly<IProps>) {
     <>
       <div className="flex">
         <div className="relative w-1/2">
-          <div style={{ marginTop: "100%" }}></div>
+          <div className="mt-[100%]"></div>
           <Image
             src={pokemonDetail.pokemon_photo}
             fill

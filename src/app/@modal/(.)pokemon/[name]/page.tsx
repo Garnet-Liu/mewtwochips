@@ -15,18 +15,9 @@ export default async function PokemonModal({ params }: Readonly<IProps>) {
   const headersList = await headers();
 
   try {
-    console.log('headersList.get("x-origin")', headersList.get("x-origin"));
-
-    const headerValues: Record<string, string> = {};
-    headersList.forEach((value, key) => {
-      headerValues[key] = value;
-    });
-
-    console.log("headerValues", headerValues);
-
     const pokemonDetail = await apiFetchRequest<IPokemonDetail>(
       `${headersList.get("x-origin")}/api/pokeapi/pokemon/${name}`,
-      { headers: headerValues },
+      { headers: [...headersList.entries()] },
     );
     return (
       <BaseModal>

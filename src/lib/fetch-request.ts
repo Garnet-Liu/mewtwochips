@@ -6,11 +6,11 @@ export interface IBaseResponse<T = void> {
 }
 
 export const apiFetchRequest = async <T = void>(url: string, init?: RequestInit): Promise<T> => {
-  console.log("init", init);
   const result = await baseFetchRequest<IBaseResponse<T>>(url, init);
   if (result.success) {
     return result.data;
   } else {
+    console.log("=========== apiFetchRequest ===========");
     console.log(result);
     throw new Error(result.message);
   }
