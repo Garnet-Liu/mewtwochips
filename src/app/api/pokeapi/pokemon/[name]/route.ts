@@ -9,11 +9,10 @@ export const GET = auth(async (req, ctx) => {
   const params = await ctx.params;
   const name = params?.name;
   console.log("request pokemon name =====>", name);
-
-  const user = await firebaseAdmin.auth().verifyIdToken(req.auth?.user.idToken ?? "");
-
-  console.log("user =>", user.name);
   try {
+    const user = await firebaseAdmin.auth().verifyIdToken(req.auth?.user.idToken ?? "");
+
+    console.log("user =>", user.name);
     const pokemonResponse = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`);
     const pokemon: Pokemon = await pokemonResponse.json();
     const fetchStatGroup: Array<Promise<Stat>> = pokemon.stats.map(async (stat) => {
@@ -48,8 +47,8 @@ export const GET = auth(async (req, ctx) => {
     return NextResponse.json(
       {
         code: 500,
-        success: false,
         data: null,
+        success: false,
         message: "Internal Server Error",
       },
       { status: 500 },
