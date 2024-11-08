@@ -1,28 +1,32 @@
 import { NamedAPIResourceList, Pokemon } from "pokenode-ts";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
+import { auth } from "@/next-auth/auth";
+import { verifyIdToken } from "@/lib/verify-id-token";
 import { baseFetchRequest } from "@/lib/fetch-request";
 import { requestSpecies } from "@/app/api/pokeapi/pokemon/servers/request-genus";
 
-export async function GET(request: NextRequest) {
-  const { searchParams } = new URL(request.url);
+export const GET = auth(async (req) => {
+  const { searchParams } = new URL(req.url);
   const offset = Number(searchParams.get("offset")) || 0;
   const limit = Number(searchParams.get("limit")) || 20;
+
   console.log(`request pokemon list offset:${offset} limit:${limit}`);
-  try {
-    let totalCount = 0;
-    return baseFetchRequest<NamedAPIResourceList>(
+
+  return await verifyIdToken(req.auth, async () => {
+    const { results, count } = await baseFetchRequest<NamedAPIResourceList>(
       `https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${limit}`,
+    );
+    const pokemon = await Promise.allSettled(
+      results.map((pokemon) => baseFetchRequest<Pokemon>(pokemon.url)),
     )
-      .then(async ({ results, count }) => {
-        totalCount = count;
-        const res = await Promise.allSettled(
-          results.map((pokemon) => baseFetchRequest<Pokemon>(pokemon.url)),
-        );
-        return res.map((r) => (r.status === "fulfilled" ? r.value : null));
+      .then((pokemon) => {
+        return pokemon.map((p) => {
+          return p.status === "fulfilled" ? p.value : null;
+        });
       })
-      .then(async (pokemon) => {
-        const res = await Promise.allSettled(
+      .then((pokemon) => {
+        return Promise.allSettled(
           pokemon.map(async (p) => {
             if (p) {
               const species = await requestSpecies(p.species.url);
@@ -38,18 +42,17 @@ export async function GET(request: NextRequest) {
             }
           }),
         );
-        return res.map((p) => (p.status === "fulfilled" ? p.value : null));
       })
       .then((pokemon) => {
-        return NextResponse.json({
-          data: { pokemon: pokemon, count: totalCount },
-          message: "success",
-          success: true,
-          code: 200,
+        return pokemon.map((p) => {
+          return p.status === "fulfilled" ? p.value : null;
         });
       });
-  } catch (error) {
-    console.log("error", error);
-    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
-  }
-}
+    return NextResponse.json({
+      data: { pokemon, count },
+      message: "success",
+      success: true,
+      code: 200,
+    });
+  });
+});

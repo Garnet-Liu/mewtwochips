@@ -1,11 +1,11 @@
 import { Suspense } from "react";
 
-import { Spin } from "@/components/spin";
 import { PageHeader } from "@/components/page-header";
 import { baseFetchRequest } from "@/lib/fetch-request";
-import { PokemonContent } from "@/app/(protected)/pokemon/libs/components";
+import { PokemonContent } from "@/app/(protected)/pokemon/libs/components/pokemon-content";
+import { PokemonSkeleton } from "@/app/(protected)/pokemon/libs/components/pokemon-skeleton";
 
-export default function Pokemon() {
+export default function Page() {
   const commentsPromise = baseFetchRequest<{
     count: number;
   }>("https://pokeapi.co/api/v2/pokemon?offset=0&limit=1");
@@ -14,7 +14,7 @@ export default function Pokemon() {
     <div className="mx-auto flex w-[1200px] flex-col gap-4 py-4">
       <PageHeader pageTitle="Pokemon" backRoute="/" />
 
-      <Suspense fallback={<Spin className="h-[840px]" loading={true} />}>
+      <Suspense fallback={<PokemonSkeleton />}>
         <PokemonContent commentsPromise={commentsPromise} />
       </Suspense>
     </div>

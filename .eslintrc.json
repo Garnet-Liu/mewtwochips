@@ -1,15 +1,33 @@
 {
-  "extends": ["next/core-web-vitals", "next/typescript", "prettier"],
-  "plugins": ["prettier", "import"],
+  "extends": [
+    "next/core-web-vitals",
+    "next/typescript",
+    "prettier"
+  ],
+  "plugins": [
+    "prettier",
+    "import"
+  ],
   "rules": {
     "prettier/prettier": "error",
-    "semi": ["error", "always"],
+    "semi": [
+      "error",
+      "always"
+    ],
     "import/order": [
       "error",
       {
         "groups": [
-          ["builtin", "external"],
-          ["internal", "parent", "sibling", "index"]
+          [
+            "builtin",
+            "external"
+          ],
+          [
+            "internal",
+            "parent",
+            "sibling",
+            "index"
+          ]
         ],
         "newlines-between": "always"
       }

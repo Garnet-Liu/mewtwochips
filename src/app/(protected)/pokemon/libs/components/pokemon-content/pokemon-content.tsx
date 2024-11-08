@@ -2,7 +2,8 @@
 
 import { MouseEvent, use, useCallback, useState } from "react";
 
-import { PokemonList, PokemonPagination } from "@/app/(protected)/pokemon/libs/components";
+import { PokemonList } from "@/app/(protected)/pokemon/libs/components/pokemon-list";
+import { PokemonPagination } from "@/app/(protected)/pokemon/libs/components/pokemon-pagination";
 
 const ROWS_PAGE = 15;
 

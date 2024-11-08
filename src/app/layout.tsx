@@ -4,6 +4,7 @@ import localFont from "next/font/local";
 import type { Metadata } from "next";
 import { ReactNode } from "react";
 
+import { Toaster } from "@/components/ui/sonner";
 import { FirebaseProvider } from "@/app/libs/components/firebase-provider";
 
 import "./globals.css";
@@ -40,6 +41,7 @@ export default function RootLayout({ children, modal }: Readonly<IProps>) {
           </FirebaseProvider>
         </SessionProvider>
         <Analytics />
+        <Toaster />
       </body>
     </html>
   );

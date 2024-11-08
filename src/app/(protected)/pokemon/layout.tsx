@@ -8,6 +8,6 @@ interface IProps {
   children: ReactNode;
 }
 
-export default function PokemonLayout({ children }: Readonly<IProps>) {
+export default function Layout({ children }: Readonly<IProps>) {
   return <>{children}</>;
 }
