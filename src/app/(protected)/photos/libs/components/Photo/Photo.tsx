@@ -2,11 +2,11 @@ import Image from "next/image";
 
 import { IPhoto } from "@/app/(protected)/photos/libs/services";
 
-interface IPhotoProps {
+interface IProps {
   photo: IPhoto;
 }
 
-export function Photo({ photo }: IPhotoProps) {
+export function Photo({ photo }: IProps) {
   return (
     <>
       <Image

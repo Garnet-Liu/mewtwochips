@@ -1,19 +1,18 @@
 import { Pokemon, PokemonSpecies, Stat } from "pokenode-ts";
 import { NextResponse } from "next/server";
-import { cookies } from "next/headers";
 
+import { auth } from "@/auth";
+import { firebaseAdmin } from "@/firebase/firebase-admin";
 import { IPokemonDetail } from "@/app/(protected)/pokemon/libs/types";
 
-interface IParams {
-  params: Promise<{ name: string }>;
-}
+export const GET = auth(async (req, ctx) => {
+  const params = await ctx.params;
+  const name = params?.name;
+  console.log("request pokemon name =====>", name);
 
-export async function GET(request: Request, { params }: IParams) {
-  const { name } = await params;
-  console.log("request pokemon name", name);
-  const cookieStore = await cookies();
-  const idToken = cookieStore.get("token");
-  console.log("idToken", idToken);
+  const user = await firebaseAdmin.auth().verifyIdToken(req.auth?.user.idToken ?? "");
+
+  console.log("user =>", user.name);
   try {
     const pokemonResponse = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`);
     const pokemon: Pokemon = await pokemonResponse.json();
@@ -56,4 +55,4 @@ export async function GET(request: Request, { params }: IParams) {
       { status: 500 },
     );
   }
-}
+});

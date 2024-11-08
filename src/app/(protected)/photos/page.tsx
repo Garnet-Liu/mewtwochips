@@ -1,8 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { PageHeader } from "@/components/page-header";
 import { getPhotoList } from "@/app/(protected)/photos/libs/services";
-import { PageHeader } from "../../../components/page-header";
 
 export default async function Page() {
   const photos = await getPhotoList();

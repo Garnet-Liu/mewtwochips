@@ -21,7 +21,7 @@ export function AvatarMenu() {
   if (session) {
     return (
       <DropdownMenu>
-        <DropdownMenuTrigger>
+        <DropdownMenuTrigger aria-label="avatar btn">
           <UserAvatar session={session} />
         </DropdownMenuTrigger>
 

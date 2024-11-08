@@ -25,6 +25,12 @@ export function FirebaseProvider({ children }: Readonly<Props>) {
       const expTime = new Date(idTokenResult.expirationTime).getTime();
       const nowTime = new Date().getTime();
 
+      console.log("expTime - nowTime", expTime - nowTime);
+      console.log(expTime - nowTime - 5 * 60 * 1000);
+      console.log(expTime - nowTime - 5 * 60 * 1000 < 0);
+
+      console.log("idTokenResult", idTokenResult.token);
+
       if (expTime - nowTime - 5 * 60 * 1000 < 0) {
         return await getIdTokenResult(true);
       } else {
@@ -37,6 +43,8 @@ export function FirebaseProvider({ children }: Readonly<Props>) {
   const checkUserIdToken = useCallback(
     async (user: User) => {
       const [time, idToken] = await getIdTokenResult();
+
+      console.log("time", time);
 
       timerRef.current = setTimeout(() => {
         checkUserIdToken(user);

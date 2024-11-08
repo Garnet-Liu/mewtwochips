@@ -1,6 +1,6 @@
+import { PageHeader } from "@/components/page-header";
 import { Photo } from "@/app/(protected)/photos/libs/components";
 import { getPhotoDetail } from "@/app/(protected)/photos/libs/services";
-import { PageHeader } from "../../../../components/page-header";
 
 interface IProps {
   params: Promise<{ id: string }>;
@@ -8,6 +8,7 @@ interface IProps {
 
 export default async function Page({ params }: Readonly<IProps>) {
   const { id } = await params;
+
   const photo = await getPhotoDetail(id);
 
   if (photo) {

@@ -1,7 +1,7 @@
 import { headers } from "next/headers";
 
 import { apiFetchRequest } from "@/lib/fetch-request";
-import { PageHeader } from "@/components/page-header";
+import { BaseModal } from "@/app/@modal/libs/components/base-modal";
 import { IPokemonDetail } from "@/app/(protected)/pokemon/libs/types";
 import { PokemonDetail } from "@/app/(protected)/pokemon/[name]/libs/components/pokemon-detail";
 
@@ -9,7 +9,7 @@ interface IProps {
   params: Promise<{ name: string }>;
 }
 
-export default async function PokemonDetailPage({ params }: Readonly<IProps>) {
+export default async function PokemonModal({ params }: Readonly<IProps>) {
   const { name } = await params;
 
   const headersList = await headers();
@@ -20,14 +20,14 @@ export default async function PokemonDetailPage({ params }: Readonly<IProps>) {
       { headers: headersList },
     );
     return (
-      <div className="mx-auto w-[1200px]">
-        <PageHeader pageTitle={pokemonDetail.pokemon_name} backRoute="/pokemon" />
-
-        <PokemonDetail pokemonDetail={pokemonDetail} />
-      </div>
+      <BaseModal>
+        <div className="mx-auto w-[1200px] bg-white">
+          <PokemonDetail pokemonDetail={pokemonDetail} />
+        </div>
+      </BaseModal>
     );
   } catch (e) {
     console.log(e);
-    return null;
+    return <div>没找到</div>;
   }
 }

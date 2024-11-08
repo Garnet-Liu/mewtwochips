@@ -15,6 +15,8 @@ export interface IPokemon {
   pokemon_name: string;
   pokemon_photo: string;
   pokemon_color: string;
+  pokemon_genera: string;
+  pokemon_flavor_text_entries: string;
 }
 
 export interface IPokemonDetail {

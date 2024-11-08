@@ -29,15 +29,14 @@ export const authConfig = {
     }),
   ],
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user, trigger, session }) {
+      if (trigger === "update") {
+        console.log("update newSession", session);
+        token.idToken = session.idToken;
+      }
       return { ...token, ...user };
     },
-    async session({ session, token, trigger, newSession }) {
-      if (trigger === "update") {
-        console.log("newSession", newSession);
-        token.idToken = newSession.idToken;
-      }
-
+    async session({ session, token }) {
       return {
         ...session,
         user: {
