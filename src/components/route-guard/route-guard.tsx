@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import { ReactNode } from "react";
 
-import { auth } from "@/auth";
+import { auth } from "@/next-auth/auth";
 
 interface IProps {
   flag?: "in" | "out";
