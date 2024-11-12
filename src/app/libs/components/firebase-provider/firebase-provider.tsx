@@ -1,12 +1,19 @@
 "use client";
 
 import { ReactNode, useCallback, useEffect, useRef, useState } from "react";
+import { disableFragmentWarnings } from "graphql-tag";
 import { signOut, useSession } from "next-auth/react";
 import { Unsubscribe } from "@firebase/util";
 import { User } from "firebase/auth";
 
 import { Spin } from "@/components/spin";
 import { firebaseAuth } from "@/firebase/firebase";
+
+/**
+ * TODO: 这个错误是暂时的处理方案，在未来也许可以有更好的方案
+ * https://github.com/apollographql/apollo-client-nextjs/issues/328#issuecomment-2208407530
+ */
+disableFragmentWarnings();
 
 interface Props {
   children: ReactNode;

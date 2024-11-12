@@ -17,7 +17,7 @@ export default function Page() {
   const [result, asyncAction, isPending] = useActionState<IFormData, FormData>(
     async (previousState, formData) => {
       try {
-        return await apiFetchRequest<IFormData>("/api/features/counter", {
+        return await apiFetchRequest<IFormData>(`${window.location.origin}/api/features/counter`, {
           method: "POST",
           body: formData,
         });

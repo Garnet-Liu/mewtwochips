@@ -36,8 +36,6 @@ function readExistingImports(existingIndexFile) {
   const regex = /import\s+(.*)\s+from/gm;
   const matches = data.match(regex) || [];
 
-  // .map((item) => item.replace("{", "").replace("}", "").trim());
-
   return matches.map((match) => match.replace(/import\s+(.*)\s+from/, "$1").trim());
 }
 

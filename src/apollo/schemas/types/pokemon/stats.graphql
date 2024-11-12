@@ -1,0 +1,21 @@
+interface Stats {
+  id: ID
+  name_id: StatsType
+  name: String
+}
+
+type PokemonStats implements Stats {
+  id: ID
+  name_id: StatsType
+  name: String
+  base_stat: Int
+}
+
+enum StatsType {
+  HP
+  ATTACK
+  DEFENSE
+  SPECIAL_ATTACK
+  SPECIAL_DEFENSE
+  SPEED
+}

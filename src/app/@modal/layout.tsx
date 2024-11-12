@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-import { BaseModal } from "@/app/@modal/libs/components/base-modal";
+import { BaseModal } from "@/components/base-modal";
 
 interface IProps {
   children: ReactNode;

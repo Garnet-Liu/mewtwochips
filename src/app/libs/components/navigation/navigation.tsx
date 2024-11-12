@@ -1,4 +1,4 @@
-import { HTMLAttributes } from "react";
+import { FunctionComponent, HTMLAttributes } from "react";
 import Link from "next/link";
 
 import { cn } from "@/lib/utils";
@@ -13,24 +13,37 @@ import {
   navigationMenuTriggerStyle,
   NavigationMenuViewport,
 } from "@/components/ui/navigation-menu";
-import { Photos, Pokeball } from "@/components/svgs";
-import { AvatarMenu, ListItem } from "@/app/libs/components/navigation";
+import { AvatarMenu, MenuList } from "@/app/libs/components/navigation";
+import { File, Globe, Graphql, Photos, Pokeball } from "@/components/svgs";
 
-const PAGES = [
+export interface NavigationPage {
+  path: string;
+  label: string;
+  Icon: FunctionComponent<{ className?: string }>;
+  description?: string;
+  children?: NavigationPage[];
+}
+
+const PAGES: NavigationPage[] = [
   { path: "/pokemon", label: "Pokémon", Icon: Pokeball },
   { path: "/photos", label: "Photos", Icon: Photos },
   {
     path: "/features",
     label: "Features",
-    Icon: Photos,
+    Icon: Globe,
     children: [
       {
         path: "/features/counter",
         label: "Counter",
         description: "A small example of Redux",
-        Icon: Pokeball,
+        Icon: File,
       },
-      { path: "/features/will2", label: "Pokémon", description: "Pokemon list", Icon: Pokeball },
+      {
+        path: "/features/graphql",
+        label: "Graphql",
+        description: "A test case for graphql",
+        Icon: Graphql,
+      },
     ],
   },
 ];
@@ -59,17 +72,7 @@ export function Navigation(props: HTMLAttributes<HTMLElement>) {
                         </NavigationMenuTrigger>
 
                         <NavigationMenuContent>
-                          <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                            {page.children.map((component) => (
-                              <ListItem
-                                key={`nav-menu-${component.path}`}
-                                title={component.label}
-                                href={component.path}
-                              >
-                                {component.description}
-                              </ListItem>
-                            ))}
-                          </ul>
+                          <MenuList pages={page} />
                         </NavigationMenuContent>
                       </>
                     ) : (

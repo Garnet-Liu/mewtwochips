@@ -31,6 +31,16 @@
         ],
         "newlines-between": "always"
       }
+    ],
+    "@typescript-eslint/no-require-imports": [
+      "error",
+      {
+        "allow": [
+          "path",
+          "fs",
+          "tailwindcss-animate"
+        ]
+      }
     ]
   }
 }
