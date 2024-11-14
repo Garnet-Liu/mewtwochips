@@ -11,8 +11,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useGoogleAuthHandle } from "@/app/libs/hooks";
-import { UserAvatar } from "@/app/libs/components/user-avatar";
+import { useGoogleAuthHandle } from "@/hooks";
+import { UserAvatar } from "@/components/home/user-avatar";
 
 export function AvatarMenu() {
   const { data: session } = useSession();

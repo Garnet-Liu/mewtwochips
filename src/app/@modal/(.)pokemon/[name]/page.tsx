@@ -12,7 +12,7 @@ export default async function PokemonModal({ params }: Readonly<IProps>) {
   try {
     const pokemon = await getClient().query({ query: pokemonQuery, variables: { name } });
     return (
-      <div className="mx-auto w-[1200px] bg-white">
+      <div className="max-width mx-auto bg-white">
         <PokemonDetail pokemon={pokemon.data.pokemon} />
       </div>
     );

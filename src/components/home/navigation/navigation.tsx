@@ -13,7 +13,7 @@ import {
   navigationMenuTriggerStyle,
   NavigationMenuViewport,
 } from "@/components/ui/navigation-menu";
-import { AvatarMenu, MenuList } from "@/app/libs/components/navigation";
+import { AvatarMenu, MenuList } from "@/components/home/navigation";
 import { File, Globe, Graphql, Photos, Pokeball } from "@/components/svgs";
 
 export interface NavigationPage {

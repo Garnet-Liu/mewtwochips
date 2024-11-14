@@ -62,11 +62,12 @@ export class PokemonDataSource extends RESTDataSource {
   private async queryPokemon(args: PokemonArgs): Promise<GPokemon> {
     return this.get<Pokemon>(this.switchQueryUrl(args, `/api/v2/pokemon/`)).then(
       async (pokemon) => {
+        const pokemonID = `${pokemon.name}-${pokemon.id}`;
         const abilities = await this.queryArrayObject(pokemon.abilities, async (a) => {
           const result = await this.queryAbilities({ name: a.ability.name, url: a.ability.url });
           return {
             ...result,
-            id: uuidv5(`${pokemon.name}-${a.ability.name}`, uuidv5.URL),
+            id: uuidv5(`${pokemonID}-${a.ability.name}`, uuidv5.URL),
             is_hidden: a.is_hidden,
           };
         });
@@ -80,13 +81,13 @@ export class PokemonDataSource extends RESTDataSource {
           const result = await this.queryStats({ name: s.stat.name, url: s.stat.url });
           return {
             ...result,
-            id: uuidv5(`${pokemon.name}-${s.stat.name}`, uuidv5.URL),
+            id: uuidv5(`${pokemonID}-${s.stat.name}`, uuidv5.URL),
             base_stat: s.base_stat,
           };
         });
 
         return {
-          id: uuidv5(pokemon.name, uuidv5.URL),
+          id: uuidv5(pokemonID, uuidv5.URL),
           ...species,
           name_id: pokemon.name,
           order: pokemon.id,

@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 
 import { RouteGuard } from "@/components/route-guard";
-import { Navigation } from "@/app/libs/components/navigation";
+import { Navigation } from "@/components/home/navigation";
 
 interface IProps {
   children: ReactNode;

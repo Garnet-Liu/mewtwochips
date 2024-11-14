@@ -13,7 +13,7 @@ export default function Page() {
   }>("https://pokeapi.co/api/v2/pokemon?offset=0&limit=1");
 
   return (
-    <div className="mx-auto flex w-[1200px] flex-col gap-4 py-4">
+    <div className="max-width mx-auto flex flex-col gap-4 py-4">
       <PageHeader pageTitle="Pokemon" backRoute="/" />
 
       <PreloadQuery query={allPokemonQuery} variables={{ offset: 0, limit: 15 }}>

@@ -1,6 +1,6 @@
 import { auth } from "@/next-auth/auth";
-import { UserAvatar } from "@/app/libs/components/user-avatar";
-import { UserSignOut } from "@/app/libs/components/user-sign-out";
+import { UserAvatar } from "@/components/home/user-avatar";
+import { UserSignOut } from "@/components/home/user-sign-out";
 
 export default async function HomePage() {
   const session = await auth();

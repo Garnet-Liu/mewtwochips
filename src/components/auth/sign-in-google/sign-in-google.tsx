@@ -3,8 +3,8 @@
 import { LoaderCircle } from "lucide-react";
 
 import { Google } from "@/components/svgs";
+import { useGoogleAuthHandle } from "@/hooks";
 import { Button } from "@/components/ui/button";
-import { useGoogleAuthHandle } from "@/app/libs/hooks";
 
 export function SignInGoogle() {
   const { signIn, isLoading } = useGoogleAuthHandle();

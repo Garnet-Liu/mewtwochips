@@ -1,7 +1,7 @@
 "use client";
 
+import { useGoogleAuthHandle } from "@/hooks";
 import { Button } from "@/components/ui/button";
-import { useGoogleAuthHandle } from "@/app/libs/hooks";
 
 export function UserSignOut() {
   const { signOut } = useGoogleAuthHandle();

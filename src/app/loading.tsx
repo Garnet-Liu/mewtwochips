@@ -1,5 +1,7 @@
 export default function Loading() {
   return (
-    <div className="flex w-[1200px] items-center justify-center backdrop-blur-sm">Loading...</div>
+    <div className="absolute left-0 top-0 flex h-screen w-screen items-center justify-center text-white backdrop-blur-sm">
+      Loading root...
+    </div>
   );
 }

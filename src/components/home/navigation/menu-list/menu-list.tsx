@@ -1,4 +1,4 @@
-import { ListItem, NavigationPage } from "@/app/libs/components/navigation";
+import { ListItem, NavigationPage } from "@/components/home/navigation";
 
 interface IProps {
   pages: NavigationPage;

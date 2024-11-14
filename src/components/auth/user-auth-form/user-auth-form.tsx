@@ -1,8 +1,8 @@
 import { HTMLAttributes } from "react";
 
 import { cn } from "@/lib/utils";
-import { SignInGoogle } from "@/app/auth/login/libs/components/sign-in-google";
-import { SignInGithub } from "@/app/auth/login/libs/components/sign-in-github";
+import { SignInGoogle } from "@/components/auth/sign-in-google";
+import { SignInGithub } from "@/components/auth/sign-in-github";
 
 interface IProps extends HTMLAttributes<HTMLDivElement> {
   a?: string;

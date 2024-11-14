@@ -1,27 +1,26 @@
+import { Photo } from "@/components/photos/photo";
 import { PageHeader } from "@/components/page-header";
-import { Photo } from "@/app/(protected)/photos/libs/components";
-import { getPhotoDetail } from "@/app/(protected)/photos/libs/services";
+import { getPhotoDetail } from "@/services/photo-data";
 
 interface IProps {
   params: Promise<{ id: string }>;
 }
 
 export default async function Page({ params }: Readonly<IProps>) {
-  const { id } = await params;
+  try {
+    const { id } = await params;
 
-  const photo = await getPhotoDetail(id);
+    const photo = await getPhotoDetail(id);
 
-  if (photo) {
     return (
-      <div className="container mx-auto my-10">
-        <PageHeader pageTitle={photo.name} backRoute="/photos" />
+      <div className="my-10">
+        <PageHeader pageTitle={photo?.name} backRoute="/photos" />
 
-        <div className="mx-auto w-1/2 border border-gray-700">
-          <Photo photo={photo} />
-        </div>
+        <Photo photo={photo} className="border border-gray-700" />
       </div>
     );
-  } else {
+  } catch (e) {
+    console.error("Failed to fetch photo: ", e);
     return (
       <div className="container m-10 mx-auto">
         <PageHeader pageTitle="没找到" backRoute="/photos" />
