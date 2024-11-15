@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 import { ReactNode } from "react";
 
 import { Toaster } from "@/components/ui/sonner";
+import { ThemeProvider } from "@/components/home/theme-provider";
 import { ApolloProvider } from "@/components/home/apollo-provider";
 import { FirebaseProvider } from "@/components/home/firebase-provider";
 
@@ -33,15 +34,22 @@ interface IProps {
 
 export default function RootLayout({ children, modal }: Readonly<IProps>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} bg-background antialiased`}>
         <SessionProvider>
-          <FirebaseProvider>
-            <ApolloProvider>
-              {children}
-              {modal}
-            </ApolloProvider>
-          </FirebaseProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <FirebaseProvider>
+              <ApolloProvider>
+                {children}
+                {modal}
+              </ApolloProvider>
+            </FirebaseProvider>
+          </ThemeProvider>
         </SessionProvider>
         <Analytics />
         <Toaster />

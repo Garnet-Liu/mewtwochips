@@ -12,7 +12,7 @@ export default function Layout({ children }: Readonly<IProps>) {
     <RouteGuard>
       <Navigation />
 
-      {children}
+      <div className="h-[calc(100%-57px)]">{children}</div>
     </RouteGuard>
   );
 }

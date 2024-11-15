@@ -33,9 +33,9 @@ export default function Page() {
   const count = result.count.toString();
 
   return (
-    <div className="mt-20 flex justify-center">
+    <div className="flex justify-center pt-20">
       <form action={asyncAction} className="flex flex-col gap-2">
-        <div className="max-width flex justify-center gap-3">
+        <div className="flex justify-center gap-3">
           <Button type="button" size="icon" disabled={isPending}>
             <Plus />
           </Button>
@@ -53,7 +53,7 @@ export default function Page() {
           </Button>
         </div>
 
-        <div className="max-width flex w-full gap-3">
+        <div className="flex w-full gap-3">
           <Input className="w-10" name="count" disabled={isPending} />
 
           <Button type="submit" className="flex-1" size="icon" disabled={isPending}>
