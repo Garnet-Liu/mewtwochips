@@ -14,7 +14,7 @@ type Props = {
 
 export function SlotMachine(props: Props) {
   const slotMachineRef = useRef<HTMLDivElement>(null);
-  const [startAnimate, setStartAnimate] = useState(false);
+  const [firstAnimate, setFirstAnimate] = useState(false);
   const [secondAnimate, setSecondAnimate] = useState(false);
   const [finishAnimate, setFinishAnimate] = useState(false);
   const { enteredUsernames = [], animationDuration = 5000, onFinished, winnerName } = props;
@@ -34,18 +34,24 @@ export function SlotMachine(props: Props) {
 
   const animationEndHandle = useCallback(
     (e: AnimationEvent<HTMLDivElement>) => {
-      console.log("animationEndHandle useCallback", e.animationName);
-      setFinishAnimate(true);
-      setStartAnimate(false);
-      setSecondAnimate(false);
-      onFinished?.();
+      console.log("animationEndHandle useCallback call", e.animationName);
+      if (e.animationName === "slot-machine-border") {
+        console.log("animationEndHandle useCallback called", e.animationName);
+        onFinished?.();
+      } else if (e.animationName === "slot-machine-num") {
+        console.log("animationEndHandle useCallback called", e.animationName);
+        setSecondAnimate(false);
+        setFinishAnimate(true);
+        setFirstAnimate(false);
+      }
     },
     [onFinished],
   );
 
   const animationStartHandle = useCallback((e: AnimationEvent<HTMLDivElement>) => {
-    console.log("animationStartHandle useCallback", e.animationName);
+    console.log("animationStartHandle useCallback call", e.animationName);
     if (e.animationName === "slot-machine-num") {
+      console.log("animationStartHandle useCallback called", e.animationName);
       setSecondAnimate(true);
     }
   }, []);
@@ -56,7 +62,7 @@ export function SlotMachine(props: Props) {
       "--slot-machine-translate-y",
       styleVariable.translate,
     );
-    setStartAnimate(true);
+    setFirstAnimate(true);
   }, [styleVariable]);
 
   return (
@@ -82,7 +88,7 @@ export function SlotMachine(props: Props) {
             onAnimationStart={animationStartHandle}
             className={cn(
               "mx-auto",
-              startAnimate
+              firstAnimate
                 ? secondAnimate
                   ? "animate-[slot-machine-num_1s_forwards]"
                   : "animate-[slot-machine_1s_linear_infinite,slot-machine-num_1s_forwards]"

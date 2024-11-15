@@ -25,9 +25,9 @@ const statsType = new Map([
 ]);
 
 interface PokemonArgs {
-  id?: string;
-  url?: string;
-  name: string;
+  id?: Maybe<string>;
+  url?: Maybe<string>;
+  name?: Maybe<string>;
 }
 
 export class PokemonDataSource extends RESTDataSource {

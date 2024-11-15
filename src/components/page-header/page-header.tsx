@@ -1,5 +1,5 @@
-import { BackRoute } from "./BackRoute/BackRoute";
 import { Maybe } from "@/types/maybe";
+import { BackRoute } from "./back-route/back-route";
 
 interface IPageHeaderProps {
   pageTitle: Maybe<string>;

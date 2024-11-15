@@ -11,7 +11,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function Page() {
   return (
-    <Tabs defaultValue="allPokemon" className="max-width py-4">
+    <Tabs defaultValue="books">
       <div className="flex justify-between">
         <TabsList>
           <TabsTrigger value="books">Books</TabsTrigger>

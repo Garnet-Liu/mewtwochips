@@ -61,6 +61,8 @@
     "@as-integrations/next": "^3.2.0",
     "@graphql-codegen/cli": "5.0.3",
     "@graphql-codegen/client-preset": "^4.5.0",
+    "@graphql-codegen/typescript-operations": "^4.3.1",
+    "@graphql-codegen/typescript-resolvers": "^4.4.0",
     "@graphql-tools/load-files": "^7.0.0",
     "@graphql-tools/merge": "^9.0.8",
     "@graphql-tools/schema": "^10.0.7",

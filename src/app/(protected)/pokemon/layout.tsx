@@ -9,5 +9,5 @@ interface IProps {
 }
 
 export default function Layout({ children }: Readonly<IProps>) {
-  return <>{children}</>;
+  return <div className="page-content relative">{children}</div>;
 }

@@ -6,7 +6,7 @@ export default async function HomePage() {
   const session = await auth();
 
   return (
-    <div className="max-width flex h-full items-center justify-center">
+    <div className="page-content flex h-full items-center justify-center">
       <div className="flex flex-col justify-center gap-4">
         <div className="flex items-center gap-4">
           <div className="flex justify-center">

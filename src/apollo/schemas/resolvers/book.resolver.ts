@@ -1,4 +1,6 @@
-import { IResolvers } from "@graphql-tools/utils";
+import { sleep } from "@/lib/sleep";
+import { IContext } from "@/types/api/graphql";
+import { Resolvers } from "@/apollo/gql/graphql";
 
 const books = [
   {
@@ -13,26 +15,25 @@ const books = [
   },
 ];
 
-export const bookResolver: IResolvers = {
+export const bookResolver: Resolvers<IContext> = {
   Query: {
     books: () => books,
     book: (_, { id }) => {
-      return books.find((b) => b.id === id);
+      return books.find((b) => b.id === id) ?? null;
     },
   },
   Mutation: {
-    addBook: (_, { title, author }) => {
-      return new Promise((resolve) => {
-        setTimeout(() => {
-          const book = {
-            id: String(books.length + 1),
-            title,
-            author,
-          };
-          books.push(book);
-          resolve(book);
-        }, 2000);
-      });
+    addBook: async (_, { title, author }) => {
+      await sleep(3000);
+
+      const book = {
+        id: String(books.length + 1),
+        title,
+        author,
+      };
+      books.push(book);
+
+      return book;
     },
   },
 };

@@ -15,7 +15,7 @@ export function MenuList(props: IProps) {
             key={`nav-menu-${component.path}`}
             title={component.label}
             href={component.path}
-            icon={<Icon />}
+            icon={<Icon fill="currentColor" />}
           >
             {component.description}
           </ListItem>

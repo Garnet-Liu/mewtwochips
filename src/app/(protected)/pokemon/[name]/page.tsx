@@ -13,7 +13,7 @@ export default async function PokemonDetailPage({ params }: Readonly<IProps>) {
   try {
     const pokemon = await getClient().query({ query: pokemonQuery, variables: { name } });
     return (
-      <div className="max-width mx-auto">
+      <div className="page-content mx-auto">
         <PageHeader pageTitle={pokemon.data.pokemon?.name} backRoute="/pokemon" />
 
         <PokemonDetail pokemon={pokemon.data.pokemon} />

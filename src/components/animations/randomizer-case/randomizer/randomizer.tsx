@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useMemo, useRef } from "react";
 
 import { cn } from "@/lib/utils";
 import styles from "./randomizer.module.css";
+import { Win } from "@/components/animations/randomizer-case";
 
 interface IProps {
   winIndex: number;
@@ -37,74 +38,48 @@ export function Randomizer(props: IProps) {
     }
   }, [rotateNumber]);
 
-  const circleBottomCss = (index: number) => {
+  const circleBottomCss = useCallback(
+    (index: number) => {
+      return { transform: `rotate(${rotate * index}deg)` };
+    },
+    [rotate],
+  );
+
+  const { top, text } = useMemo(() => {
     return {
-      transform: `rotate(${rotate * index}deg)`,
+      top: { transform: `rotate(${rotate}deg)` },
+      text: { transform: `rotate(${-90 - rotate / 2}deg)` },
     };
-  };
-
-  const circleTopCss = (index: number, color?: string) => {
-    return {
-      transform: `rotate(${rotate}deg)`,
-      background: color || items[index].color,
-    };
-  };
-
-  const textCss = () => {
-    return {
-      transform: `rotate(${-90 - rotate / 2}deg)`,
-    };
-  };
-
-  // 圆心坐标
-  const cx = 200;
-  const cy = 200;
-
-  // 圆的半径
-  const r = 192;
-
-  const start = -90;
-  const end = 90;
-
-  console.log("大小", end - start);
-
-  // 起始角度和结束角度（以弧度表示）
-  const startAngle = (start * Math.PI) / 180; // 起始角度为30度，转换为弧度
-  const endAngle = (end * Math.PI) / 180; // 结束角度为120度，转换为弧度
-
-  // 计算起点坐标
-  const x1 = cx + r * Math.cos(startAngle);
-  const y1 = cy + r * Math.sin(startAngle);
-
-  // 计算终点坐标
-  const x2 = cx + r * Math.cos(endAngle);
-  const y2 = cy + r * Math.sin(endAngle);
-
-  // 输出起点和终点坐标
-  console.log("起点坐标:", x1, y1);
-  console.log("终点坐标:", x2, y2);
+  }, [rotate]);
 
   return (
     <div className="relative w-full pt-[100%]">
-      <div
-        ref={wheelRef}
-        className="absolute bottom-0 left-0 right-0 top-0 transition"
-        onTransitionEnd={onFinished}
-      >
-        <div className={cn("relative h-full w-full", styles.mask)}>
+      <div className="absolute bottom-0 left-0 right-0 top-0">
+        <div
+          ref={wheelRef}
+          onTransitionEnd={onFinished}
+          className={cn("relative h-full w-full transition", styles.mask)}
+        >
           {items.map((i, index) => {
             return (
               <div
                 key={index}
                 style={circleBottomCss(index)}
-                className={cn("absolute left-[2%] top-[2%] h-[96%] w-[96%]", styles.circleBottom)}
+                className={cn(
+                  "absolute left-[2%] top-[2%] h-[96%] w-[96%]",
+                  styles["circle-bottom"],
+                )}
               >
                 <div
-                  style={circleTopCss(index)}
-                  className={cn("h-full w-full rounded-full text-center", styles.circleTop)}
+                  style={top}
+                  className={cn(
+                    "h-full w-full rounded-full text-center",
+                    i.color,
+                    styles["circle-top"],
+                  )}
                 >
-                  <div style={textCss()} className="flex h-full w-full items-center justify-center">
-                    <span className="translate-x-1/2 pl-[110px] text-white">
+                  <div style={text} className="flex h-full w-full items-center justify-center">
+                    <span className="translate-x-1/2 pl-[50px] text-white">
                       {i.name} {index + 1}
                     </span>
                   </div>
@@ -112,24 +87,9 @@ export function Randomizer(props: IProps) {
               </div>
             );
           })}
-
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="absolute left-0 top-0 h-full w-full"
-            width="400"
-            height="400"
-            viewBox="0 0 400 400"
-          >
-            <path
-              d={`M200,200 L${x1},${y1} A${r},${r} 0 ${
-                end - start > 180 ? "1" : "0"
-              } 1 ${x2},${y2} Z`}
-              fill="transparent"
-              stroke="red"
-              strokeWidth="3"
-            />
-          </svg>
         </div>
+
+        <Win winIndex={winIndex} rotate={rotate} rotateNumber={rotateNumber} />
       </div>
     </div>
   );

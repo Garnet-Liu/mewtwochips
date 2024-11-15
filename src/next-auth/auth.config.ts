@@ -31,7 +31,7 @@ export const authConfig = {
   callbacks: {
     async jwt({ token, user, trigger, session }) {
       if (trigger === "update") {
-        console.log("update newSession", session);
+        console.log("update new session ======>", !!session);
         token.idToken = session.idToken;
       }
       return { ...token, ...user };

@@ -1,7 +1,7 @@
 const path = require("path");
 const fs = require("fs");
 
-const locationOfSvgComponentsInProject = "../../src/components/Svgs/index.ts";
+const locationOfSvgComponentsInProject = "../../src/components/svgs/index.ts";
 
 function defaultIndexTemplate(filePaths) {
   let imports = "";
@@ -16,8 +16,19 @@ function defaultIndexTemplate(filePaths) {
     .concat(existingImports)
     .filter(onlyUnique)
     .forEach((exportName) => {
-      imports += `import ${exportName} from './${exportName}/${removeNamedSyntax(exportName)}';\n`;
-      exports += removeNamedSyntax(exportName) + ",\n";
+      const importName = exportName
+        .replace(/[^a-zA-Z0-9]+/g, " ") // 替换非字母数字字符为空格
+        .trim() // 去掉两端的空格
+        .split(" ") // 按空格分割成数组
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()) // 每个单词首字母大写
+        .join("");
+      console.log("importName", importName);
+      console.log("exportName", exportName);
+      console.log(
+        `import ${importName} from './${exportName}/${removeNamedSyntax(exportName)}';\n`,
+      );
+      imports += `import ${importName} from './${exportName}/${removeNamedSyntax(exportName)}';\n`;
+      exports += removeNamedSyntax(importName) + ",\n";
     });
 
   return `${imports} \n export {${exports}}`;

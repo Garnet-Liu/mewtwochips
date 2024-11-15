@@ -1,22 +1,24 @@
 import { startServerAndCreateNextHandler } from "@as-integrations/next";
 import { makeExecutableSchema } from "@graphql-tools/schema";
 import { ApolloServer } from "@apollo/server";
-import { NextRequest } from "next/server";
 
+import { auth } from "@/next-auth/auth";
+import { IContext } from "@/types/api/graphql";
 import { typeDefs } from "@/apollo/schemas/type-defs";
 import { resolvers } from "@/apollo/schemas/resolvers";
 import { PokemonDataSource } from "@/apollo/schemas/source";
-
-interface IContext {
-  pokemon: PokemonDataSource;
-}
 
 const server = new ApolloServer<IContext>({
   schema: makeExecutableSchema({ typeDefs, resolvers }),
 });
 
-const handler = startServerAndCreateNextHandler<NextRequest, IContext>(server, {
-  context: async () => {
+type NextAuthRequest = Parameters<Parameters<typeof auth>[0]>[0];
+
+const handler = startServerAndCreateNextHandler<NextAuthRequest, IContext>(server, {
+  context: async (req) => {
+    console.log("======> startServerAndCreateNextHandler req token", !!req.auth?.user?.idToken);
+    console.log("req url", req.url);
+    console.log("req body", req.body);
     const { cache } = server;
     return {
       pokemon: new PokemonDataSource({ cache }),
@@ -24,10 +26,10 @@ const handler = startServerAndCreateNextHandler<NextRequest, IContext>(server, {
   },
 });
 
-export async function GET(request: NextRequest) {
+export const GET = auth(async (request) => {
   return await handler(request);
-}
+});
 
-export async function POST(request: NextRequest) {
+export const POST = auth(async (request) => {
   return await handler(request);
-}
+});

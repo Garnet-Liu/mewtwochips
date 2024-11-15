@@ -33,7 +33,7 @@ export default function Page() {
   const count = result.count.toString();
 
   return (
-    <div className="flex justify-center pt-20">
+    <div className="mt-20 flex justify-center">
       <form action={asyncAction} className="flex flex-col gap-2">
         <div className="flex justify-center gap-3">
           <Button type="button" size="icon" disabled={isPending}>

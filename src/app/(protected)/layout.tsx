@@ -10,9 +10,11 @@ interface IProps {
 export default function Layout({ children }: Readonly<IProps>) {
   return (
     <RouteGuard>
-      <Navigation />
+      <div className="flex h-full flex-col">
+        <Navigation />
 
-      <div className="h-[calc(100%-57px)]">{children}</div>
+        <div className="flex-1">{children}</div>
+      </div>
     </RouteGuard>
   );
 }

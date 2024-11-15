@@ -73,6 +73,6 @@ body {
   }
 }
 
-.max-width {
-  @apply w-[1200px] mx-auto;
+.page-content {
+  @apply w-[1200px] mx-auto py-3;
 }

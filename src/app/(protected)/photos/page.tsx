@@ -9,7 +9,7 @@ export default async function Page() {
     const photos = await getPhotoList();
 
     return (
-      <main className="max-width mx-auto">
+      <main className="flex flex-col gap-4">
         <PageHeader pageTitle="Photos" backRoute="/" />
 
         <div className="m-10 grid auto-rows-max grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">

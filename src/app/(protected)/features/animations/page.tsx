@@ -4,10 +4,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function Page() {
   return (
-    <Tabs defaultValue="randomizer" className="max-width py-4">
+    <Tabs defaultValue="randomizer">
       <TabsList>
         <TabsTrigger value="randomizer">Randomizer</TabsTrigger>
-        <TabsTrigger value="slotMachine">SlotMachine</TabsTrigger>
+        <TabsTrigger value="slotMachine">Slot machine</TabsTrigger>
       </TabsList>
 
       <TabsContent value="randomizer">

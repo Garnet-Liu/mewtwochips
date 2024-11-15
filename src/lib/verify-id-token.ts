@@ -7,7 +7,7 @@ import { firebaseAdmin } from "@/firebase/firebase-admin";
 
 import DecodedIdToken = auth.DecodedIdToken;
 
-type VerifyCallback = (decoded: DecodedIdToken) => NextResponse | Promise<NextResponse>;
+type VerifyCallback = (decoded: DecodedIdToken) => Response | Promise<Response>;
 
 export const verifyIdToken = async (auth: Maybe<Session>, callback: VerifyCallback) => {
   try {
