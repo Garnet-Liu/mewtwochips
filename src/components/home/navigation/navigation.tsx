@@ -13,8 +13,8 @@ import {
   navigationMenuTriggerStyle,
   NavigationMenuViewport,
 } from "@/components/ui/navigation-menu";
-import { AvatarMenu, MenuList } from "@/components/home/navigation";
-import { File, Globe, Graphql, Photos, Pokeball } from "@/components/svgs";
+import { AvatarMenu, MenuList, ModeToggle } from "@/components/home/navigation";
+import { Css3, File, Globe, Graphql, Photos, Pokeball } from "@/components/svgs";
 
 export interface NavigationPage {
   path: string;
@@ -44,6 +44,12 @@ const PAGES: NavigationPage[] = [
         description: "A test case for graphql",
         Icon: Graphql,
       },
+      {
+        path: "/features/animations",
+        label: "Animations",
+        description: "A test case for animations",
+        Icon: Css3,
+      },
     ],
   },
 ];
@@ -53,12 +59,12 @@ export function Navigation(props: HTMLAttributes<HTMLElement>) {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 dark:border-border">
-      <nav className={cn("max-width flex items-center py-2", className)} {...props}>
+      <nav className={cn("max-width flex items-center gap-4 py-2", className)} {...props}>
         <Link className="text-2xl font-extrabold" href="/">
           Mewtwochips
         </Link>
 
-        <div className="mx-6 flex flex-1 items-center space-x-4 lg:space-x-6">
+        <div className="mx-6 flex flex-1 items-center">
           {PAGES.map((page) => {
             const Icon = page.Icon;
             return (
@@ -96,6 +102,8 @@ export function Navigation(props: HTMLAttributes<HTMLElement>) {
         </div>
 
         <AvatarMenu />
+
+        <ModeToggle />
       </nav>
     </header>
   );
