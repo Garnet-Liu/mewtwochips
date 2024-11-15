@@ -1,6 +1,7 @@
+import { getClient } from "@/apollo/apollo-server";
+import { pokemonQuery } from "@/apollo/client/query";
 import { PageHeader } from "@/components/page-header";
-import { getPokemonDetail } from "@/servers/pokemon-detail.service";
-import { PokemonDetail } from "@/app/(protected)/pokemon/[name]/libs/components/pokemon-detail";
+import { PokemonDetail } from "@/components/pokemon/pokemon-detail";
 
 interface IProps {
   params: Promise<{ name: string }>;
@@ -10,12 +11,12 @@ export default async function PokemonDetailPage({ params }: Readonly<IProps>) {
   const { name } = await params;
 
   try {
-    const pokemonDetail = await getPokemonDetail(name);
+    const pokemon = await getClient().query({ query: pokemonQuery, variables: { name } });
     return (
-      <div className="mx-auto w-[1200px]">
-        <PageHeader pageTitle={pokemonDetail.pokemon_name} backRoute="/pokemon" />
+      <div className="max-width mx-auto">
+        <PageHeader pageTitle={pokemon.data.pokemon?.name} backRoute="/pokemon" />
 
-        <PokemonDetail pokemonDetail={pokemonDetail} />
+        <PokemonDetail pokemon={pokemon.data.pokemon} />
       </div>
     );
   } catch (e) {

@@ -1,0 +1,31 @@
+type PokemonPage {
+  count: Int
+  limit: Int
+  offset: Int
+  results: [Pokemon]
+}
+
+type Pokemon {
+  id: String
+  name: String
+  name_id: String
+  genera: String
+  flavor_text: String
+  order: Int
+  images: PokemonImages
+  weight: Int
+  color: String
+  stats: [PokemonStats]
+  abilities: [PokemonAbilities]
+}
+
+type PokemonImages {
+  front_default: String
+  front_shiny: String
+  back_default: String
+  back_shiny: String
+  official_default: String
+  official_shiny: String
+  dream_default: String
+  dream_shiny: String
+}

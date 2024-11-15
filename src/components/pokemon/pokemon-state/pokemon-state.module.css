@@ -1,0 +1,55 @@
+
+
+/*.statsHP {*/
+/*  background-color: #97c87a;*/
+/*}*/
+
+/*.statsAttack {*/
+/*  background-color: #fae192;*/
+/*}*/
+
+/*.statsSpeed {*/
+/*  background-color: #c39cd8;*/
+/*}*/
+
+/*.statsDefense {*/
+/*  background-color: #fbb977;*/
+/*}*/
+
+/*.statsSpecialAttack {*/
+/*  background-color: #a2d4da;*/
+/*}*/
+
+/*.statsSpecialDefense {*/
+/*  background-color: #89a9cd;*/
+/*}*/
+
+.valueHP {
+  border-color: #558936;
+  background-color: #8ac654;
+}
+
+.valueSpeed {
+  border-color: #3c2957;
+  background-color: #a456d0;
+}
+
+.valueAttack {
+  border-color: #ccbc33;
+  background-color: #f8cb3c;
+}
+
+.valueDefense {
+  border-color: #b4673d;
+  background-color: #d98837;
+}
+
+.valueSpecialAttack {
+  border-color: #1a7e8d;
+  background-color: #59c3d0;
+}
+
+.valueSpecialDefense {
+  border-color: #004689;
+  background-color: #5890cd;
+}

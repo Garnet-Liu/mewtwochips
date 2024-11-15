@@ -1,22 +1,28 @@
 import { Suspense } from "react";
 
-import { Spin } from "@/components/spin";
 import { PageHeader } from "@/components/page-header";
+import { PreloadQuery } from "@/apollo/apollo-server";
 import { baseFetchRequest } from "@/lib/fetch-request";
-import { PokemonContent } from "@/app/(protected)/pokemon/libs/components";
+import { allPokemonQuery } from "@/apollo/client/query";
+import { PokemonContent } from "@/components/pokemon/pokemon-content";
+import { PokemonSkeleton } from "@/components/pokemon/pokemon-skeleton";
 
-export default function Pokemon() {
-  const commentsPromise = baseFetchRequest<{
+export default function Page() {
+  const countPromise = baseFetchRequest<{
     count: number;
   }>("https://pokeapi.co/api/v2/pokemon?offset=0&limit=1");
 
   return (
-    <div className="mx-auto flex w-[1200px] flex-col gap-4 py-4">
+    <div className="max-width mx-auto flex flex-col gap-4 py-4">
       <PageHeader pageTitle="Pokemon" backRoute="/" />
 
-      <Suspense fallback={<Spin className="h-[840px]" loading={true} />}>
-        <PokemonContent commentsPromise={commentsPromise} />
-      </Suspense>
+      <PreloadQuery query={allPokemonQuery} variables={{ offset: 0, limit: 15 }}>
+        {(queryRef) => (
+          <Suspense fallback={<PokemonSkeleton />}>
+            <PokemonContent countPromise={countPromise} queryRef={queryRef} />
+          </Suspense>
+        )}
+      </PreloadQuery>
     </div>
   );
 }

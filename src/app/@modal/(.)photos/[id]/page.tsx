@@ -1,18 +1,19 @@
-import { Photo } from "@/app/(protected)/photos/libs/components";
-import { getPhotoDetail } from "@/app/(protected)/photos/libs/services";
+import { Photo } from "@/components/photos/photo";
+import { getPhotoDetail } from "@/services/photo-data";
 
 interface IProps {
   params: Promise<{ id: string }>;
 }
 
 export default async function PhotoModal({ params }: Readonly<IProps>) {
-  const { id } = await params;
+  try {
+    const { id } = await params;
 
-  const photo = await getPhotoDetail(id);
+    const photo = await getPhotoDetail(id);
 
-  if (photo) {
     return <Photo photo={photo} />;
-  } else {
+  } catch (e) {
+    console.error("Failed to fetch photo: ", e);
     return <div>没找到</div>;
   }
 }

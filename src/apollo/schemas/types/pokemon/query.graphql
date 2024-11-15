@@ -1,0 +1,4 @@
+extend type Query {
+  pokemonAll(offset: Int!, limit: Int!): PokemonPage
+  pokemon(id: ID, name: String): Pokemon
+}

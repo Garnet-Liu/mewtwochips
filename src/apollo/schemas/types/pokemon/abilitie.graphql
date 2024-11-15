@@ -1,0 +1,14 @@
+interface Abilities {
+  id: ID
+  name: String
+  name_id: String
+  entries: String
+}
+
+type PokemonAbilities implements Abilities {
+  id: ID
+  name: String
+  name_id: String
+  entries: String
+  is_hidden: Boolean
+}

@@ -5,5 +5,5 @@ export const metadata = {
 };
 
 export default function ChildLayout({ children }: { children: ReactNode }) {
-  return <div className="relative m-auto w-[1200px]">{children}</div>;
+  return <div className="max-width relative">{children}</div>;
 }

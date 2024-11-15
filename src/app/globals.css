@@ -67,12 +67,12 @@ body {
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }
 }
 
 .max-width {
-  max-width: 1200px;
-  margin: 0 auto;
+  @apply w-[1200px] mx-auto;
 }

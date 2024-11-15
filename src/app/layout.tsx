@@ -4,7 +4,9 @@ import localFont from "next/font/local";
 import type { Metadata } from "next";
 import { ReactNode } from "react";
 
-import { FirebaseProvider } from "@/app/libs/components/firebase-provider";
+import { Toaster } from "@/components/ui/sonner";
+import { ApolloProvider } from "@/components/home/apollo-provider";
+import { FirebaseProvider } from "@/components/home/firebase-provider";
 
 import "./globals.css";
 
@@ -35,11 +37,14 @@ export default function RootLayout({ children, modal }: Readonly<IProps>) {
       <body className={`${geistSans.variable} ${geistMono.variable} bg-background antialiased`}>
         <SessionProvider>
           <FirebaseProvider>
-            {children}
-            {modal}
+            <ApolloProvider>
+              {children}
+              {modal}
+            </ApolloProvider>
           </FirebaseProvider>
         </SessionProvider>
         <Analytics />
+        <Toaster />
       </body>
     </html>
   );

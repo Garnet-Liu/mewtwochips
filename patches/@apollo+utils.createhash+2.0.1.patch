@@ -1,0 +1,13 @@
+diff --git a/node_modules/@apollo/utils.createhash/dist/index.js b/node_modules/@apollo/utils.createhash/dist/index.js
+index 4cd4ea5..aa3d977 100644
+--- a/node_modules/@apollo/utils.createhash/dist/index.js
++++ b/node_modules/@apollo/utils.createhash/dist/index.js
+@@ -4,7 +4,7 @@ exports.createHash = void 0;
+ const utils_isnodelike_1 = require("@apollo/utils.isnodelike");
+ function createHash(kind) {
+     if (utils_isnodelike_1.isNodeLike) {
+-        return module.require("crypto").createHash(kind);
++        return require("crypto").createHash(kind);
+     }
+     return require("sha.js")(kind);
+ }

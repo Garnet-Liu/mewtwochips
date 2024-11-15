@@ -2,7 +2,7 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 
 import { auth } from "@/next-auth/auth";
-import { UserAuthForm } from "@/app/auth/login/libs/components/user-auth-form";
+import { UserAuthForm } from "@/components/auth/user-auth-form";
 
 export default async function LoginPage() {
   const session = await auth();

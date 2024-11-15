@@ -1,5 +1,9 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
+#npm run codegen
+#git add src/apollo/gql/*.ts
+
 npx lint-staged
+
 npm run build
