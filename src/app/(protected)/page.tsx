@@ -1,6 +1,7 @@
 import { auth } from "@/next-auth/auth";
 import { UserAvatar } from "@/components/home/user-avatar";
-import { UserSignOut } from "@/components/home/user-sign-out";
+import { UserActions } from "@/components/home/user-actions";
+import { LinkProviders } from "@/components/home/link-providers";
 
 export default async function HomePage() {
   const session = await auth();
@@ -33,7 +34,9 @@ export default async function HomePage() {
           </div>
         </div>
 
-        <UserSignOut />
+        <UserActions />
+
+        <LinkProviders />
       </div>
     </div>
   );

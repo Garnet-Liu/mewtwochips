@@ -13,11 +13,11 @@ export const verifyIdToken = async (auth: Maybe<Session>, callback: VerifyCallba
   try {
     const decoded = await firebaseAdmin.auth().verifyIdToken(auth?.user.idToken ?? "");
 
-    console.log("decoded user ======>", decoded.name);
+    console.log("<========= verifyIdToken decoded user", decoded.name);
 
     return await callback(decoded);
   } catch (e) {
-    console.log(e);
+    console.warn(e);
     return NextResponse.json(
       {
         code: 401,

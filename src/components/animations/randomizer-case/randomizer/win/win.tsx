@@ -17,7 +17,7 @@ export function Win(props: IProps) {
   const start = winIndex * rotate - 90;
   const end = start + rotate;
 
-  console.log("大小", end - start);
+  console.log("=========> 大小", end - start);
 
   // 起始角度和结束角度（以弧度表示）
   const startAngle = (start * Math.PI) / 180; // 起始角度为30度，转换为弧度
@@ -32,8 +32,8 @@ export function Win(props: IProps) {
   const y2 = cy + r * Math.sin(endAngle);
 
   // 输出起点和终点坐标
-  console.log("起点坐标:", x1, y1);
-  console.log("终点坐标:", x2, y2);
+  console.log("=========> 起点坐标:", x1, y1);
+  console.log("=========> 终点坐标:", x2, y2);
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

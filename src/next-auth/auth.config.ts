@@ -13,7 +13,7 @@ export const authConfig = {
         emailVerified: { type: "text" },
       },
       authorize: async (credentials) => {
-        console.log("authorize idToken", credentials.idToken);
+        console.log("<========= authorize idToken", credentials.idToken);
         if (credentials.idToken) {
           return {
             id: credentials.id as string,
@@ -31,7 +31,6 @@ export const authConfig = {
   callbacks: {
     async jwt({ token, user, trigger, session }) {
       if (trigger === "update") {
-        console.log("update new session ======>", !!session);
         token.idToken = session.idToken;
       }
       return { ...token, ...user };

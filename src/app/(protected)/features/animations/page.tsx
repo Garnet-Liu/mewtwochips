@@ -11,11 +11,11 @@ export default function Page() {
       </TabsList>
 
       <TabsContent value="randomizer">
-        <SlotMachineCase />
+        <RandomizerCase />
       </TabsContent>
 
       <TabsContent value="slotMachine">
-        <RandomizerCase />
+        <SlotMachineCase />
       </TabsContent>
     </Tabs>
   );

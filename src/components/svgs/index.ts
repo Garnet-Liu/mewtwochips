@@ -1,3 +1,4 @@
+import Mail from "./mail/mail";
 import Css3 from "./css3/css3";
 import File from "./file/file";
 import Github from "./github/github";
@@ -8,4 +9,4 @@ import Photos from "./photos/photos";
 import Pokeball from "./pokeball/pokeball";
 import FanaticsFlag from "./fanatics-flag/fanatics-flag";
 
-export { Css3, File, Github, Globe, Google, Graphql, Photos, Pokeball, FanaticsFlag };
+export { Mail, Css3, File, Github, Globe, Google, Graphql, Photos, Pokeball, FanaticsFlag };

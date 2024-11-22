@@ -10,7 +10,7 @@ export const POST = auth(async (req) => {
     const count = formData.get("count");
     const now = formData.get("now");
 
-    console.log("formData", { count, now });
+    console.log("<========= formData", { count, now });
 
     if (!count || !now) {
       return NextResponse.json(
@@ -25,7 +25,7 @@ export const POST = auth(async (req) => {
     } else {
       const total = Number(count) + Number(now);
 
-      console.log("request counter count =====>", count);
+      console.log("<========= request counter count", count);
 
       return NextResponse.json({
         code: 200,

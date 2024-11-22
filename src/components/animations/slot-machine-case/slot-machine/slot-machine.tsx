@@ -34,12 +34,9 @@ export function SlotMachine(props: Props) {
 
   const animationEndHandle = useCallback(
     (e: AnimationEvent<HTMLDivElement>) => {
-      console.log("animationEndHandle useCallback call", e.animationName);
       if (e.animationName === "slot-machine-border") {
-        console.log("animationEndHandle useCallback called", e.animationName);
         onFinished?.();
       } else if (e.animationName === "slot-machine-num") {
-        console.log("animationEndHandle useCallback called", e.animationName);
         setSecondAnimate(false);
         setFinishAnimate(true);
         setFirstAnimate(false);
@@ -49,9 +46,7 @@ export function SlotMachine(props: Props) {
   );
 
   const animationStartHandle = useCallback((e: AnimationEvent<HTMLDivElement>) => {
-    console.log("animationStartHandle useCallback call", e.animationName);
     if (e.animationName === "slot-machine-num") {
-      console.log("animationStartHandle useCallback called", e.animationName);
       setSecondAnimate(true);
     }
   }, []);
@@ -66,7 +61,7 @@ export function SlotMachine(props: Props) {
   }, [styleVariable]);
 
   return (
-    <div className="flex w-96 flex-col gap-3 rounded-lg bg-black/25 px-4 py-6 text-white">
+    <div className="flex w-96 flex-col gap-3 rounded-lg bg-foreground px-4 py-6 text-background">
       <p className="text-center text-2xl font-semibold">And the winner is....</p>
 
       <div
@@ -79,7 +74,7 @@ export function SlotMachine(props: Props) {
           onAnimationEnd={animationEndHandle}
           style={containerStyle}
           className={cn(
-            "h-12 w-full animate-[slot-machine-border_1s_forwards] overflow-hidden rounded-lg bg-black text-xl font-semibold",
+            "h-12 w-full animate-[slot-machine-border_1s_forwards] overflow-hidden rounded-lg bg-background/25 text-xl font-semibold",
           )}
         >
           <div

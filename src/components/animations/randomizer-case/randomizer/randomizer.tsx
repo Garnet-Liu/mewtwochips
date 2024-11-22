@@ -17,8 +17,6 @@ const TIME_TO_SPIN_WHEEL = 4000;
 export function Randomizer(props: IProps) {
   const { items, winIndex, onFinished } = props;
 
-  console.log("winIndex", winIndex);
-
   const wheelRef = useRef<HTMLDivElement>(null);
 
   const rotate = 360 / items.length;
@@ -33,7 +31,7 @@ export function Randomizer(props: IProps) {
       console.log("=========> offsetTop", offsetTop);
       wheelRef.current.style.transitionProperty = "all";
       wheelRef.current.style.transitionDuration = `${TIME_TO_SPIN_WHEEL}ms`;
-      console.log("rotateNumber", rotateNumber);
+      console.log("=========> rotateNumber", rotateNumber);
       wheelRef.current.style.transform = `rotate(${rotateNumber}deg)`;
     }
   }, [rotateNumber]);

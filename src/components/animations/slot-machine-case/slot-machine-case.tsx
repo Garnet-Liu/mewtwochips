@@ -17,9 +17,7 @@ export function SlotMachineCase() {
   }, []);
 
   const slotMachineFinishedHandle = useCallback(() => {
-    console.log("slotMachineFinishedHandle start");
     setTimeout(() => {
-      console.log("slotMachineFinishedHandle end");
       setShowSlotMachine(false);
     }, 2000);
   }, []);

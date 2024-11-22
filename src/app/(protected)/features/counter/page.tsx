@@ -54,7 +54,7 @@ export default function Page() {
         </div>
 
         <div className="flex w-full gap-3">
-          <Input className="w-10" name="count" disabled={isPending} />
+          <Input className="w-9 text-center" name="count" disabled={isPending} />
 
           <Button type="submit" className="flex-1" size="icon" disabled={isPending}>
             Async

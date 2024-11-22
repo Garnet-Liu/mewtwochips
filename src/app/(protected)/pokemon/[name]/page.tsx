@@ -20,7 +20,7 @@ export default async function PokemonDetailPage({ params }: Readonly<IProps>) {
       </div>
     );
   } catch (e) {
-    console.log(e);
+    console.warn("pokemon query error", e);
     return null;
   }
 }

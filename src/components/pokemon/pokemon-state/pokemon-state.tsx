@@ -1,6 +1,7 @@
 import { cn } from "@/lib/utils";
 import { Maybe } from "@/types/maybe";
 import { QPokemonQuery, StatsType } from "@/apollo/gql/graphql";
+import { PokemonStateItem } from "@/components/pokemon/pokemon-state-item";
 
 interface IProps {
   color: Maybe<string>;
@@ -10,26 +11,18 @@ interface IProps {
 export function PokemonState({ stats, color }: IProps) {
   return (
     <div
-      className="w-full items-center overflow-hidden rounded-xl border bg-white/25"
+      className="w-full items-center overflow-hidden rounded-xl border"
       style={{ borderColor: color ?? "" }}
     >
       <h3 className="py-8 text-center font-bold">种族值</h3>
 
       <div className="grid grid-cols-[auto_auto_1fr]">
         {stats?.map(async (stat) => {
-          const classname = cn("flex items-center p-2", {
-            "bg-[#97c87a]": stat?.name_id === StatsType.Hp,
-            "bg-[#c39cd8]": stat?.name_id === StatsType.Speed,
-            "bg-[#fae192]": stat?.name_id === StatsType.Attack,
-            "bg-[#fbb977]": stat?.name_id === StatsType.Defense,
-            "bg-[#a2d4da]": stat?.name_id === StatsType.SpecialAttack,
-            "bg-[#89a9cd]": stat?.name_id === StatsType.SpecialDefense,
-          });
           return (
             <div key={`pokemon-state-${stat?.id}`} className="contents">
-              <div className={classname}>{stat?.name}:</div>
-              <div className={classname}>{stat?.base_stat}</div>
-              <div className={classname}>
+              <PokemonStateItem name_id={stat?.name_id}>{stat?.name}:</PokemonStateItem>
+              <PokemonStateItem name_id={stat?.name_id}>{stat?.base_stat}</PokemonStateItem>
+              <PokemonStateItem name_id={stat?.name_id}>
                 <div
                   style={{ width: `calc(100% * ${stat?.base_stat}/255)` }}
                   className={cn("h-5 border", {
@@ -41,7 +34,7 @@ export function PokemonState({ stats, color }: IProps) {
                     "border-[#004689] bg-[#5890cd]": stat?.name_id === StatsType.SpecialDefense,
                   })}
                 />
-              </div>
+              </PokemonStateItem>
             </div>
           );
         })}

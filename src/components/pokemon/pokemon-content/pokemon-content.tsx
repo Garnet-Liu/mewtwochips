@@ -22,8 +22,8 @@ export function PokemonContent(props: IProps) {
 
   const handleChangePage = useCallback(
     (_: MouseEvent<HTMLAnchorElement>, page: number) => {
-      refetch({ offset: page * ROWS_PAGE }).then((pokemon) => {
-        console.log("handleChangePage refetch pokemon", pokemon);
+      refetch({ offset: page * ROWS_PAGE }).catch((e) => {
+        console.warn(e);
       });
     },
     [refetch],

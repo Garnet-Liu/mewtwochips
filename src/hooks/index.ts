@@ -1,1 +1,1 @@
-export * from "./useGoogleAuthHandle";
+export * from "./use-auth-handle";

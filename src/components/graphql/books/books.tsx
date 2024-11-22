@@ -4,10 +4,10 @@ import { QueryRef, useMutation, useQueryRefHandlers, useReadQuery } from "@apoll
 import { useCallback } from "react";
 import { LoaderCircle, Repeat } from "lucide-react";
 
+import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { QBooksQuery } from "@/apollo/gql/graphql";
 import { addBookMutation } from "@/apollo/client/mutation";
-import { cn } from "@/lib/utils";
 
 interface IProps {
   queryRef: QueryRef<QBooksQuery>;
@@ -21,14 +21,16 @@ export function Books(props: Readonly<IProps>) {
 
   const [addBook, { loading }] = useMutation(addBookMutation);
 
-  const callRefatchHandle = useCallback(async () => {
-    const result = await refetch();
-    console.log("callRefatchHandle result", result);
+  const callRefatchHandle = useCallback(() => {
+    refetch().catch((e) => {
+      console.warn(e);
+    });
   }, [refetch]);
 
-  const addBookHandle = useCallback(async () => {
-    const result = await addBook({ variables: { title: "New book", author: "New author" } });
-    console.log("result", result);
+  const addBookHandle = useCallback(() => {
+    addBook({ variables: { title: "New book", author: "New author" } }).catch((e) => {
+      console.warn(e);
+    });
   }, [addBook]);
 
   const Icon = loading ? LoaderCircle : Repeat;
