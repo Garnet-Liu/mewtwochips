@@ -6,6 +6,7 @@ import { ReactNode } from "react";
 
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/components/home/theme-provider";
+import { ReduxProvider } from "@/components/home/redux-provider";
 import { ApolloProvider } from "@/components/home/apollo-provider";
 import { FirebaseProvider } from "@/components/home/firebase-provider";
 
@@ -50,8 +51,10 @@ export default function RootLayout({ children, modal }: Readonly<IProps>) {
           >
             <FirebaseProvider>
               <ApolloProvider>
-                {children}
-                {modal}
+                <ReduxProvider>
+                  {children}
+                  {modal}
+                </ReduxProvider>
               </ApolloProvider>
             </FirebaseProvider>
           </ThemeProvider>

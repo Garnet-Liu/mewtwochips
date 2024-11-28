@@ -55,8 +55,9 @@ export function EmailForm(props: IProps) {
               <FormControl>
                 <Input placeholder="Email" {...field} />
               </FormControl>
-              <FormDescription>This is your email.</FormDescription>
-              <FormMessage />
+              <FormMessage>
+                <FormDescription>This is your email.</FormDescription>
+              </FormMessage>
             </FormItem>
           )}
         />
@@ -70,8 +71,9 @@ export function EmailForm(props: IProps) {
               <FormControl>
                 <Input placeholder="Password" {...field} />
               </FormControl>
-              <FormDescription>This is your password.</FormDescription>
-              <FormMessage />
+              <FormMessage>
+                <FormDescription>This is your password.</FormDescription>
+              </FormMessage>
             </FormItem>
           )}
         />

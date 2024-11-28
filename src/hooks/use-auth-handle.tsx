@@ -44,7 +44,7 @@ export const useAuthHandle = () => {
       return () => {
         setIsLoading(true);
         signInWithPopup(firebaseAuth, provider)
-          .then((credential) => handleAuthSignIn(credential))
+          .then(handleAuthSignIn)
           .catch((e) => {
             handleOAuthSignOut();
             toast.error(e.message);
@@ -59,7 +59,7 @@ export const useAuthHandle = () => {
     async (values: z.infer<typeof formSchema>) => {
       setIsLoading(true);
       return createUserWithEmailAndPassword(firebaseAuth, values.email, values.password)
-        .then((credential) => handleAuthSignIn(credential))
+        .then(handleAuthSignIn)
         .catch((e) => {
           handleOAuthSignOut();
           toast.error(e.message);

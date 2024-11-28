@@ -1,12 +1,12 @@
 "use client";
 
 import { QueryRef, useMutation, useQueryRefHandlers, useReadQuery } from "@apollo/client";
+import { Repeat } from "lucide-react";
 import { useCallback } from "react";
-import { LoaderCircle, Repeat } from "lucide-react";
 
-import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { QBooksQuery } from "@/apollo/gql/graphql";
+import { Loading } from "@/components/loading/loading";
 import { addBookMutation } from "@/apollo/client/mutation";
 
 interface IProps {
@@ -33,18 +33,20 @@ export function Books(props: Readonly<IProps>) {
     });
   }, [addBook]);
 
-  const Icon = loading ? LoaderCircle : Repeat;
-
   return (
     <div>
       <div className="flex gap-2">
         <Button size="sm" disabled={loading} onClick={callRefatchHandle}>
-          <Icon className={cn("h-4 w-4", loading ? "animate-spin" : "")} />
+          <Loading loading={loading}>
+            <Repeat size={16} />
+          </Loading>
           Refetch
         </Button>
 
         <Button size="sm" disabled={loading} onClick={addBookHandle}>
-          <Icon className={cn("h-4 w-4", loading ? "animate-spin" : "")} />
+          <Loading loading={loading}>
+            <Repeat size={16} />
+          </Loading>
           Add book
         </Button>
       </div>

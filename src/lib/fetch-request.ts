@@ -11,6 +11,7 @@ export const apiFetchRequest = async <T = void>(url: string, init?: RequestInit)
   if (result.success) {
     return result.data;
   } else {
+    console.warn(result);
     throw new Error(result.message);
   }
 };
