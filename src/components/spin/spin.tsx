@@ -22,7 +22,7 @@ export function Spin(props: Readonly<Props>) {
           {content ? (
             content
           ) : (
-            <div className="absolute bottom-0 left-0 right-0 top-0 flex items-center justify-center bg-white/25">
+            <div className="absolute bottom-0 left-0 right-0 top-0 flex items-center justify-center bg-background/[.25]">
               <LoaderCircle className="animate-spin" size={24} />
             </div>
           )}

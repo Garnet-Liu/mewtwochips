@@ -1,12 +1,13 @@
 import { auth } from "@/next-auth/auth";
 import { UserAvatar } from "@/components/home/user-avatar";
-import { UserSignOut } from "@/components/home/user-sign-out";
+import { UserActions } from "@/components/home/user-actions";
+import { LinkProviders } from "@/components/home/link-providers";
 
 export default async function HomePage() {
   const session = await auth();
 
   return (
-    <div className="max-width flex h-full items-center justify-center">
+    <div className="page-content flex h-full items-center justify-center">
       <div className="flex flex-col justify-center gap-4">
         <div className="flex items-center gap-4">
           <div className="flex justify-center">
@@ -33,7 +34,9 @@ export default async function HomePage() {
           </div>
         </div>
 
-        <UserSignOut />
+        <UserActions />
+
+        <LinkProviders />
       </div>
     </div>
   );

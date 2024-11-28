@@ -11,13 +11,13 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useGoogleAuthHandle } from "@/hooks";
+import { useAuthHandle } from "@/hooks";
 import { UserAvatar } from "@/components/home/user-avatar";
 
 export function AvatarMenu() {
   const { data: session } = useSession();
 
-  const { signOut } = useGoogleAuthHandle();
+  const { signOut } = useAuthHandle();
 
   if (session) {
     return (

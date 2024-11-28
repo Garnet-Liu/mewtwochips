@@ -6,18 +6,22 @@ export interface IBaseResponse<T = void> {
 }
 
 export const apiFetchRequest = async <T = void>(url: string, init?: RequestInit): Promise<T> => {
-  console.log("api fetch request => window", window === undefined ? "server" : "client");
-  const result = await baseFetchRequest<IBaseResponse<T>>(url, init);
+  console.log("=========> api fetch request => window", window === undefined ? "server" : "client");
+  const result = await baseFetchJson<IBaseResponse<T>>(url, init);
   if (result.success) {
     return result.data;
   } else {
-    console.log("=========== apiFetchRequest ===========");
-    console.log(result);
+    console.warn(result);
     throw new Error(result.message);
   }
 };
 
-export const baseFetchRequest = async <T = void>(url: string, init?: RequestInit): Promise<T> => {
+export const baseFetchJson = async <T = void>(url: string, init?: RequestInit): Promise<T> => {
   const response = await fetch(url, init);
   return await response.json();
+};
+
+export const baseFetchText = async (url: string, init?: RequestInit): Promise<string> => {
+  const response = await fetch(url, init);
+  return await response.text();
 };

@@ -14,7 +14,7 @@ type Props = {
 
 export function SlotMachine(props: Props) {
   const slotMachineRef = useRef<HTMLDivElement>(null);
-  const [startAnimate, setStartAnimate] = useState(false);
+  const [firstAnimate, setFirstAnimate] = useState(false);
   const [secondAnimate, setSecondAnimate] = useState(false);
   const [finishAnimate, setFinishAnimate] = useState(false);
   const { enteredUsernames = [], animationDuration = 5000, onFinished, winnerName } = props;
@@ -34,17 +34,18 @@ export function SlotMachine(props: Props) {
 
   const animationEndHandle = useCallback(
     (e: AnimationEvent<HTMLDivElement>) => {
-      console.log("animationEndHandle useCallback", e.animationName);
-      setFinishAnimate(true);
-      setStartAnimate(false);
-      setSecondAnimate(false);
-      onFinished?.();
+      if (e.animationName === "slot-machine-border") {
+        onFinished?.();
+      } else if (e.animationName === "slot-machine-num") {
+        setSecondAnimate(false);
+        setFinishAnimate(true);
+        setFirstAnimate(false);
+      }
     },
     [onFinished],
   );
 
   const animationStartHandle = useCallback((e: AnimationEvent<HTMLDivElement>) => {
-    console.log("animationStartHandle useCallback", e.animationName);
     if (e.animationName === "slot-machine-num") {
       setSecondAnimate(true);
     }
@@ -56,11 +57,11 @@ export function SlotMachine(props: Props) {
       "--slot-machine-translate-y",
       styleVariable.translate,
     );
-    setStartAnimate(true);
+    setFirstAnimate(true);
   }, [styleVariable]);
 
   return (
-    <div className="flex w-96 flex-col gap-3 rounded-lg bg-black/25 px-4 py-6 text-white">
+    <div className="flex w-96 flex-col gap-3 rounded-lg bg-foreground px-4 py-6 text-background">
       <p className="text-center text-2xl font-semibold">And the winner is....</p>
 
       <div
@@ -73,7 +74,7 @@ export function SlotMachine(props: Props) {
           onAnimationEnd={animationEndHandle}
           style={containerStyle}
           className={cn(
-            "h-12 w-full animate-[slot-machine-border_1s_forwards] overflow-hidden rounded-lg bg-black text-xl font-semibold",
+            "h-12 w-full animate-[slot-machine-border_1s_forwards] overflow-hidden rounded-lg bg-background/25 text-xl font-semibold",
           )}
         >
           <div
@@ -82,7 +83,7 @@ export function SlotMachine(props: Props) {
             onAnimationStart={animationStartHandle}
             className={cn(
               "mx-auto",
-              startAnimate
+              firstAnimate
                 ? secondAnimate
                   ? "animate-[slot-machine-num_1s_forwards]"
                   : "animate-[slot-machine_1s_linear_infinite,slot-machine-num_1s_forwards]"

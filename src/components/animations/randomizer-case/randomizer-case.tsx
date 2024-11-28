@@ -9,11 +9,12 @@ export function RandomizerCase() {
   const [showWheel, setShowWheel] = useState(false);
 
   const randomizer = [
-    { name: "123", color: "gray" },
-    { name: "123", color: "blue" },
-    { name: "123", color: "black" },
-    { name: "123", color: "orange" },
-    { name: "123", color: "#3C2957" },
+    { name: "Animation", color: "bg-gray-600" },
+    { name: "Animation", color: "bg-teal-600" },
+    { name: "Animation", color: "bg-green-600" },
+    { name: "Animation", color: "bg-rose-600" },
+    { name: "Animation", color: "bg-orange-600" },
+    { name: "Animation", color: "bg-violet-600" },
   ];
 
   const wheelFinishedHandle = useCallback(() => {

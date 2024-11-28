@@ -12,12 +12,12 @@ export default async function PokemonModal({ params }: Readonly<IProps>) {
   try {
     const pokemon = await getClient().query({ query: pokemonQuery, variables: { name } });
     return (
-      <div className="max-width mx-auto bg-white">
+      <div className="page-content -my-3">
         <PokemonDetail pokemon={pokemon.data.pokemon} />
       </div>
     );
   } catch (e) {
-    console.log(e);
+    console.warn("pokemon query error", e);
     return <div>没找到</div>;
   }
 }

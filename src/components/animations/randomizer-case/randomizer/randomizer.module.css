@@ -1,5 +1,5 @@
 .mask {
-  mask: radial-gradient(transparent 110px, #000 110px);
+  mask: radial-gradient(transparent 50px, #000 50px);
 }
 
 .circle-bottom {

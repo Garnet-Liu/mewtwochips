@@ -6,6 +6,7 @@ import { ReactNode } from "react";
 
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/components/home/theme-provider";
+import { ReduxProvider } from "@/components/home/redux-provider";
 import { ApolloProvider } from "@/components/home/apollo-provider";
 import { FirebaseProvider } from "@/components/home/firebase-provider";
 
@@ -16,6 +17,7 @@ const geistSans = localFont({
   variable: "--font-geist-sans",
   weight: "100 900",
 });
+
 const geistMono = localFont({
   src: "../fonts/GeistMonoVF.woff",
   variable: "--font-geist-mono",
@@ -34,8 +36,12 @@ interface IProps {
 
 export default function RootLayout({ children, modal }: Readonly<IProps>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={`${geistSans.variable} ${geistMono.variable} bg-background antialiased`}>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${geistSans.variable} ${geistMono.variable}`}
+    >
+      <body className="antialiased">
         <SessionProvider>
           <ThemeProvider
             attribute="class"
@@ -45,8 +51,10 @@ export default function RootLayout({ children, modal }: Readonly<IProps>) {
           >
             <FirebaseProvider>
               <ApolloProvider>
-                {children}
-                {modal}
+                <ReduxProvider>
+                  {children}
+                  {modal}
+                </ReduxProvider>
               </ApolloProvider>
             </FirebaseProvider>
           </ThemeProvider>

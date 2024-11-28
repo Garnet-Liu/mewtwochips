@@ -2,6 +2,7 @@ import { ApolloClient, InMemoryCache } from "@apollo/experimental-nextjs-app-sup
 import { ApolloLink, from } from "@apollo/client";
 
 import { httpLink } from "@/apollo/links/http-link";
+import { authLink } from "@/apollo/links/auth-link";
 import { multipartLink } from "@/apollo/links/SSR-multipart-link";
 
 // have a function to create a client for you
@@ -9,9 +10,9 @@ export const makeClient = () => {
   let links: ApolloLink;
 
   if (typeof window === "undefined") {
-    links = from([multipartLink, httpLink]);
+    links = from([multipartLink, authLink, httpLink]);
   } else {
-    links = httpLink;
+    links = from([authLink, httpLink]);
   }
 
   // use the `ApolloClient` from "@apollo/experimental-nextjs-app-support"

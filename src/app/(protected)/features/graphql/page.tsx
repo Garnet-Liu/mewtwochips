@@ -11,15 +11,19 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function Page() {
   return (
-    <Tabs defaultValue="allPokemon" className="max-width py-4">
-      <div className="flex justify-between">
+    <Tabs defaultValue="books">
+      <div className="relative flex justify-between">
         <TabsList>
           <TabsTrigger value="books">Books</TabsTrigger>
           <TabsTrigger value="book">Book</TabsTrigger>
-          <TabsTrigger value="allPokemon">All pokemon</TabsTrigger>
+          <TabsTrigger value="allPokemon" className="group">
+            All pokemon
+            <Input
+              className="absolute right-0 top-0 w-56 group-data-[state=inactive]:hidden"
+              placeholder="Search pokemon name..."
+            />
+          </TabsTrigger>
         </TabsList>
-
-        <Input className="w-56" placeholder="Search pokemon name..." />
       </div>
 
       <TabsContent value="books">

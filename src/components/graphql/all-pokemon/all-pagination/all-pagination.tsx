@@ -29,9 +29,8 @@ export function AllPagination(props: IProps) {
   const reQueryHandle = useCallback(
     (page: number) => {
       return () => {
-        console.log("page", page);
-        refetch({ offset: page * LIMIT }).then((pokemon) => {
-          console.log("reQueryHandle refetch pokemon", pokemon);
+        refetch({ offset: page * LIMIT }).catch((e) => {
+          console.warn(e);
         });
       };
     },

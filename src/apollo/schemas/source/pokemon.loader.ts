@@ -11,29 +11,13 @@ import {
 } from "pokenode-ts";
 
 import { Maybe } from "@/types/maybe";
-import { Pokemon as GPokemon, PokemonPage, StatsType } from "@/apollo/gql/graphql";
-
-const LANGUAGE = ["zh-Hans", "zh-Hant", "ja", "en"];
-
-const statsType = new Map([
-  ["hp", StatsType.Hp],
-  ["speed", StatsType.Speed],
-  ["attack", StatsType.Attack],
-  ["defense", StatsType.Defense],
-  ["special-attack", StatsType.SpecialAttack],
-  ["special-defense", StatsType.SpecialDefense],
-]);
-
-interface PokemonArgs {
-  id?: string;
-  url?: string;
-  name: string;
-}
+import { LANGUAGE, PokemonArgs } from "@/types/api/graphql";
+import { toScreamingSnakeCase } from "@/lib/to-screaming-snake";
 
 export class PokemonDataSource extends RESTDataSource {
   override baseURL = "https://pokeapi.co";
 
-  async getPokemonPage(offset: number, limit: number): Promise<PokemonPage> {
+  async getPokemonPage(offset: number, limit: number) {
     return this.get<NamedAPIResourceList>(`/api/v2/pokemon?offset=${offset}&limit=${limit}`).then(
       async (list) => {
         return {
@@ -49,17 +33,19 @@ export class PokemonDataSource extends RESTDataSource {
   }
 
   async getPokemon(args: PokemonArgs) {
-    console.log("========> get pokemon args", args);
+    console.log("<========= get pokemon args", args);
     return this.pokemonLoad.load(args);
   }
 
-  private pokemonLoad = new DataLoader<PokemonArgs, GPokemon>(async (names) => {
-    return this.queryArrayObject([...names], async (p) => {
-      return await this.queryPokemon(p);
-    });
-  });
+  private pokemonLoad = new DataLoader<PokemonArgs, Awaited<ReturnType<typeof this.queryPokemon>>>(
+    async (names) => {
+      return this.queryArrayObject([...names], async (p) => {
+        return await this.queryPokemon(p);
+      });
+    },
+  );
 
-  private async queryPokemon(args: PokemonArgs): Promise<GPokemon> {
+  private async queryPokemon(args: PokemonArgs) {
     return this.get<Pokemon>(this.switchQueryUrl(args, `/api/v2/pokemon/`)).then(
       async (pokemon) => {
         const pokemonID = `${pokemon.name}-${pokemon.id}`;
@@ -131,7 +117,7 @@ export class PokemonDataSource extends RESTDataSource {
         return {
           id: uuidv5(stat.name, uuidv5.URL),
           name: this.findLanguageValue(stat.names)?.name,
-          name_id: statsType.get(stat.name),
+          name_id: toScreamingSnakeCase(stat.name),
         };
       } else {
         return null;
@@ -166,14 +152,13 @@ export class PokemonDataSource extends RESTDataSource {
     }
   }
 
-  private async queryArrayObject<T, R>(object: Array<T>, callback: (item: T) => Promise<R>) {
-    return await Promise.allSettled(object.map(callback)).then((a) => {
+  private async queryArrayObject<T, R>(
+    array: Array<T>,
+    callback: (i: T) => Promise<R>,
+  ): Promise<Array<R>> {
+    return await Promise.allSettled(array.map(callback)).then((a) => {
       return a.map((r) => {
-        if (r.status === "fulfilled") {
-          return r.value;
-        } else {
-          return r.reason as Error;
-        }
+        return r.status === "fulfilled" ? r.value : r.reason;
       });
     });
   }

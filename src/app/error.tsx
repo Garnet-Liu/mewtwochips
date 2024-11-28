@@ -16,7 +16,7 @@ export default function Error({ error, reset }: IProps) {
   }, [error]);
 
   return (
-    <div className="max-width my-9 flex flex-col items-center justify-center gap-4">
+    <div className="page-content my-9 flex flex-col items-center justify-center gap-4">
       <h2 className="font-bold">Something went wrong!</h2>
       <Button onClick={reset}>Try again</Button>
     </div>

@@ -32,12 +32,6 @@ export function FirebaseProvider({ children }: Readonly<Props>) {
       const expTime = new Date(idTokenResult.expirationTime).getTime();
       const nowTime = new Date().getTime();
 
-      console.log("expTime - nowTime", expTime - nowTime);
-      console.log(expTime - nowTime - 5 * 60 * 1000);
-      console.log(expTime - nowTime - 5 * 60 * 1000 < 0);
-
-      console.log("idTokenResult", idTokenResult.token);
-
       if (expTime - nowTime - 5 * 60 * 1000 < 0) {
         return await getIdTokenResult(true);
       } else {
@@ -51,14 +45,12 @@ export function FirebaseProvider({ children }: Readonly<Props>) {
     async (user: User) => {
       const [time, idToken] = await getIdTokenResult();
 
-      console.log("time", time);
-
       timerRef.current = setTimeout(() => {
         checkUserIdToken(user);
       }, time);
 
       await update({ idToken }).then((session) => {
-        console.log("update session =>", session);
+        console.log("<========= update session", session);
       });
     },
     [getIdTokenResult, update],
@@ -72,14 +64,12 @@ export function FirebaseProvider({ children }: Readonly<Props>) {
             await checkUserIdToken(user);
           } else if (!user && status === "authenticated") {
             await signOut().then(() => {
-              console.log("Not user next auth sign out...");
+              console.log("=========> Not user next auth sign out...");
               clearTimeout(timerRef.current);
             });
           }
           setLoaded(false);
         });
-      } else {
-        setLoaded(false);
       }
     }
 

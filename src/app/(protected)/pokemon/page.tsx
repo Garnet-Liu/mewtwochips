@@ -2,18 +2,18 @@ import { Suspense } from "react";
 
 import { PageHeader } from "@/components/page-header";
 import { PreloadQuery } from "@/apollo/apollo-server";
-import { baseFetchRequest } from "@/lib/fetch-request";
+import { baseFetchJson } from "@/lib/fetch-request";
 import { allPokemonQuery } from "@/apollo/client/query";
 import { PokemonContent } from "@/components/pokemon/pokemon-content";
 import { PokemonSkeleton } from "@/components/pokemon/pokemon-skeleton";
 
 export default function Page() {
-  const countPromise = baseFetchRequest<{
+  const countPromise = baseFetchJson<{
     count: number;
   }>("https://pokeapi.co/api/v2/pokemon?offset=0&limit=1");
 
   return (
-    <div className="max-width mx-auto flex flex-col gap-4 py-4">
+    <div className="flex flex-col gap-4">
       <PageHeader pageTitle="Pokemon" backRoute="/" />
 
       <PreloadQuery query={allPokemonQuery} variables={{ offset: 0, limit: 15 }}>

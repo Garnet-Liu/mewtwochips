@@ -1,7 +1,7 @@
 const path = require("path");
 const fs = require("fs");
 
-const locationOfSvgComponentsInProject = "../../src/components/Svgs/index.ts";
+const locationOfSvgComponentsInProject = "../../src/components/svgs/index.ts";
 
 function defaultIndexTemplate(filePaths) {
   let imports = "";
@@ -14,10 +14,14 @@ function defaultIndexTemplate(filePaths) {
       return getExportNameFromPath(filePath);
     })
     .concat(existingImports)
-    .filter(onlyUnique)
-    .forEach((exportName) => {
-      imports += `import ${exportName} from './${exportName}/${removeNamedSyntax(exportName)}';\n`;
-      exports += removeNamedSyntax(exportName) + ",\n";
+    .filter((value, index, array) => {
+      return array.indexOf(value) === index;
+    })
+    .forEach((fileName) => {
+      const importName = pathToPascalCase(fileName);
+      const exportName = pathToKebabCase(fileName);
+      imports += `import ${importName} from './${exportName}/${removeNamedSyntax(exportName)}';\n`;
+      exports += removeNamedSyntax(importName) + ",\n";
     });
 
   return `${imports} \n export {${exports}}`;
@@ -44,12 +48,22 @@ function getExportNameFromPath(filePath) {
   return /^\d/.test(basename) ? `Svg${basename}` : basename;
 }
 
-function removeNamedSyntax(input) {
-  return input.replace("{", "").replace("}", "").trim();
+function pathToPascalCase(fileName) {
+  return fileName
+    .replace(/[-_\s]+(.)?/g, (_, char) => (char ? char.toUpperCase() : "")) // 去掉分隔符，并将分隔符后的字母大写
+    .replace(/^(.)/, (char) => char.toUpperCase()); // 确保第一个字母大写
 }
 
-function onlyUnique(value, index, array) {
-  return array.indexOf(value) === index;
+function pathToKebabCase(fileName) {
+  return fileName
+    .replace(/([a-z])([A-Z])/g, "$1-$2") // 在小写和大写字母之间加上 "-"
+    .replace(/\s+/g, "-") // 将空格替换为 "-"
+    .replace(/_/g, "-") // 将下划线替换为 "-"
+    .toLowerCase(); // 转换为小写
+}
+
+function removeNamedSyntax(input) {
+  return input.replace("{", "").replace("}", "").trim();
 }
 
 module.exports = defaultIndexTemplate;

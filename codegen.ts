@@ -7,7 +7,7 @@ const config: CodegenConfig = {
   generates: {
     "src/apollo/gql/": {
       preset: "client",
-      plugins: [],
+      plugins: ["typescript-resolvers"],
       presetConfig: {
         fragmentMasking: false,
       },
