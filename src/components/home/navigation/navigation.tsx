@@ -14,7 +14,7 @@ import {
   NavigationMenuViewport,
 } from "@/components/ui/navigation-menu";
 import { AvatarMenu, MenuList, ModeToggle } from "@/components/home/navigation";
-import { Css3, File, Globe, Graphql, Photos, Pokeball } from "@/components/svgs";
+import { Css3, File, Globe, Gobang, Graphql, Photos, Pokeball } from "@/components/svgs";
 
 export interface NavigationPage {
   path: string;
@@ -27,6 +27,7 @@ export interface NavigationPage {
 const PAGES: NavigationPage[] = [
   { path: "/pokemon", label: "Pokémon", Icon: Pokeball },
   { path: "/photos", label: "Photos", Icon: Photos },
+  { path: "/gobang", label: "Gobang", Icon: Gobang },
   {
     path: "/features",
     label: "Features",
@@ -58,8 +59,8 @@ export function Navigation(props: HTMLAttributes<HTMLElement>) {
   const { className } = props;
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 dark:border-border">
-      <nav className={cn("page-content flex items-center gap-4 py-2", className)} {...props}>
+    <header className="sticky top-0 z-50 min-w-[1200px] border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 dark:border-border">
+      <nav className={cn("page-content flex items-center gap-4 px-3", className)} {...props}>
         <Link className="text-2xl font-extrabold" href="/">
           Mewtwochips
         </Link>

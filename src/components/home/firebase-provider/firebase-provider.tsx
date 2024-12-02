@@ -79,7 +79,7 @@ export function FirebaseProvider({ children }: Readonly<Props>) {
   }, [checkUserIdToken, status]);
 
   return (
-    <Spin loading={loaded} show={false} className="h-screen">
+    <Spin loading={loaded} show={false} className="h-screen w-screen">
       {children}
     </Spin>
   );

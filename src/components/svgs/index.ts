@@ -1,3 +1,5 @@
+import GobangBoard from "./gobang-board/gobang-board";
+import Gobang from "./gobang/gobang";
 import Mail from "./mail/mail";
 import Css3 from "./css3/css3";
 import File from "./file/file";
@@ -9,4 +11,17 @@ import Photos from "./photos/photos";
 import Pokeball from "./pokeball/pokeball";
 import FanaticsFlag from "./fanatics-flag/fanatics-flag";
 
-export { Mail, Css3, File, Github, Globe, Google, Graphql, Photos, Pokeball, FanaticsFlag };
+export {
+  GobangBoard,
+  Gobang,
+  Mail,
+  Css3,
+  File,
+  Github,
+  Globe,
+  Google,
+  Graphql,
+  Photos,
+  Pokeball,
+  FanaticsFlag,
+};

@@ -14,7 +14,7 @@ for file in "$INPUT_DIR"/*.svg; do
   # 获取文件名（不带路径和扩展名）
   filename=$(basename "$file" .svg)
 
-#  capitalized_filename="$(echo "$filename" | awk '{print toupper(substr($0,1,1)) tolower(substr($0,2))}')"
+  # capitalized_filename="$(echo "$filename" | awk '{print toupper(substr($0,1,1)) tolower(substr($0,2))}')"
   # 转换为 kebab-case
   capitalized_filename="$(echo "$filename" | tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9]+/-/g' | sed -E 's/^-|-$//g')"
 
