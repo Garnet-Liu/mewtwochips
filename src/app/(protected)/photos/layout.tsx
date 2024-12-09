@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 
 export const metadata = {
-  title: "Pokémon",
+  title: "Photo",
 };
 
 interface IProps {
