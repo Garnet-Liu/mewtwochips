@@ -6,6 +6,7 @@ import { authConfig } from "@/next-auth/auth.config";
 const { auth: middleware } = NextAuth(authConfig);
 
 export default middleware((req) => {
+  console.log("middleware name:", req.auth?.user.name);
   return NextResponse.next({
     headers: { "x-origin": req.nextUrl.origin },
   });

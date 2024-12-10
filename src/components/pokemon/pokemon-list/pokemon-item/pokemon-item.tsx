@@ -29,16 +29,16 @@ export function PokemonItem({ pokemon }: IProps) {
       <CardContent className="p-3 pt-0">
         <div className="relative overflow-hidden">
           <div className="mt-[100%]"></div>
-          {pokemon?.images?.official_default ? (
+          {!!pokemon?.images?.official_default && (
             <Image
               src={pokemon.images.official_default}
               fill
               priority
-              sizes="full"
+              sizes="20vw"
               alt="pokemon"
               className="object-contain"
             />
-          ) : null}
+          )}
         </div>
       </CardContent>
 

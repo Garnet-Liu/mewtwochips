@@ -14,16 +14,16 @@ export function PokemonDetail(props: Readonly<IProps>) {
     <div className="flex">
       <div className="relative w-1/2">
         <div className="mt-[100%]"></div>
-        {pokemon?.images?.official_default ? (
+        {!!pokemon?.images?.official_default && (
           <Image
             src={pokemon.images?.official_default}
             fill
             priority
-            sizes="full"
+            sizes="(max-width: 1200px) 50vw, 600px"
             alt="pokemon"
             className="object-contain"
           />
-        ) : null}
+        )}
       </div>
 
       <div className="box-border flex w-1/2 items-center p-5">

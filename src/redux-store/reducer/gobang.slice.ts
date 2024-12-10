@@ -1,7 +1,9 @@
-import { createAsyncThunk, createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
+import { Point } from "@/types/gobang/board.type";
+import { EPiece, EPlayer } from "@/types/gobang/role.type";
+import { PlayType, StartType } from "@/types/gobang/bridge.type";
 import { end, play, reversal, searchWinnerPath, start, undo } from "@/services/gobang";
-import { EPiece, EPlayer, PlayType, Point, StartType } from "@/types/gobang";
 
 export interface IGobangState {
   first: EPlayer;
@@ -35,7 +37,7 @@ export const playGame = createAsyncThunk(
   },
 );
 
-export const undoMove = createAsyncThunk("gobang/undo", async () => {
+export const undoGame = createAsyncThunk("gobang/undo", async () => {
   return await undo();
 });
 
@@ -46,20 +48,20 @@ export const endGame = createAsyncThunk("gobang/end", async () => {
 const gobangSlice = createSlice({
   name: "gobang",
   initialState,
-  reducers: {
-    move: (state, action: PayloadAction<[number, number, EPiece]>) => {
-      state.board.push(action.payload);
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(startGame.pending, () => {
-      return { ...initialState, loading: true };
+    builder.addCase(startGame.pending, (_, action) => {
+      const { first } = action.meta.arg;
+      return {
+        ...initialState,
+        loading: true,
+        player: EPiece.BLACK,
+        first: first ? EPlayer.HUMAN : EPlayer.COMPUTER,
+      };
     });
     builder.addCase(startGame.fulfilled, (state, { payload }) => {
       console.log("startGame fulfilled payload:", payload);
       const { currentPlayer, move } = payload;
-      state.player = currentPlayer;
-      state.first = currentPlayer === EPiece.BLACK ? EPlayer.COMPUTER : EPlayer.HUMAN;
       console.log("move", move);
       if (move) {
         state.board.push([move[0], move[1], reversal(currentPlayer)]);
@@ -69,6 +71,9 @@ const gobangSlice = createSlice({
 
     builder.addCase(playGame.pending, (state, action) => {
       console.log("playGame action:", action);
+      const { position } = action.meta.arg;
+      console.log("playGame action position:", position);
+      state.board.push([...position, state.player]);
       state.loading = true;
     });
     builder.addCase(playGame.fulfilled, (state, { payload }) => {
@@ -88,10 +93,10 @@ const gobangSlice = createSlice({
       state.loading = false;
     });
 
-    builder.addCase(undoMove.pending, (state) => {
+    builder.addCase(undoGame.pending, (state) => {
       state.loading = true;
     });
-    builder.addCase(undoMove.fulfilled, (state, action) => {
+    builder.addCase(undoGame.fulfilled, (state, action) => {
       console.log("undoMove fulfilled", action);
       state.board.pop();
       state.board.pop();
@@ -107,7 +112,5 @@ const gobangSlice = createSlice({
     });
   },
 });
-
-export const { move } = gobangSlice.actions;
 
 export default gobangSlice.reducer;
