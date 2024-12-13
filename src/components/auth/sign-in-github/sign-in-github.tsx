@@ -10,7 +10,7 @@ export function SignInGithub() {
   const { signInWithGithub, isLoading } = useAuthHandle();
 
   return (
-    <Button variant="secondary" type="button" onClick={signInWithGithub} disabled={isLoading}>
+    <Button variant="outline" type="button" onClick={signInWithGithub} disabled={isLoading}>
       {isLoading ? (
         <LoaderCircle className="mr-2 h-4 w-4 animate-spin" />
       ) : (

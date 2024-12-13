@@ -14,13 +14,15 @@ import { TypedDocumentNode as DocumentNode } from "@graphql-typed-document-node/
  * Learn more about it here: https://the-guild.dev/graphql/codegen/plugins/presets/preset-client#reducing-bundle-size
  */
 const documents = {
+  "\n  fragment FBook on Book {\n    __typename\n    id\n    title\n    author\n  }\n":
+    types.FBookFragmentDoc,
   "\n  fragment FPokemonAbilities on PokemonAbilities {\n    __typename\n    id\n    name\n    name_id\n    entries\n    is_hidden\n  }\n":
     types.FPokemonAbilitiesFragmentDoc,
   "\n  fragment FPokemonStats on PokemonStats {\n    __typename\n    id\n    name\n    name_id\n    base_stat\n  }\n":
     types.FPokemonStatsFragmentDoc,
-  "\n  fragment FPokemon on Pokemon {\n    __typename\n    id\n    name\n    name_id\n    order\n    genera\n    color\n    flavor_text\n    images {\n      front_default\n      front_shiny\n      back_default\n      back_shiny\n      official_default\n      official_shiny\n    }\n    abilities {\n      ...FPokemonAbilities\n    }\n  }\n":
+  "\n  fragment FPokemon on Pokemon {\n    __typename\n    id\n    name\n    name_id\n    order\n    genera\n    color\n    flavor_text\n    images {\n      __typename\n      front_default\n      front_shiny\n      back_default\n      back_shiny\n      official_default\n      official_shiny\n    }\n    abilities {\n      ...FPokemonAbilities\n    }\n  }\n":
     types.FPokemonFragmentDoc,
-  "\n  mutation MAddBook($title: String!, $author: String!) {\n    addBook(title: $title, author: $author) {\n      id\n      title\n      author\n    }\n  }\n":
+  "\n  mutation MAddBook($title: String!, $author: String!) {\n    addBook(title: $title, author: $author) {\n      ...FBook\n    }\n  }\n":
     types.MAddBookDocument,
   "\n  query QAllPokemon($offset: Int!, $limit: Int!) {\n    pokemonAll(offset: $offset, limit: $limit) {\n      __typename\n      count\n      limit\n      offset\n      results {\n        ...FPokemon\n      }\n    }\n  }\n":
     types.QAllPokemonDocument,
@@ -50,6 +52,12 @@ export function graphql(source: string): unknown;
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
+  source: "\n  fragment FBook on Book {\n    __typename\n    id\n    title\n    author\n  }\n",
+): (typeof documents)["\n  fragment FBook on Book {\n    __typename\n    id\n    title\n    author\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
   source: "\n  fragment FPokemonAbilities on PokemonAbilities {\n    __typename\n    id\n    name\n    name_id\n    entries\n    is_hidden\n  }\n",
 ): (typeof documents)["\n  fragment FPokemonAbilities on PokemonAbilities {\n    __typename\n    id\n    name\n    name_id\n    entries\n    is_hidden\n  }\n"];
 /**
@@ -62,14 +70,14 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: "\n  fragment FPokemon on Pokemon {\n    __typename\n    id\n    name\n    name_id\n    order\n    genera\n    color\n    flavor_text\n    images {\n      front_default\n      front_shiny\n      back_default\n      back_shiny\n      official_default\n      official_shiny\n    }\n    abilities {\n      ...FPokemonAbilities\n    }\n  }\n",
-): (typeof documents)["\n  fragment FPokemon on Pokemon {\n    __typename\n    id\n    name\n    name_id\n    order\n    genera\n    color\n    flavor_text\n    images {\n      front_default\n      front_shiny\n      back_default\n      back_shiny\n      official_default\n      official_shiny\n    }\n    abilities {\n      ...FPokemonAbilities\n    }\n  }\n"];
+  source: "\n  fragment FPokemon on Pokemon {\n    __typename\n    id\n    name\n    name_id\n    order\n    genera\n    color\n    flavor_text\n    images {\n      __typename\n      front_default\n      front_shiny\n      back_default\n      back_shiny\n      official_default\n      official_shiny\n    }\n    abilities {\n      ...FPokemonAbilities\n    }\n  }\n",
+): (typeof documents)["\n  fragment FPokemon on Pokemon {\n    __typename\n    id\n    name\n    name_id\n    order\n    genera\n    color\n    flavor_text\n    images {\n      __typename\n      front_default\n      front_shiny\n      back_default\n      back_shiny\n      official_default\n      official_shiny\n    }\n    abilities {\n      ...FPokemonAbilities\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: "\n  mutation MAddBook($title: String!, $author: String!) {\n    addBook(title: $title, author: $author) {\n      id\n      title\n      author\n    }\n  }\n",
-): (typeof documents)["\n  mutation MAddBook($title: String!, $author: String!) {\n    addBook(title: $title, author: $author) {\n      id\n      title\n      author\n    }\n  }\n"];
+  source: "\n  mutation MAddBook($title: String!, $author: String!) {\n    addBook(title: $title, author: $author) {\n      ...FBook\n    }\n  }\n",
+): (typeof documents)["\n  mutation MAddBook($title: String!, $author: String!) {\n    addBook(title: $title, author: $author) {\n      ...FBook\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

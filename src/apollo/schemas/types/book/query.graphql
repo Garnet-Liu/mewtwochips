@@ -7,3 +7,7 @@ extend type Mutation {
   addBook(title: String!, author: String!): Book
   deleteBook(id: String!): Book
 }
+
+type Subscription {
+  postBook: Book
+}

@@ -142,6 +142,18 @@ export enum StatsType {
   Speed = "SPEED",
 }
 
+export type Subscription = {
+  __typename?: "Subscription";
+  postBook?: Maybe<Book>;
+};
+
+export type FBookFragment = {
+  __typename: "Book";
+  id?: string | null;
+  title?: string | null;
+  author?: string | null;
+};
+
 export type FPokemonAbilitiesFragment = {
   __typename: "PokemonAbilities";
   id?: string | null;
@@ -169,7 +181,7 @@ export type FPokemonFragment = {
   color?: string | null;
   flavor_text?: string | null;
   images?: {
-    __typename?: "PokemonImages";
+    __typename: "PokemonImages";
     front_default?: string | null;
     front_shiny?: string | null;
     back_default?: string | null;
@@ -195,7 +207,7 @@ export type MAddBookMutationVariables = Exact<{
 export type MAddBookMutation = {
   __typename?: "Mutation";
   addBook?: {
-    __typename?: "Book";
+    __typename: "Book";
     id?: string | null;
     title?: string | null;
     author?: string | null;
@@ -224,7 +236,7 @@ export type QAllPokemonQuery = {
       color?: string | null;
       flavor_text?: string | null;
       images?: {
-        __typename?: "PokemonImages";
+        __typename: "PokemonImages";
         front_default?: string | null;
         front_shiny?: string | null;
         back_default?: string | null;
@@ -294,7 +306,7 @@ export type QPokemonQuery = {
       base_stat?: number | null;
     } | null> | null;
     images?: {
-      __typename?: "PokemonImages";
+      __typename: "PokemonImages";
       front_default?: string | null;
       front_shiny?: string | null;
       back_default?: string | null;
@@ -313,6 +325,25 @@ export type QPokemonQuery = {
   } | null;
 };
 
+export const FBookFragmentDoc = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "FragmentDefinition",
+      name: { kind: "Name", value: "FBook" },
+      typeCondition: { kind: "NamedType", name: { kind: "Name", value: "Book" } },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          { kind: "Field", name: { kind: "Name", value: "__typename" } },
+          { kind: "Field", name: { kind: "Name", value: "id" } },
+          { kind: "Field", name: { kind: "Name", value: "title" } },
+          { kind: "Field", name: { kind: "Name", value: "author" } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<FBookFragment, unknown>;
 export const FPokemonStatsFragmentDoc = {
   kind: "Document",
   definitions: [
@@ -378,6 +409,7 @@ export const FPokemonFragmentDoc = {
             selectionSet: {
               kind: "SelectionSet",
               selections: [
+                { kind: "Field", name: { kind: "Name", value: "__typename" } },
                 { kind: "Field", name: { kind: "Name", value: "front_default" } },
                 { kind: "Field", name: { kind: "Name", value: "front_shiny" } },
                 { kind: "Field", name: { kind: "Name", value: "back_default" } },
@@ -463,13 +495,23 @@ export const MAddBookDocument = {
             ],
             selectionSet: {
               kind: "SelectionSet",
-              selections: [
-                { kind: "Field", name: { kind: "Name", value: "id" } },
-                { kind: "Field", name: { kind: "Name", value: "title" } },
-                { kind: "Field", name: { kind: "Name", value: "author" } },
-              ],
+              selections: [{ kind: "FragmentSpread", name: { kind: "Name", value: "FBook" } }],
             },
           },
+        ],
+      },
+    },
+    {
+      kind: "FragmentDefinition",
+      name: { kind: "Name", value: "FBook" },
+      typeCondition: { kind: "NamedType", name: { kind: "Name", value: "Book" } },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          { kind: "Field", name: { kind: "Name", value: "__typename" } },
+          { kind: "Field", name: { kind: "Name", value: "id" } },
+          { kind: "Field", name: { kind: "Name", value: "title" } },
+          { kind: "Field", name: { kind: "Name", value: "author" } },
         ],
       },
     },
@@ -578,6 +620,7 @@ export const QAllPokemonDocument = {
             selectionSet: {
               kind: "SelectionSet",
               selections: [
+                { kind: "Field", name: { kind: "Name", value: "__typename" } },
                 { kind: "Field", name: { kind: "Name", value: "front_default" } },
                 { kind: "Field", name: { kind: "Name", value: "front_shiny" } },
                 { kind: "Field", name: { kind: "Name", value: "back_default" } },
@@ -767,6 +810,7 @@ export const QPokemonDocument = {
             selectionSet: {
               kind: "SelectionSet",
               selections: [
+                { kind: "Field", name: { kind: "Name", value: "__typename" } },
                 { kind: "Field", name: { kind: "Name", value: "front_default" } },
                 { kind: "Field", name: { kind: "Name", value: "front_shiny" } },
                 { kind: "Field", name: { kind: "Name", value: "back_default" } },
@@ -912,6 +956,7 @@ export type ResolversTypes = {
   Query: ResolverTypeWrapper<{}>;
   Stats: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>["Stats"]>;
   StatsType: StatsType;
+  Subscription: ResolverTypeWrapper<{}>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -930,6 +975,7 @@ export type ResolversParentTypes = {
   PokemonStats: PokemonStats;
   Query: {};
   Stats: ResolversInterfaceTypes<ResolversParentTypes>["Stats"];
+  Subscription: {};
 };
 
 export type AbilitiesResolvers<
@@ -1080,6 +1126,18 @@ export type StatsResolvers<
   name_id?: Resolver<Maybe<ResolversTypes["StatsType"]>, ParentType, ContextType>;
 };
 
+export type SubscriptionResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes["Subscription"] = ResolversParentTypes["Subscription"],
+> = {
+  postBook?: SubscriptionResolver<
+    Maybe<ResolversTypes["Book"]>,
+    "postBook",
+    ParentType,
+    ContextType
+  >;
+};
+
 export type Resolvers<ContextType = any> = {
   Abilities?: AbilitiesResolvers<ContextType>;
   Book?: BookResolvers<ContextType>;
@@ -1091,4 +1149,5 @@ export type Resolvers<ContextType = any> = {
   PokemonStats?: PokemonStatsResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   Stats?: StatsResolvers<ContextType>;
+  Subscription?: SubscriptionResolvers<ContextType>;
 };

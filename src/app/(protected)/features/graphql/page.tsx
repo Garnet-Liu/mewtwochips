@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Book } from "@/components/graphql/book";
 import { Books } from "@/components/graphql/books";
 import { PreloadQuery } from "@/apollo/apollo-server";
-import { AllPokemon } from "@/components/graphql/all-pokemon";
+import { PokemonTable } from "@/components/graphql/pokemon-table";
 import { allPokemonQuery, bookQuery, booksQuery } from "@/apollo/client/query";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
@@ -48,7 +48,7 @@ export default function Page() {
         <PreloadQuery query={allPokemonQuery} variables={{ offset: 0, limit: 10 }}>
           {(queryRef) => (
             <Suspense fallback={<Spin className="h-6" loading={true} />}>
-              <AllPokemon queryRef={queryRef} />
+              <PokemonTable queryRef={queryRef} />
             </Suspense>
           )}
         </PreloadQuery>

@@ -74,6 +74,7 @@ const gobangSlice = createSlice({
       const { position } = action.meta.arg;
       console.log("playGame action position:", position);
       state.board.push([...position, state.player]);
+      state.player = reversal(state.player);
       state.loading = true;
     });
     builder.addCase(playGame.fulfilled, (state, { payload }) => {

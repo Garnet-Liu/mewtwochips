@@ -16,7 +16,7 @@ type NextAuthRequest = Parameters<Parameters<typeof auth>[0]>[0];
 
 const handler = startServerAndCreateNextHandler<NextAuthRequest, IContext>(server, {
   context: async (req) => {
-    console.log("<========= startServerAndCreateNextHandler req token", !!req.auth?.user?.idToken);
+    console.log("<========= startServerAndCreateNextHandler idToken", !!req.auth?.user?.idToken);
     console.log("req url", req.url);
     console.log("req body", req.body);
     const { cache } = server;
