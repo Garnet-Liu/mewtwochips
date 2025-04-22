@@ -23,8 +23,8 @@ export function FirebaseProvider({ children }: Readonly<Props>) {
   const { update, status } = useSession();
   const [loaded, setLoaded] = useState(true);
 
-  const timerRef = useRef<NodeJS.Timeout>();
-  const unsubscribeRef = useRef<Unsubscribe>();
+  const timerRef = useRef<NodeJS.Timeout>(undefined);
+  const unsubscribeRef = useRef<Unsubscribe>(undefined);
 
   const getIdTokenResult = useCallback(
     async (refresh: boolean = false): Promise<[number, string]> => {

@@ -13,8 +13,8 @@ interface Props {
 }
 
 export function ReduxProvider({ children }: Readonly<Props>) {
-  const storeRef = useRef<AppStore>();
-  const persistorRef = useRef<Persistor>();
+  const storeRef = useRef<AppStore>(undefined);
+  const persistorRef = useRef<Persistor>(undefined);
 
   if (!storeRef.current || !persistorRef.current) {
     // Create the store instance the first time this renders

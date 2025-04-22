@@ -11,6 +11,7 @@ export const pokemonFragment = graphql(`
     color
     flavor_text
     images {
+      __typename
       front_default
       front_shiny
       back_default

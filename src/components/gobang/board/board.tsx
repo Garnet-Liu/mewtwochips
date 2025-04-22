@@ -107,29 +107,42 @@ export function Board() {
             stroke="red"
             strokeWidth="3"
           />
-
-          {winPath.map(([x, y], index) => {
-            return (
-              <circle
-                key={index}
-                cx={piecePoint(x)}
-                cy={piecePoint(y)}
-                r="10"
-                fill="none"
-                stroke="black"
-                strokeWidth="10"
-              >
-                <animate attributeName="r" from="5" to="11" dur="1s" repeatCount="indefinite" />
-                <animate
-                  attributeName="opacity"
-                  from="1"
-                  to="0"
-                  dur="1s"
-                  repeatCount="indefinite"
-                />
-              </circle>
-            );
-          })}
+          {winPath.length ? (
+            winPath.map(([x, y], index) => {
+              return (
+                <circle
+                  key={index}
+                  cx={piecePoint(x)}
+                  cy={piecePoint(y)}
+                  r="10"
+                  fill="none"
+                  stroke="black"
+                  strokeWidth="10"
+                >
+                  <animate attributeName="r" from="5" to="11" dur="1s" repeatCount="indefinite" />
+                  <animate
+                    attributeName="opacity"
+                    from="1"
+                    to="0"
+                    dur="1s"
+                    repeatCount="indefinite"
+                  />
+                </circle>
+              );
+            })
+          ) : board[board.length - 1] ? (
+            <circle
+              cx={piecePoint(board[board.length - 1][0])}
+              cy={piecePoint(board[board.length - 1][1])}
+              r="10"
+              fill="none"
+              stroke="black"
+              strokeWidth="10"
+            >
+              <animate attributeName="r" from="5" to="11" dur="1s" repeatCount="indefinite" />
+              <animate attributeName="opacity" from="1" to="0" dur="1s" repeatCount="indefinite" />
+            </circle>
+          ) : null}
 
           {board.map(([x, y, p]) => {
             return (

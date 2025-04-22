@@ -2,6 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import Link from "next/link";
 import { z } from "zod";
 
 import {
@@ -23,11 +24,12 @@ export const formSchema = z.object({
 
 interface IProps {
   text: string;
+  forget?: boolean;
   callback: (v: z.infer<typeof formSchema>) => void;
 }
 
 export function EmailForm(props: IProps) {
-  const { text, callback } = props;
+  const { text, forget = false, callback } = props;
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
@@ -67,7 +69,21 @@ export function EmailForm(props: IProps) {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Password</FormLabel>
+              {forget ? (
+                <div className="inline-flex w-full items-center gap-2">
+                  <FormLabel className="flex-1">Password</FormLabel>
+
+                  <Link
+                    href="/auth/forgot-password"
+                    className="ml-auto inline-block text-sm underline"
+                  >
+                    Forgot your password?
+                  </Link>
+                </div>
+              ) : (
+                <FormLabel>Password</FormLabel>
+              )}
+
               <FormControl>
                 <Input placeholder="Password" {...field} />
               </FormControl>

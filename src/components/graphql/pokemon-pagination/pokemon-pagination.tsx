@@ -16,7 +16,7 @@ interface IProps {
   refetch: ReturnType<typeof useQueryRefHandlers>["refetch"];
 }
 
-export function AllPagination(props: IProps) {
+export function PokemonPagination(props: IProps) {
   const { count, offset, refetch } = props;
 
   const { max, page } = useMemo(() => {
@@ -36,6 +36,7 @@ export function AllPagination(props: IProps) {
     },
     [refetch],
   );
+
   return (
     <Pagination className="justify-end">
       <div className="flex w-32 items-center justify-center text-sm font-medium">

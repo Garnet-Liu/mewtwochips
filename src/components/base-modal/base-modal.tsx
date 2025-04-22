@@ -24,7 +24,7 @@ export function BaseModal({ children }: { children: ReactNode }) {
 
   return (
     <Dialog open={true} onOpenChange={openChangeHandle}>
-      <DialogContent close={false} className="max-w-max">
+      <DialogContent className="max-w-max">
         <VisuallyHidden asChild>
           <DialogTitle></DialogTitle>
         </VisuallyHidden>

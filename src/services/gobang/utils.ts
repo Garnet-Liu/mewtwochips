@@ -29,10 +29,8 @@ export const getBoardData = (
   bestPath?: Point[],
 ): EventResType["payload"] => {
   return {
-    // board: JSON.parse(JSON.stringify(board.board)),
     winner: board.getWinner(),
     currentPlayer: board.role,
-    // history: JSON.parse(JSON.stringify(board.history)),
     size: board.size,
     score,
     bestPath,

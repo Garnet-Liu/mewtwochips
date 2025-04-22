@@ -10,7 +10,7 @@ export function SignInGoogle() {
   const { signInWithGoogle, isLoading } = useAuthHandle();
 
   return (
-    <Button variant="secondary" type="button" onClick={signInWithGoogle} disabled={isLoading}>
+    <Button variant="outline" type="button" onClick={signInWithGoogle} disabled={isLoading}>
       {isLoading ? (
         <LoaderCircle className="mr-2 h-4 w-4 animate-spin" />
       ) : (

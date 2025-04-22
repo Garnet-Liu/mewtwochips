@@ -5,7 +5,11 @@ import { Maybe } from "@/types/maybe";
 import { auth } from "@/next-auth/auth";
 import { verifyIdToken } from "@/lib/verify-id-token";
 
-export const GET = auth(async (req) => {
+export const GET = auth(async (req, context) => {
+  const a = await context.params;
+
+  console.log("GET", a);
+
   const searchParams = req.nextUrl.searchParams;
   const count = searchParams.get("count");
   const now = searchParams.get("now");
