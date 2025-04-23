@@ -1,6 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useShallow } from "zustand/react/shallow";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -13,10 +14,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-import { randomRange } from "@/lib/random-range";
-import { startGame } from "@/redux-store/reducer";
-import { useAppDispatch } from "@/redux-store/hooks";
+import { randomRange } from "@/common/random-range";
 import { EPiece, EPlayer } from "@/types/gobang/role.type";
+import { useGobangStore } from "@/components/gobang/gobang-store";
 import { ControlActionsConcede } from "../control-actions-concede";
 import { ControlActionsWithdraw } from "../control-actions-withdraw";
 import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
@@ -40,7 +40,11 @@ interface IProps {
 export function ControlActions(props: IProps) {
   const { player, loading } = props;
 
-  const dispatch = useAppDispatch();
+  const { startGame } = useGobangStore(
+    useShallow((s) => {
+      return { startGame: s.startGame };
+    }),
+  );
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof startSchema>>({
@@ -54,9 +58,9 @@ export function ControlActions(props: IProps) {
     // ✅ This will be type-safe and validated.
     console.log("=========> onSubmit", values);
     if (values.first === EPlayer.RANDOM) {
-      dispatch(startGame({ first: !!randomRange(0, 1), depth: Number(values.deep) }));
+      startGame(!!randomRange(0, 1), Number(values.deep));
     } else {
-      dispatch(startGame({ first: values.first === EPlayer.HUMAN, depth: Number(values.deep) }));
+      startGame(values.first === EPlayer.HUMAN, Number(values.deep));
     }
   }
 

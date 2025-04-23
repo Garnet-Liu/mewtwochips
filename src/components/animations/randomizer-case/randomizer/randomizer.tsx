@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef } from "react";
 
-import { cn } from "@/lib/utils";
+import { cn } from "@/common/utils";
 import styles from "./randomizer.module.css";
 import { Win } from "@/components/animations/randomizer-case";
 

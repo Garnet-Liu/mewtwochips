@@ -12,7 +12,7 @@ import {
 
 import { Maybe } from "@/types/maybe";
 import { LANGUAGE, PokemonArgs } from "@/types/api/graphql";
-import { toScreamingSnakeCase } from "@/lib/to-screaming-snake";
+import { toScreamingSnakeCase } from "@/common/to-screaming-snake";
 
 export class PokemonDataSource extends RESTDataSource {
   override baseURL = "https://pokeapi.co";

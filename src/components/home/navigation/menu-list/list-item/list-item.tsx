@@ -1,7 +1,7 @@
-import { ComponentPropsWithoutRef, ElementRef, forwardRef, ReactNode } from "react";
+import { ComponentPropsWithoutRef, ComponentRef, forwardRef, ReactNode } from "react";
 import Link from "next/link";
 
-import { cn } from "@/lib/utils";
+import { cn } from "@/common/utils";
 import { NavigationMenuLink } from "@/components/ui/navigation-menu";
 
 export interface IProps extends ComponentPropsWithoutRef<"a"> {
@@ -9,7 +9,7 @@ export interface IProps extends ComponentPropsWithoutRef<"a"> {
   icon: ReactNode;
 }
 
-export const ListItem = forwardRef<ElementRef<"a">, IProps>(function ListItem(
+export const ListItem = forwardRef<ComponentRef<"a">, IProps>(function ListItem(
   { className, title, icon, children, ...props },
   ref,
 ) {

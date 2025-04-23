@@ -1,30 +1,37 @@
+import { initializeServerApp } from "@firebase/app";
 import { Analytics } from "@vercel/analytics/react";
-import { SessionProvider } from "next-auth/react";
+import { getAuth } from "firebase/auth";
 import localFont from "next/font/local";
+import { headers } from "next/headers";
 import type { Metadata } from "next";
 import { ReactNode } from "react";
 import { dir } from "i18next";
 
 import { LngParams } from "@/types/lng-params";
+import { languages } from "@/libs/i18n/settings";
 import { Toaster } from "@/components/ui/sonner";
+import { firebaseConfig } from "@/libs/firebase/configs";
+import { AuthProvider } from "@/libs/firebase/auth-provider";
 import { ThemeProvider } from "@/components/home/theme-provider";
-import { ReduxProvider } from "@/components/home/redux-provider";
 import { ApolloProvider } from "@/components/home/apollo-provider";
-import { FirebaseProvider } from "@/components/home/firebase-provider";
 
 import "./globals.css";
 
 const geistSans = localFont({
-  src: "../../fonts/GeistVF.woff",
+  src: "../../libs/fonts/GeistVF.woff",
   variable: "--font-geist-sans",
   weight: "100 900",
 });
 
 const geistMono = localFont({
-  src: "../../fonts/GeistMonoVF.woff",
+  src: "../../libs/fonts/GeistMonoVF.woff",
   variable: "--font-geist-mono",
   weight: "100 900",
 });
+
+export async function generateStaticParams() {
+  return languages.map((lng) => ({ lng }));
+}
 
 export const metadata: Metadata = {
   title: "Mewtwochips",
@@ -38,6 +45,20 @@ interface IProps extends LngParams {
 
 export default async function RootLayout({ children, modal, params }: Readonly<IProps>) {
   const { lng } = await params;
+
+  const headersList = await headers();
+  const authIdToken = headersList.get("authorization")?.split(" ")[1];
+
+  console.log("root authIdToken", authIdToken);
+
+  const serverApp = initializeServerApp(firebaseConfig, { authIdToken });
+  const auth = getAuth(serverApp);
+  await auth.authStateReady();
+
+  const user = auth.currentUser;
+
+  console.log("root user", user);
+
   return (
     <html
       lang={lng}
@@ -46,23 +67,22 @@ export default async function RootLayout({ children, modal, params }: Readonly<I
       className={`${geistSans.variable} ${geistMono.variable}`}
     >
       <body className="antialiased">
-        <SessionProvider>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <FirebaseProvider>
-              <ApolloProvider>
-                <ReduxProvider>
-                  {children}
-                  {modal}
-                </ReduxProvider>
-              </ApolloProvider>
-            </FirebaseProvider>
-          </ThemeProvider>
-        </SessionProvider>
+        <ThemeProvider
+          attribute="class"
+          enableSystem={true}
+          defaultTheme="system"
+          disableTransitionOnChange
+        >
+          <AuthProvider user={user}>
+            <ApolloProvider>
+              <div className="h-screen w-screen">
+                {children}
+                {modal}
+              </div>
+            </ApolloProvider>
+          </AuthProvider>
+        </ThemeProvider>
+
         <Analytics />
         <Toaster />
       </body>

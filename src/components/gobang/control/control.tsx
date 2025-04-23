@@ -1,21 +1,22 @@
 "use client";
 
-import { createSelector } from "reselect";
+import { useShallow } from "zustand/react/shallow";
 import { useMemo } from "react";
 
-import { cn } from "@/lib/utils";
-import { RootState } from "@/redux-store/store";
+import { cn } from "@/common/utils";
 import { EPiece } from "@/types/gobang/role.type";
-import { useAppSelector } from "@/redux-store/hooks";
+import { useGobangStore } from "@/components/gobang/gobang-store";
 import { ControlActions } from "@/components/gobang/control-actions";
 
 export function Control() {
-  const { player, winner, loading } = useAppSelector(
-    createSelector([(s: RootState) => s.gobang], (gobang) => ({
-      loading: gobang.loading,
-      winner: gobang.winner,
-      player: gobang.player,
-    })),
+  const { player, loading, winner } = useGobangStore(
+    useShallow((s) => {
+      return {
+        loading: s.loading,
+        winner: s.winner,
+        player: s.player,
+      };
+    }),
   );
 
   const message = useMemo(() => {

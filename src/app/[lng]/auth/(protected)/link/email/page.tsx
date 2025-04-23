@@ -8,9 +8,9 @@ import { z } from "zod";
 
 import { EProviderID } from "@/types/auth";
 import { Button } from "@/components/ui/button";
-import { firebaseAuth } from "@/firebase/firebase";
+import { firebaseAuth } from "@/libs/firebase/firebase-client";
 import { EmailForm, formSchema } from "@/components/auth/email-form";
-import { checkFirebaseProvider } from "@/lib/check-firebase-provider";
+import { checkFirebaseProvider } from "@/common/check-firebase-provider";
 
 export default function Page() {
   const router = useRouter();

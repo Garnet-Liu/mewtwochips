@@ -1,14 +1,16 @@
 "use client";
 
+import { ReactNode, useCallback, useEffect, useState } from "react";
 import { unlink } from "firebase/auth";
-import { ReactNode } from "react";
 import { toast } from "sonner";
 import Link from "next/link";
+import { Loader } from "lucide-react";
 
+import { useT } from "@/libs/i18n/client";
 import { Button } from "@/components/ui/button";
-import { firebaseAuth } from "@/firebase/firebase";
 import { EProviderID, providers } from "@/types/auth";
-import { checkFirebaseProvider } from "@/lib/check-firebase-provider";
+import { firebaseAuth } from "@/libs/firebase/firebase-client";
+import { checkFirebaseProvider } from "@/common/check-firebase-provider";
 
 interface IProps {
   providerId: EProviderID;
@@ -18,7 +20,14 @@ interface IProps {
 export function ProviderItem(props: IProps) {
   const { icon, providerId } = props;
 
-  const unlinkProviderHandle = () => {
+  const { t } = useT("home");
+
+  const [state, setState] = useState({
+    loading: true,
+    isLinked: false,
+  });
+
+  const unlinkProviderHandle = useCallback(() => {
     unlink(firebaseAuth.currentUser!, providerId)
       .then(() => {
         // Auth provider unlinked from account
@@ -28,7 +37,15 @@ export function ProviderItem(props: IProps) {
         // An error happened
         toast.error("Unlink error.", { description: error.messages });
       });
-  };
+  }, [providerId]);
+
+  useEffect(() => {
+    const unsubscribe = firebaseAuth.onAuthStateChanged(() => {
+      setState({ isLinked: checkFirebaseProvider(providerId), loading: false });
+    });
+
+    return () => unsubscribe();
+  }, [providerId]);
 
   const name = providers.get(providerId);
 
@@ -36,16 +53,24 @@ export function ProviderItem(props: IProps) {
     return null;
   }
 
-  if (checkFirebaseProvider(providerId)) {
+  if (state.loading) {
+    return (
+      <Button variant="default" disabled>
+        <Loader size={16} />
+      </Button>
+    );
+  } else if (state.isLinked) {
     return (
       <Button variant="destructive" onClick={unlinkProviderHandle} className="flex-1">
-        {icon} Unlink
+        {icon} {t("unlink", { ns: "home" })}
       </Button>
     );
   } else {
     return (
-      <Link className="flex-1" href={`/src/app/%5Blng%5D/auth/(protected)/link/${name}`}>
-        <Button className="w-full">{icon} Link</Button>
+      <Link className="flex-1" href={`/auth/(protected)/link/${name}`}>
+        <Button className="w-full">
+          {icon} {t("link", { ns: "home" })}
+        </Button>
       </Link>
     );
   }

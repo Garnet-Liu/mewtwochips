@@ -5,7 +5,7 @@ import Link from "next/link";
 import { EProviderID } from "@/types/auth";
 import { Button } from "@/components/ui/button";
 import { LinkGithubForm } from "@/components/auth/link-github-form";
-import { checkFirebaseProvider } from "@/lib/check-firebase-provider";
+import { checkFirebaseProvider } from "@/common/check-firebase-provider";
 
 export default function Page() {
   return (

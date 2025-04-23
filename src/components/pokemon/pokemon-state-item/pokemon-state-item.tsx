@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-import { cn } from "@/lib/utils";
+import { cn } from "@/common/utils";
 import { Maybe } from "@/types/maybe";
 import { StatsType } from "@/apollo/gql/graphql";
 

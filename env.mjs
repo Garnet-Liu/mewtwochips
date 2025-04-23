@@ -8,8 +8,11 @@ export const env = createEnv({
    * Will throw if you access these variables on the client.
    */
   server: {
+    AUTH_SECRET: z.string().min(1),
     AUTH_GOOGLE_ID: z.string().min(1),
     AUTH_GOOGLE_SECRET: z.string().min(1),
+    LOKALISE_API_TOKEN: z.string().min(1),
+    LOKALISE_PROJECT_ID: z.string().min(1),
     FIREBASE_PROJECT_ID: z.string().min(1),
     FIREBASE_PRIVATE_KEY: z.string().min(1),
     FIREBASE_CLIENT_EMAIL: z.string().min(1),
@@ -38,8 +41,11 @@ export const env = createEnv({
    */
   runtimeEnv: {
     NODE_ENV: process.env.NODE_ENV,
+    AUTH_SECRET: process.env.AUTH_SECRET,
     AUTH_GOOGLE_ID: process.env.AUTH_GOOGLE_ID,
     AUTH_GOOGLE_SECRET: process.env.AUTH_GOOGLE_SECRET,
+    LOKALISE_API_TOKEN: process.env.LOKALISE_API_TOKEN,
+    LOKALISE_PROJECT_ID: process.env.LOKALISE_PROJECT_ID,
     FIREBASE_PROJECT_ID: process.env.FIREBASE_PROJECT_ID,
     FIREBASE_PRIVATE_KEY: process.env.FIREBASE_PRIVATE_KEY,
     NEXT_PUBLIC_BASE_URL: process.env.NEXT_PUBLIC_BASE_URL,

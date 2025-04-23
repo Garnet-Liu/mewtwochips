@@ -38,7 +38,8 @@
         "allow": [
           "path",
           "fs",
-          "tailwindcss-animate"
+          "tailwindcss-animate",
+          "workbox-webpack-plugin"
         ]
       }
     ]

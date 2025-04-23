@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 
-import { baseFetchJson } from "@/lib/fetch-request";
+import { baseFetchJson } from "@/common/fetch-request";
 import { PageHeader } from "@/components/page-header";
 import { PreloadQuery } from "@/apollo/apollo-server";
 import { allPokemonQuery } from "@/apollo/client/query";

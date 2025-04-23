@@ -1,7 +1,7 @@
 import { HTMLAttributes } from "react";
 import Image from "next/image";
 
-import { cn } from "@/lib/utils";
+import { cn } from "@/common/utils";
 import { Maybe } from "@/types/maybe";
 import { IPhoto } from "@/services/photo-data";
 

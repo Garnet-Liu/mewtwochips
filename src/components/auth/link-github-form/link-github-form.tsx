@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
-import { firebaseAuth } from "@/firebase/firebase";
+import { firebaseAuth } from "@/libs/firebase/firebase-client";
 
 const provider = new GithubAuthProvider();
 

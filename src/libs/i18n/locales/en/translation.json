@@ -1,0 +1,28 @@
+{
+  "change-language": "Change language",
+  "en": "English",
+  "zh-CN": "中文",
+  "sign-out": "Sign out",
+  "navigation": {
+    "pokémon": "Pokémon",
+    "photos": "Photos",
+    "gobang": "Gobang",
+    "features": "Features",
+    "counter": {
+      "label": "Counter",
+      "description": "A small example of Redux"
+    },
+    "react-form": {
+      "label": "React hook form",
+      "description": "A small example of react hook form"
+    },
+    "graphql": {
+      "label": "Graphql",
+      "description": "A test case for graphql"
+    },
+    "animations": {
+      "label": "Animations",
+      "description": "A test case for animations"
+    }
+  }
+}
