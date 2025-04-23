@@ -10,7 +10,7 @@ export function UserActions() {
 
   return (
     <div className="flex gap-3">
-      <Link className="flex-1" href={`/auth/change-password`}>
+      <Link className="flex-1" href={`/src/app/%5Blng%5D/auth/change-password`}>
         <Button className="w-full">Change password</Button>
       </Link>
 

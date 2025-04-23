@@ -35,7 +35,7 @@ export default function Page() {
         <div className="flex flex-col items-center gap-4">
           <p>Linked with email and password.</p>
 
-          <Link href="/public">
+          <Link href="/public" legacyBehavior>
             <Button>Back to home</Button>
           </Link>
         </div>

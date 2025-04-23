@@ -14,7 +14,7 @@ import {
   NavigationMenuViewport,
 } from "@/components/ui/navigation-menu";
 import { AvatarMenu, MenuList, ModeToggle } from "@/components/home/navigation";
-import { Css3, File, Globe, Gobang, Graphql, Photos, Pokeball, Form } from "@/components/svgs";
+import { Css3, File, Form, Globe, Gobang, Graphql, Photos, Pokeball } from "@/components/svgs";
 
 export interface NavigationPage {
   path: string;
@@ -61,8 +61,12 @@ const PAGES: NavigationPage[] = [
   },
 ];
 
-export function Navigation(props: HTMLAttributes<HTMLElement>) {
-  const { className } = props;
+interface Props extends HTMLAttributes<HTMLDivElement> {
+  lang: string;
+}
+
+export function Navigation(props: Props) {
+  const { lang, className } = props;
 
   return (
     <header className="sticky top-0 z-50 min-w-[1200px] border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 dark:border-border">
@@ -89,7 +93,7 @@ export function Navigation(props: HTMLAttributes<HTMLElement>) {
                         </NavigationMenuContent>
                       </>
                     ) : (
-                      <Link href={page.path} legacyBehavior passHref>
+                      <Link href={`/${lang}${page.path}`} legacyBehavior passHref>
                         <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "gap-1")}>
                           <Icon fill="currentColor" /> {page.label}
                         </NavigationMenuLink>

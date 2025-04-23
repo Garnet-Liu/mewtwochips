@@ -9,7 +9,7 @@ export default function NotFound() {
       <OctagonAlert size={32} />
       <h2 className="font-bold">Not Found</h2>
       <p className="font-medium">Could not find requested resource</p>
-      <Link href="/">
+      <Link href="/" legacyBehavior>
         <Button>Return Home</Button>
       </Link>
     </div>
