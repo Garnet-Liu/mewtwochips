@@ -44,7 +44,7 @@ export function ProviderItem(props: IProps) {
     );
   } else {
     return (
-      <Link className="flex-1" href={`/src/app/auth/(protected)/link/${name}`}>
+      <Link className="flex-1" href={`/src/app/%5Blng%5D/auth/(protected)/link/${name}`}>
         <Button className="w-full">{icon} Link</Button>
       </Link>
     );

@@ -14,6 +14,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { useT } from "@/app/i18n/client";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
@@ -30,6 +31,8 @@ interface IProps {
 
 export function EmailForm(props: IProps) {
   const { text, forget = false, callback } = props;
+
+  const { i18n } = useT();
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
@@ -74,7 +77,7 @@ export function EmailForm(props: IProps) {
                   <FormLabel className="flex-1">Password</FormLabel>
 
                   <Link
-                    href="/auth/forgot-password"
+                    href={`/${i18n.resolvedLanguage}/auth/forgot-password`}
                     className="ml-auto inline-block text-sm underline"
                   >
                     Forgot your password?

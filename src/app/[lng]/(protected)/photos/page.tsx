@@ -14,7 +14,7 @@ export default async function Page() {
 
         <div className="m-10 grid auto-rows-max grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
           {photos.map(({ id, imageSrc }) => (
-            <Link key={id} href={`/photos/${id}`}>
+            <Link key={id} href={`/photos/${id}`} legacyBehavior>
               <Image
                 alt="photo"
                 src={imageSrc}
