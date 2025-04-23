@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback } from "react";
+import { useShallow } from "zustand/react/shallow";
 
 import {
   AlertDialog,
@@ -14,9 +14,8 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { endGame } from "@/redux-store/reducer";
 import { EPiece } from "@/types/gobang/role.type";
-import { useAppDispatch } from "@/redux-store/hooks";
+import { useGobangStore } from "@/components/gobang/gobang-store";
 
 interface IProps {
   player: EPiece;
@@ -26,11 +25,11 @@ interface IProps {
 export function ControlActionsConcede(props: IProps) {
   const { player, loading } = props;
 
-  const dispatch = useAppDispatch();
-
-  const concedeHandle = useCallback(() => {
-    dispatch(endGame());
-  }, [dispatch]);
+  const { endGame } = useGobangStore(
+    useShallow((s) => {
+      return { endGame: s.endGame };
+    }),
+  );
 
   return (
     <AlertDialog>
@@ -49,7 +48,7 @@ export function ControlActionsConcede(props: IProps) {
 
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={concedeHandle}>Continue</AlertDialogAction>
+          <AlertDialogAction onClick={endGame}>Continue</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

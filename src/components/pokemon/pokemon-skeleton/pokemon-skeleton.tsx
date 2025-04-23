@@ -1,7 +1,7 @@
 import { HTMLAttributes } from "react";
 
 import { Skeleton } from "@/components/ui/skeleton";
-import { cn } from "@/lib/utils";
+import { cn } from "@/common/utils";
 
 export function PokemonSkeleton({ className }: HTMLAttributes<HTMLDivElement>) {
   const skeleton = Array.from({ length: 15 }).map((_, index) => index);

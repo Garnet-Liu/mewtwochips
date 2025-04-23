@@ -1,4 +1,4 @@
-import { sleep } from "@/lib/sleep";
+import { sleep } from "@/common/sleep";
 
 export const getPhotoDetail = async (id: string) => {
   await sleep(1000);

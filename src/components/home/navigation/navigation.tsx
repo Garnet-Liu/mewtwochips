@@ -1,7 +1,8 @@
 import { FunctionComponent, HTMLAttributes, type SVGProps } from "react";
 import Link from "next/link";
 
-import { cn } from "@/lib/utils";
+import { cn } from "@/common/utils";
+import { getT } from "../../../libs/i18n";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -24,49 +25,51 @@ export interface NavigationPage {
   children?: NavigationPage[];
 }
 
-const PAGES: NavigationPage[] = [
-  { path: "/pokemon", label: "Pokémon", Icon: Pokeball },
-  { path: "/photos", label: "Photos", Icon: Photos },
-  { path: "/gobang", label: "Gobang", Icon: Gobang },
-  {
-    path: "/features",
-    label: "Features",
-    Icon: Globe,
-    children: [
-      {
-        path: "/features/counter",
-        label: "Counter",
-        description: "A small example of Redux",
-        Icon: File,
-      },
-      {
-        path: "/features/react-form",
-        label: "React hook form",
-        description: "A small example of react hook form",
-        Icon: Form,
-      },
-      {
-        path: "/features/graphql",
-        label: "Graphql",
-        description: "A test case for graphql",
-        Icon: Graphql,
-      },
-      {
-        path: "/features/animations",
-        label: "Animations",
-        description: "A test case for animations",
-        Icon: Css3,
-      },
-    ],
-  },
-];
-
 interface Props extends HTMLAttributes<HTMLDivElement> {
   lang: string;
 }
 
-export function Navigation(props: Props) {
+export async function Navigation(props: Props) {
   const { lang, className } = props;
+
+  const { t } = await getT();
+
+  const pageConfig: NavigationPage[] = [
+    { path: "/pokemon", label: t("navigation.pokémon"), Icon: Pokeball },
+    { path: "/photos", label: t("navigation.photos"), Icon: Photos },
+    { path: "/gobang", label: t("navigation.gobang"), Icon: Gobang },
+    {
+      path: "/features",
+      label: t("navigation.features"),
+      Icon: Globe,
+      children: [
+        {
+          path: "/features/counter",
+          label: t("translation:navigation.counter.label"),
+          description: t("translation:navigation.counter.description"),
+          Icon: File,
+        },
+        {
+          path: "/features/react-form",
+          label: t("translation:navigation.react-form.label"),
+          description: t("translation:navigation.react-form.description"),
+          Icon: Form,
+        },
+        {
+          path: "/features/graphql",
+          label: t("translation:navigation.graphql.label"),
+          description: t("translation:navigation.graphql.description"),
+          Icon: Graphql,
+        },
+        {
+          path: "/features/animations",
+          label: t("translation:navigation.animations.label"),
+          description: t("translation:navigation.animations.description"),
+          Icon: Css3,
+        },
+      ],
+    },
+  ];
 
   return (
     <header className="sticky top-0 z-50 min-w-[1200px] border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 dark:border-border">
@@ -78,7 +81,7 @@ export function Navigation(props: Props) {
         <div className="mx-6 flex flex-1 items-center">
           <NavigationMenu>
             <NavigationMenuList>
-              {PAGES.map((page) => {
+              {pageConfig.map((page) => {
                 const Icon = page.Icon;
                 return (
                   <NavigationMenuItem key={`nav-${page.path}`} value={page.path}>
@@ -93,11 +96,14 @@ export function Navigation(props: Props) {
                         </NavigationMenuContent>
                       </>
                     ) : (
-                      <Link href={`/${lang}${page.path}`} legacyBehavior passHref>
-                        <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "gap-1")}>
+                      <NavigationMenuLink asChild>
+                        <Link
+                          href={`/${lang}${page.path}`}
+                          className={cn(navigationMenuTriggerStyle(), "gap-1")}
+                        >
                           <Icon fill="currentColor" /> {page.label}
-                        </NavigationMenuLink>
-                      </Link>
+                        </Link>
+                      </NavigationMenuLink>
                     )}
                   </NavigationMenuItem>
                 );

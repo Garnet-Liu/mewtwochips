@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useMemo, useState } from "react";
-import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { z } from "zod";
 import {
@@ -14,29 +14,28 @@ import {
   type UserCredential,
 } from "firebase/auth";
 
-import { firebaseAuth } from "@/firebase/firebase";
 import { formSchema } from "@/components/auth/email-form";
+import { firebaseAuth } from "@/libs/firebase/firebase-client";
 
 const googleProvider = new GoogleAuthProvider();
 const githubProvider = new GithubAuthProvider();
 
 export const useAuthHandle = () => {
+  const router = useRouter();
+
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleOAuthSignOut = useCallback(() => {
-    return signOut(firebaseAuth);
-  }, []);
+  const handleOAuthSignOut = useCallback(async () => {
+    try {
+      await signOut(firebaseAuth);
+      router.refresh();
+    } catch (error) {
+      console.log("handleOAuthSignOut", error);
+    }
+  }, [router]);
 
-  const handleAuthSignIn = useCallback(async (credential: UserCredential) => {
-    const idToken = await credential.user.getIdToken(true);
-    return signIn("credentials", {
-      id: credential.user.uid,
-      name: credential.user.displayName,
-      email: credential.user.email,
-      image: credential.user.photoURL,
-      emailVerified: credential.user.emailVerified,
-      idToken: idToken,
-    });
+  const handleAuthSignIn = useCallback((credential: UserCredential) => {
+    console.log("handleAuthSignIn", credential);
   }, []);
 
   const handleOAuthSignIn = useCallback(
@@ -45,14 +44,11 @@ export const useAuthHandle = () => {
         setIsLoading(true);
         signInWithPopup(firebaseAuth, provider)
           .then(handleAuthSignIn)
-          .catch((e) => {
-            handleOAuthSignOut();
-            toast.error(e.message);
-          })
+          .catch((e) => toast.error(e.message))
           .finally(() => setIsLoading(false));
       };
     },
-    [handleAuthSignIn, handleOAuthSignOut],
+    [handleAuthSignIn],
   );
 
   const handleEmailSignIn = useCallback(
@@ -60,13 +56,10 @@ export const useAuthHandle = () => {
       setIsLoading(true);
       return createUserWithEmailAndPassword(firebaseAuth, values.email, values.password)
         .then(handleAuthSignIn)
-        .catch((e) => {
-          handleOAuthSignOut();
-          toast.error(e.message);
-        })
+        .catch((e) => toast.error(e.message))
         .finally(() => setIsLoading(false));
     },
-    [handleAuthSignIn, handleOAuthSignOut],
+    [handleAuthSignIn],
   );
 
   return useMemo(() => {

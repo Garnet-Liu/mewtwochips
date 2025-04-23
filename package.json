@@ -3,13 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint --fix",
     "prepare": "husky",
     "postinstall": "patch-package",
-    "codegen": "graphql-codegen --config codegen.ts"
+    "codegen": "graphql-codegen --config codegen.ts",
+    "extract-translations": "npx i18next -c i18next-parser.config.ts",
+    "download": "lokalise2 file download --unzip-to src/libs/i18n/locales --token ${LOKALISE_API_TOKEN} --project-id ${LOKALISE_PROJECT_ID} --format json --plural-format i18next"
   },
   "husky": {
     "hooks": {
@@ -25,11 +27,10 @@
   "dependencies": {
     "@apollo/client": "^3.11.9",
     "@apollo/experimental-nextjs-app-support": "^0.11.5",
-    "@auth/firebase-adapter": "^2.9.0",
     "@hookform/resolvers": "^3.9.1",
     "@radix-ui/react-alert-dialog": "^1.1.2",
     "@radix-ui/react-avatar": "^1.1.1",
-    "@radix-ui/react-dialog": "^1.1.6",
+    "@radix-ui/react-dialog": "^1.1.14",
     "@radix-ui/react-dropdown-menu": "^2.1.2",
     "@radix-ui/react-hover-card": "^1.1.2",
     "@radix-ui/react-label": "^2.1.0",
@@ -48,29 +49,28 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.0.0",
-    "firebase": "^11.0.1",
+    "firebase": "^11.9.1",
     "firebase-admin": "^12.7.0",
     "i18next": "^25.0.1",
     "i18next-browser-languagedetector": "^8.0.5",
     "i18next-resources-to-backend": "^1.2.1",
+    "immer": "^10.1.1",
     "input-otp": "^1.4.1",
     "lucide-react": "^0.454.0",
     "next": "15.3.1",
-    "next-auth": "^5.0.0-beta.26",
-    "next-i18next": "^15.4.2",
     "next-themes": "^0.4.3",
     "pokenode-ts": "^1.20.0",
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "react-hook-form": "^7.54.0",
     "react-i18next": "^15.4.1",
-    "react-redux": "^9.1.2",
-    "redux-persist": "^6.0.0",
     "sonner": "^1.7.0",
     "tailwind-merge": "^2.5.5",
     "tailwindcss-animate": "^1.0.7",
     "uuid": "^11.0.3",
-    "zod": "^3.23.8"
+    "vaul": "^1.1.2",
+    "zod": "^3.23.8",
+    "zustand": "^5.0.5"
   },
   "devDependencies": {
     "@apollo/datasource-rest": "^6.3.0",
@@ -98,6 +98,7 @@
     "prettier": "^3.3.3",
     "prettier-plugin-tailwindcss": "^0.6.8",
     "tailwindcss": "^3.4.1",
-    "typescript": "^5"
+    "typescript": "^5",
+    "workbox-webpack-plugin": "^7.3.0"
   }
 }

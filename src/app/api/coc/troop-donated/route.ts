@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-import { sleep } from "@/lib/sleep";
+import { sleep } from "@/common/sleep";
 import { loadDonations, loadTable, PlayerBase } from "./crawler-function/load-table";
 
 interface Player extends PlayerBase {

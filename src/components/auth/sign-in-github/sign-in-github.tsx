@@ -12,9 +12,9 @@ export function SignInGithub() {
   return (
     <Button variant="outline" type="button" onClick={signInWithGithub} disabled={isLoading}>
       {isLoading ? (
-        <LoaderCircle className="mr-2 h-4 w-4 animate-spin" />
+        <LoaderCircle className="h-4 w-4 animate-spin" />
       ) : (
-        <Github fill="currentColor" className="mr-2 h-4 w-4" />
+        <Github fill="currentColor" className="h-4 w-4" />
       )}
       Github
     </Button>

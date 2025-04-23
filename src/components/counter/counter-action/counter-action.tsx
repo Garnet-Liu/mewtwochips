@@ -4,10 +4,11 @@ import { useActionState } from "react";
 import { Repeat } from "lucide-react";
 import { toast } from "sonner";
 
+import { useT } from "@/libs/i18n/client";
 import { Input } from "@/components/ui/input";
 import { Loading } from "@/components/loading";
 import { Button } from "@/components/ui/button";
-import { apiFetchRequest } from "@/lib/fetch-request";
+import { apiFetchRequest } from "@/common/fetch-request";
 
 interface IFormData {
   count: number;
@@ -27,9 +28,11 @@ export function CounterAction() {
     { count: 0 },
   );
 
+  const { t } = useT("counter");
+
   return (
     <form action={asyncAction} className="contents">
-      <h1 className="self-center text-right">Action state:</h1>
+      <h1 className="self-center text-right">{t("action-state", { ns: "counter" })}:</h1>
 
       <div className="flex items-center gap-3">
         <Input className="w-20 text-center" disabled={isPending} name="count" />
@@ -46,7 +49,7 @@ export function CounterAction() {
           <Loading loading={isPending}>
             <Repeat size={16} />
           </Loading>
-          Async
+          {t("sync", { ns: "counter" })}
         </Button>
 
         <p>Result: {result.count}</p>

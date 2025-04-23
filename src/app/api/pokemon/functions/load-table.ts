@@ -1,7 +1,7 @@
 import { Element } from "domhandler";
 import * as cheerio from "cheerio";
 
-import { baseFetchText } from "@/lib/fetch-request";
+import { baseFetchText } from "@/common/fetch-request";
 
 export const loadTable = async () => {
   const baseUrl =

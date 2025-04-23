@@ -1,0 +1,28 @@
+{
+  "change-language": "改变语言",
+  "en": "English",
+  "zh-CN": "中文",
+  "sign-out": "登出",
+  "navigation": {
+    "pokémon": "宝可梦",
+    "photos": "照片",
+    "gobang": "五子棋",
+    "features": "功能",
+    "counter": {
+      "label": "计数器",
+      "description": "一个简单的Redux用例"
+    },
+    "react-form": {
+      "label": "React表单",
+      "description": "一个简单的React表单用例"
+    },
+    "graphql": {
+      "label": "Graphql",
+      "description": "Graphql的测试用例"
+    },
+    "animations": {
+      "label": "动画",
+      "description": "动画的测试用例"
+    }
+  }
+}

@@ -1,6 +1,7 @@
 "use client";
 
 import { MouseEvent, useCallback, useState } from "react";
+import { useShallow } from "zustand/react/shallow";
 
 import {
   AlertDialog,
@@ -14,9 +15,8 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { undoGame } from "@/redux-store/reducer";
 import { EPiece } from "@/types/gobang/role.type";
-import { useAppDispatch, useAppSelector } from "@/redux-store/hooks";
+import { useGobangStore } from "@/components/gobang/gobang-store";
 
 interface IProps {
   player: EPiece;
@@ -28,19 +28,21 @@ export function ControlActionsWithdraw(props: IProps) {
 
   const [open, setOpen] = useState(false);
 
-  const { board } = useAppSelector((s) => s.gobang);
+  const { board, undoGame } = useGobangStore(
+    useShallow((s) => {
+      return { board: s.board, undoGame: s.undoGame };
+    }),
+  );
 
   console.log({ board, player });
-
-  const dispatch = useAppDispatch();
 
   const withdrawHandle = useCallback(
     async (e: MouseEvent<HTMLButtonElement>) => {
       e.preventDefault();
-      await dispatch(undoGame());
+      await undoGame();
       setOpen(false);
     },
-    [dispatch],
+    [undoGame],
   );
 
   return (

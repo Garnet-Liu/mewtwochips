@@ -2,8 +2,8 @@
 
 import { LoaderCircle } from "lucide-react";
 
-import { Google } from "@/components/svgs";
 import { useAuthHandle } from "@/hooks";
+import { Google } from "@/components/svgs";
 import { Button } from "@/components/ui/button";
 
 export function SignInGoogle() {
@@ -12,9 +12,9 @@ export function SignInGoogle() {
   return (
     <Button variant="outline" type="button" onClick={signInWithGoogle} disabled={isLoading}>
       {isLoading ? (
-        <LoaderCircle className="mr-2 h-4 w-4 animate-spin" />
+        <LoaderCircle className="h-4 w-4 animate-spin" />
       ) : (
-        <Google fill="currentColor" className="mr-2 h-4 w-4" />
+        <Google fill="currentColor" className="h-4 w-4" />
       )}
       Google
     </Button>

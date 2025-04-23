@@ -42,3 +42,5 @@ next-env.d.ts
 
 /.idea
 *firebase-adminsdk*.json
+
+/public/firebase-sw.js
