@@ -56,8 +56,10 @@ export default async function RootLayout({ children, modal, params }: Readonly<I
             <FirebaseProvider>
               <ApolloProvider>
                 <ReduxProvider>
-                  {children}
-                  {modal}
+                  <div className="h-full w-full">
+                    {children}
+                    {modal}
+                  </div>
                 </ReduxProvider>
               </ApolloProvider>
             </FirebaseProvider>

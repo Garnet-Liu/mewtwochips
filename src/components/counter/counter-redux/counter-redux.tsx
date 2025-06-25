@@ -1,78 +1,63 @@
 "use client";
 
-import { useCallback, useRef } from "react";
 import { Minus, Plus } from "lucide-react";
+import { useRef } from "react";
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useAppDispatch, useAppSelector } from "@/redux-store/hooks";
+import { useCounterStore } from "@/zustand-store/counter";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
-import { decrement, increment, incrementByAmount, init } from "@/redux-store/reducer";
 
 export function CounterRedux() {
   const amountRef = useRef<HTMLInputElement>(null);
 
-  const dispatch = useAppDispatch();
+  const { count, init, decrement, increment, incrementByAmount } = useCounterStore((c) => {
+    return {
+      count: c.count,
+      init: c.actions.init,
+      decrement: c.actions.decrement,
+      increment: c.actions.increment,
+      incrementByAmount: c.actions.incrementByAmount,
+    };
+  });
 
-  const { value, loading } = useAppSelector((s) => s.counter);
+  const value = count.toString();
 
-  const dispatchHandle = useCallback(
-    (name: string) => {
-      return () => {
-        switch (name) {
-          case "init":
-            dispatch(init());
-            break;
-          case "increment":
-            dispatch(increment());
-            break;
-          case "decrement":
-            dispatch(decrement());
-            break;
-          case "incrementByAmount":
-            if (amountRef.current?.value) {
-              dispatch(incrementByAmount(Number(amountRef.current.value)));
-            }
-            break;
-          default:
-            console.log("default...");
-        }
-        console.log("switch end...");
-      };
-    },
-    [dispatch],
-  );
-
-  const count = value.toString();
+  const loading = false;
 
   return (
     <div className="contents">
       <h1 className="self-center text-right">Redux state:</h1>
 
       <div className="flex gap-3">
-        <Button disabled={loading} size="icon" type="button" onClick={dispatchHandle("decrement")}>
+        <Button disabled={loading} size="icon" type="button" onClick={decrement}>
           <Plus />
         </Button>
 
-        <InputOTP maxLength={count.length} value={count}>
+        <InputOTP maxLength={value.length} value={value}>
           <InputOTPGroup>
-            {new Array(count.length).fill(0).map((_, index) => (
+            {new Array(value.length).fill(0).map((_, index) => (
               <InputOTPSlot index={index} key={index} />
             ))}
           </InputOTPGroup>
         </InputOTP>
 
-        <Button disabled={loading} size="icon" type="button" onClick={dispatchHandle("increment")}>
+        <Button disabled={loading} size="icon" type="button" onClick={increment}>
           <Minus />
         </Button>
 
         <Input ref={amountRef} className="w-20 text-center" type="number" />
 
-        <Button disabled={loading} onClick={dispatchHandle("incrementByAmount")}>
+        <Button
+          disabled={loading}
+          onClick={() => {
+            incrementByAmount(Number(amountRef.current?.value));
+          }}
+        >
           Increment by amount
         </Button>
 
-        <Button disabled={loading} onClick={dispatchHandle("init")}>
+        <Button disabled={loading} onClick={init}>
           Init
         </Button>
       </div>

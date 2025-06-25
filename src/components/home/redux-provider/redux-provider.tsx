@@ -5,7 +5,6 @@ import { Persistor, persistStore } from "redux-persist";
 import { ReactNode, useRef } from "react";
 import { Provider } from "react-redux";
 
-import { Spin } from "@/components/spin";
 import { AppStore, makeStore } from "@/redux-store/store";
 
 interface Props {
@@ -24,12 +23,7 @@ export function ReduxProvider({ children }: Readonly<Props>) {
 
   return (
     <Provider store={storeRef.current}>
-      <PersistGate
-        loading={<Spin loading={true} className="h-screen" />}
-        persistor={persistorRef.current}
-      >
-        {children}
-      </PersistGate>
+      <PersistGate persistor={persistorRef.current}>{() => children}</PersistGate>
     </Provider>
   );
 }
