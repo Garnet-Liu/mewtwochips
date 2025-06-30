@@ -1,7 +1,7 @@
 import * as cheerio from "cheerio";
 
-import { sleep } from "@/lib/sleep";
-import { baseFetchJson, baseFetchText } from "@/lib/fetch-request";
+import { sleep } from "@/common/sleep";
+import { baseFetchJson, baseFetchText } from "@/common/fetch-request";
 
 interface PlayerStatistics {
   dates: number[];

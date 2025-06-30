@@ -1,4 +1,4 @@
-import { sleep } from "@/lib/sleep";
+import { sleep } from "@/common/sleep";
 import { IContext } from "@/types/api/graphql";
 import { Resolvers } from "@/apollo/gql/graphql";
 

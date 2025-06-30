@@ -1,0 +1,10 @@
+{
+  "username": "用户名",
+  "email": "邮箱",
+  "email-verified": "邮箱验证",
+  "access-token": "访问令牌",
+  "unlink": "取消连接",
+  "link": "连接",
+  "change-password": "修改密码",
+  "sign-out": "退出登陆"
+}

@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from "@/common/utils";
 import { Maybe } from "@/types/maybe";
 import { QPokemonQuery, StatsType } from "@/apollo/gql/graphql";
 import { PokemonStateItem } from "@/components/pokemon/pokemon-state-item";

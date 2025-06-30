@@ -1,0 +1,10 @@
+{
+  "username": "Username",
+  "email": "Email",
+  "email-verified": "Email verified",
+  "access-token": "Access token",
+  "unlink": "Unlink",
+  "link": "Link",
+  "change-password": "Change password",
+  "sign-out": "Sign out"
+}

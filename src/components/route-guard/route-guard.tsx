@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import { ReactNode } from "react";
 
-import { auth } from "@/next-auth/auth";
+import { firebaseServerUser } from "@/libs/firebase/firebase-server";
 
 interface IProps {
   flag?: "in" | "out";
@@ -12,11 +12,15 @@ interface IProps {
 export async function RouteGuard(props: Readonly<IProps>) {
   const { children, redirectTo, flag = "in" } = props;
 
-  const session = await auth();
+  const user = await firebaseServerUser();
 
-  if (flag === "in" ? !!session : !session) {
+  const isIn = flag === "in";
+
+  console.log("RouteGuard show children => ", isIn ? !!user : !user);
+
+  if (isIn ? !!user : !user) {
     return <>{children}</>;
   } else {
-    redirect(redirectTo ? redirectTo : "/auth/login");
+    return redirect(redirectTo ? redirectTo : isIn ? "/auth/login" : "/");
   }
 }

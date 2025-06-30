@@ -5,7 +5,7 @@ import { Check, ChevronsUpDown, X } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { cn } from "@/lib/utils";
+import { cn } from "@/common/utils";
 import {
   Form,
   FormControl,
@@ -74,7 +74,7 @@ export function ComboboxBadge() {
                           !field.value && "text-muted-foreground",
                         )}
                       >
-                        {field.value.length
+                        {field.value?.length
                           ? languages
                               .filter((language) => field.value.includes(language.value))
                               .map((language) => (

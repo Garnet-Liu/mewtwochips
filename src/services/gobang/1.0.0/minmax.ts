@@ -1,6 +1,6 @@
 import { Cache } from "./cache";
 import { FIVE } from "@/services/gobang/config";
-import { randomRange } from "@/lib/random-range";
+import { randomRange } from "@/common/random-range";
 import { EPiece } from "@/types/gobang/role.type";
 import { reversal } from "@/services/gobang/utils";
 import { CacheType } from "@/types/gobang/cache.type";

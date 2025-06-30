@@ -1,35 +1,39 @@
+"use client";
+
+import { forwardRef, HTMLAttributes, ReactNode, useState } from "react";
+import { composeRefs } from "@radix-ui/react-compose-refs";
 import { LoaderCircle } from "lucide-react";
-import { ReactNode } from "react";
+import { Slot } from "@radix-ui/react-slot";
+import { createPortal } from "react-dom";
 
-import { cn } from "@/lib/utils";
+import { cn } from "@/common/utils";
 
-interface Props {
-  show?: boolean;
-  loading: boolean;
-  content?: ReactNode;
+export type SpinProps = {
+  size?: number;
+  loading?: boolean;
   children?: ReactNode;
-  className?: string;
-}
+} & HTMLAttributes<HTMLElement>;
 
-export function Spin(props: Readonly<Props>) {
-  const { show = true, loading, children, className, content } = props;
+export const Spin = forwardRef<HTMLElement, Readonly<SpinProps>>(function SpinRef(props, ref) {
+  const { size = 30, className, loading = false, children, ...other } = props;
+
+  const [container, setContainer] = useState<HTMLElement | null>(null);
+
+  const show = !!container && loading;
+
   return (
-    <main className={cn("relative h-full w-full", className)}>
-      {loading ? (
-        <>
-          {show ? children : null}
+    <>
+      <Slot {...other} ref={composeRefs(ref, setContainer)} className={cn("relative", className)}>
+        {children}
+      </Slot>
 
-          {content ? (
-            content
-          ) : (
-            <div className="absolute bottom-0 left-0 right-0 top-0 flex items-center justify-center bg-background/[.25]">
-              <LoaderCircle className="animate-spin" size={24} />
-            </div>
-          )}
-        </>
-      ) : (
-        children
-      )}
-    </main>
+      {show &&
+        createPortal(
+          <div className="absolute inset-0 flex items-center justify-center bg-black/50">
+            <LoaderCircle className="animate-spin" size={size} />
+          </div>,
+          container,
+        )}
+    </>
   );
-}
+});

@@ -1,30 +1,30 @@
 "use client";
 
 import { MouseEvent, useCallback, useMemo, useRef, useState } from "react";
-import { createSelector } from "reselect";
+import { useShallow } from "zustand/react/shallow";
 import { toast } from "sonner";
 
-import { cn } from "@/lib/utils";
+import { cn } from "@/common/utils";
 import { GobangBoard } from "@/components/svgs";
-import { RootState } from "@/redux-store/store";
-import { playGame } from "@/redux-store/reducer";
 import { EPiece } from "@/types/gobang/role.type";
-import { calculatePoint, piecePoint } from "@/lib/calculate-point";
-import { useAppDispatch, useAppSelector } from "@/redux-store/hooks";
+import { useGobangStore } from "@/components/gobang/gobang-store";
+import { calculatePoint, piecePoint } from "@/common/calculate-point";
 
 export function Board() {
   const boardRef = useRef<SVGSVGElement>(null);
+
   const [{ x, y }, setPoint] = useState({ x: 7, y: 7 });
 
-  const dispatch = useAppDispatch();
-
-  const { board, player, loading, winPath } = useAppSelector(
-    createSelector([(s: RootState) => s.gobang], (gobang) => ({
-      loading: gobang.loading,
-      winPath: gobang.winPath,
-      player: gobang.player,
-      board: gobang.board,
-    })),
+  const { board, player, loading, winPath, playGame } = useGobangStore(
+    useShallow((s) => {
+      return {
+        loading: s.loading,
+        winPath: s.winPath,
+        player: s.player,
+        board: s.board,
+        playGame: s.playGame,
+      };
+    }),
   );
 
   const isControl = useMemo(() => {
@@ -63,13 +63,13 @@ export function Board() {
             } else {
               console.log([segmentX, segmentY, player]);
               // dispatch(move([segmentX, segmentY, player]));
-              dispatch(playGame({ position: [segmentX, segmentY] }));
+              playGame(segmentX, segmentY);
             }
           }
         }
       }
     },
-    [board, dispatch, isControl, player],
+    [board, isControl, playGame, player],
   );
 
   return (
