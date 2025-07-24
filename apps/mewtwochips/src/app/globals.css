@@ -1,0 +1,6 @@
+@import "@repo/ui/globals.css";
+
+@theme inline {
+  --font-sans: var(--font-clash-regular);
+  --font-mono: var(--font-clash-bold);
+}

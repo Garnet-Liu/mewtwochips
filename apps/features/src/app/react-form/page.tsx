@@ -2,17 +2,23 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@repo/ui/components/ta
 
 import { ComboboxBadge } from "@/components/react-form/combobox-badge";
 import { DiscriminatedUnionForm } from "@/components/react-form/discriminated-union-form";
+import { SelectForm } from "@/components/react-form/select-form";
 
 export default function ReactFormPage() {
   return (
     <Tabs defaultValue="discriminated" className="mx-auto w-90">
       <TabsList>
         <TabsTrigger value="discriminated">Discriminated union</TabsTrigger>
+        <TabsTrigger value="select">Select</TabsTrigger>
         <TabsTrigger value="combobox">Combobox Badge</TabsTrigger>
       </TabsList>
 
       <TabsContent value="discriminated">
         <DiscriminatedUnionForm />
+      </TabsContent>
+
+      <TabsContent value="select">
+        <SelectForm />
       </TabsContent>
 
       <TabsContent value="combobox">

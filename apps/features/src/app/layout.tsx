@@ -4,8 +4,9 @@ import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
 import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
-import { ReactNode } from "react";
+import { ReactNode, PropsWithChildren } from "react";
 
+import { ApolloProvider } from "@/components/apollo-provider";
 import { AppHeader } from "@/components/app-header";
 import { AppSidebar } from "@/components/app-sidebar";
 
@@ -16,7 +17,9 @@ export const metadata: Metadata = {
   description: "A site for lovers of Pokémon and chips",
 };
 
-export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
+type Props = PropsWithChildren<{ modal: ReactNode }>;
+
+export default function RootLayout({ modal, children }: Readonly<Props>) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${GeistSans.variable} ${GeistMono.variable} antialiased`}>
@@ -26,16 +29,21 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
           enableSystem
           disableTransitionOnChange
         >
-          <SidebarProvider>
-            <AppSidebar />
+          <ApolloProvider>
+            <SidebarProvider>
+              <AppSidebar />
 
-            <SidebarInset>
-              <AppHeader />
+              <SidebarInset>
+                <AppHeader />
 
-              <section className="flex flex-1 flex-col gap-4 p-4">{children}</section>
-            </SidebarInset>
-          </SidebarProvider>
-          <Toaster />
+                <section className="flex flex-1 flex-col gap-4 p-4">
+                  {children}
+                  {modal}
+                </section>
+              </SidebarInset>
+            </SidebarProvider>
+            <Toaster />
+          </ApolloProvider>
         </ThemeProvider>
       </body>
     </html>

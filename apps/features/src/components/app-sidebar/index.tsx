@@ -12,7 +12,7 @@ import {
   SidebarMenuItem,
   SidebarRail,
 } from "@repo/ui/components/sidebar";
-import { Diff, FileText, Home, Plus } from "lucide-react";
+import { Bandage, Contrast, Diff, FileText, Home, Plus } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -20,6 +20,8 @@ export const items = [
   { title: "Home", url: "/home", icon: Home },
   { title: "Counter", url: "/counter", icon: Diff },
   { title: "React form", url: "/react-form", icon: FileText },
+  { title: "Graphql", url: "/graphql", icon: Bandage },
+  { title: "Gobang", url: "/gobang", icon: Contrast },
 ];
 
 export function AppSidebar() {
