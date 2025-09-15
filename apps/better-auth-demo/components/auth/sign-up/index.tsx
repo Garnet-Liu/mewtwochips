@@ -3,5 +3,5 @@ export function SignUp() {
     <div>
       <p>Sign Up</p>
     </div>
-  )
+  );
 }

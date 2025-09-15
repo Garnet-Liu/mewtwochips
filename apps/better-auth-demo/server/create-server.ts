@@ -12,12 +12,12 @@ import { apiRouter } from "@/server/api";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const root = __dirname;
-const hmrPort = process.env.HMR_PORT ? parseInt(process.env.HMR_PORT, 10) : 24678;
+const hmrPort = process.env.HMR_PORT ? parseInt(process.env.HMR_PORT, 10) : 24680;
 
 export const createServer = async (): Promise<Express> => {
   const app = express();
 
-  dotenv.config(); // 加载 .env 文件
+  dotenv.config();
 
   app.use(cookieParser());
   app.use(express.json());

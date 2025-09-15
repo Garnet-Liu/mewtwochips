@@ -6,22 +6,36 @@
     "dev": "turbo run dev",
     "dev:features": "turbo run features#dev",
     "dev:mewtwochips": "turbo run mewtwochips#dev",
+    "dev:better-auth-demo": "turbo run better-auth-demo#dev",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "check-types": "turbo run check-types",
-    "prepare": "husky install"
+    "prepare": "husky"
+  },
+  "dependencies": {
+    "lucide-react": "^0.544.0",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1"
   },
   "devDependencies": {
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9.35.0",
     "husky": "^9.1.7",
+    "lint-staged": "^16.1.2",
     "prettier": "^3.6.2",
+    "prettier-plugin-tailwindcss": "^0.6.14",
+    "tailwindcss": "^4.1.13",
     "turbo": "^2.5.4",
-    "typescript": "5.8.3"
+    "typescript": "^5.9.2"
   },
-  "packageManager": "pnpm@10.13.1",
+  "packageManager": "pnpm@10.16.1",
   "engines": {
     "node": ">=18"
   },
   "lint-staged": {
-    "*.{ts,tsx,md}": "pnpm run lint"
+    "*.{ts,tsx,md}": [
+      "pnpm run lint --"
+    ]
   }
 }

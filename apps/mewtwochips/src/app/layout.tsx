@@ -31,7 +31,7 @@ export default function RootLayout({ children }: Readonly<PropsWithChildren>) {
           <main className="flex min-h-svh w-full flex-col">
             <AppHeader />
 
-            <section className="container mx-auto flex-1">{children}</section>
+            <section className="container mx-auto flex-1 p-4 xl:px-0">{children}</section>
 
             <AppFooter />
           </main>

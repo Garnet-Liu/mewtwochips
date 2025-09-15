@@ -14,7 +14,7 @@ import { HeaderUser } from "@/components/app-header/header-user";
 
 export function AppHeader() {
   return (
-    <header className="px-4 shadow-lg">
+    <header className="shadow-secondary px-4 shadow-lg">
       {/* use web */}
       <section className="container mx-auto hidden h-16 items-center gap-8 sm:flex">
         <p>Mewtwochips</p>
