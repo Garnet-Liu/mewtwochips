@@ -3,9 +3,9 @@
 import { Button } from "@repo/ui/components/button";
 import { Separator } from "@repo/ui/components/separator";
 import { SidebarTrigger } from "@repo/ui/components/sidebar";
+import { useTheme } from "@repo/ui/hooks/use-theme";
 import { SunMoon } from "lucide-react";
 import { usePathname } from "next/navigation";
-import { useTheme } from "next-themes";
 import { useMemo } from "react";
 
 import { items } from "@/components/app-sidebar";

@@ -5,7 +5,7 @@ import { SignUp } from "@/components/auth/sign-up";
 
 export function AuthTab() {
   return (
-    <Tabs defaultValue="signIn" className="mx-auto w-90">
+    <Tabs defaultValue="signIn" className="mx-auto w-full px-4">
       <TabsList>
         <TabsTrigger value="signIn">Sign In</TabsTrigger>
         <TabsTrigger value="signUp">Sign Up</TabsTrigger>

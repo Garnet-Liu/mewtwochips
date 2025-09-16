@@ -1,8 +1,8 @@
 "use client";
 
 import { Button } from "@repo/ui/components/button";
+import { useTheme } from "@repo/ui/hooks/use-theme";
 import { SunMoon } from "lucide-react";
-import { useTheme } from "next-themes";
 import { ComponentProps, useCallback } from "react";
 
 export function HeaderThemes(props: ComponentProps<typeof Button>) {

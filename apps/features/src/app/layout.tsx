@@ -1,10 +1,10 @@
 import { SidebarInset, SidebarProvider } from "@repo/ui/components/sidebar";
 import { Toaster } from "@repo/ui/components/sonner";
+import { ThemeProvider } from "@repo/ui/components/theme-provider";
 import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
 import type { Metadata } from "next";
-import { ThemeProvider } from "next-themes";
-import { ReactNode, PropsWithChildren } from "react";
+import { PropsWithChildren, ReactNode } from "react";
 
 import { ApolloProvider } from "@/components/apollo-provider";
 import { AppHeader } from "@/components/app-header";

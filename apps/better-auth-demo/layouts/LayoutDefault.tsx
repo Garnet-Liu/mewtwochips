@@ -1,5 +1,5 @@
 import { Toaster } from "@repo/ui/components/sonner";
-import { ThemeProvider } from "next-themes";
+import { ThemeProvider } from "@repo/ui/components/theme-provider";
 import { PropsWithChildren } from "react";
 
 import "./style.css";
