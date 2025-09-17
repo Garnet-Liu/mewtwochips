@@ -22,6 +22,7 @@
     "zod": "^4.1.8"
   },
   "devDependencies": {
+    "@types/node": "^24.5.1",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9.35.0",
@@ -38,7 +39,7 @@
     "node": ">=18"
   },
   "lint-staged": {
-    "*.{ts,tsx,md}": [
+    "*.{ts,tsx,js,jsx,md}": [
       "pnpm run lint --"
     ]
   }

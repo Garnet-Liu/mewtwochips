@@ -12,18 +12,11 @@ import {
   SidebarMenuItem,
   SidebarRail,
 } from "@repo/ui/components/sidebar";
-import { Diff, House, Plus } from "lucide-react";
+import { Plus } from "lucide-react";
 import { usePageContext } from "vike-react/usePageContext";
 
+import { items } from "@/lib/sidebar-items";
 import { checkPath } from "@/utils/check-path";
-
-export const items = [
-  { title: "Home", url: "/", icon: House },
-  { title: "Session list", url: "/session-list", icon: Diff },
-  // { title: "React form", url: "/react-form", icon: FileText },
-  // { title: "Graphql", url: "/graphql", icon: Bandage },
-  // { title: "Gobang", url: "/gobang", icon: Contrast },
-];
 
 export function AppSidebar() {
   const { urlPathname } = usePageContext();

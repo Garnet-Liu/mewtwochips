@@ -22,7 +22,7 @@ export const createServer = async (): Promise<Express> => {
   app.use(cookieParser());
   app.use(express.json());
 
-  const trustedOrigins = (process.env.TRUSTED_ORIGINS ?? "").split(",").filter(Boolean);
+  const trustedOrigins = (process.env.BETTER_TRUSTED_ORIGINS ?? "").split(",").filter(Boolean);
   console.log("Trusted Origins:", trustedOrigins);
 
   app.use(

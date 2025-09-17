@@ -6,7 +6,7 @@ import { SunMoon } from "lucide-react";
 import { useMemo } from "react";
 import { usePageContext } from "vike-react/usePageContext";
 
-import { items } from "@/components/app-sidebar";
+import { items } from "@/lib/sidebar-items";
 import { checkPath } from "@/utils/check-path";
 
 export function AppHeader() {

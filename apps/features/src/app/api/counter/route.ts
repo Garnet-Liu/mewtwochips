@@ -6,6 +6,8 @@ export const GET = async (req: NextRequest) => {
   const count = searchParams.get("count");
   const now = searchParams.get("now");
 
+  console.log("BAST_AUTH_API_URL", process.env.BAST_AUTH_API_URL);
+
   await sleep(3000);
 
   return counterHandle(count, now);

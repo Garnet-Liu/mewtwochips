@@ -3,15 +3,27 @@
   "ui": "tui",
   "tasks": {
     "build": {
-      "dependsOn": ["^build"],
-      "inputs": ["$TURBO_DEFAULT$", ".env*"],
-      "outputs": [".next/**", "!.next/cache/**"]
+      "dependsOn": [
+        "^build"
+      ],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        ".env*"
+      ],
+      "outputs": [
+        ".next/**",
+        "!.next/cache/**"
+      ]
     },
     "lint": {
-      "dependsOn": ["^lint"]
+      "dependsOn": [
+        "^lint"
+      ]
     },
     "check-types": {
-      "dependsOn": ["^check-types"]
+      "dependsOn": [
+        "^check-types"
+      ]
     },
     "dev": {
       "cache": false,
@@ -22,6 +34,19 @@
         ".env.local",
         ".env.development",
         ".env"
+      ]
+    },
+    "dev:features": {
+      "env": [
+        "BAST_AUTH_API_URL"
+      ]
+    },
+    "dev:better-auth-demo": {
+      "env": [
+        "PORT",
+        "HMR_PORT",
+        "NODE_ENV",
+        "BETTER_*"
       ]
     }
   }

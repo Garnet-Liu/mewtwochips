@@ -4,10 +4,8 @@ import { prismaAdapter } from "better-auth/adapters/prisma";
 import { prisma } from "@/lib/prisma";
 
 export const auth = betterAuth({
-  trustedOrigins: (process.env.TRUSTED_ORIGINS ?? "").split(",").filter(Boolean),
-  database: prismaAdapter(prisma, {
-    provider: "sqlite",
-  }),
+  trustedOrigins: (process.env.BETTER_TRUSTED_ORIGINS ?? "").split(",").filter(Boolean),
+  database: prismaAdapter(prisma, { provider: "sqlite" }),
   emailAndPassword: {
     enabled: true,
   },
