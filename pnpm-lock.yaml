@@ -30,6 +30,9 @@ importers:
         specifier: ^4.1.8
         version: 4.1.9
     devDependencies:
+      '@tailwindcss/postcss':
+        specifier: ^4.1.13
+        version: 4.1.13
       '@types/node':
         specifier: ^24.5.1
         version: 24.5.1
@@ -209,9 +212,6 @@ importers:
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:../../packages/typescript-config
-      '@tailwindcss/postcss':
-        specifier: ^4
-        version: 4.1.13
       pokenode-ts:
         specifier: ^1.20.0
         version: 1.20.0(axios-cache-interceptor@1.8.3(axios@1.12.2))(axios@1.12.2)
@@ -237,9 +237,6 @@ importers:
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:../../packages/typescript-config
-      '@tailwindcss/postcss':
-        specifier: ^4
-        version: 4.1.13
 
   packages/eslint-config:
     devDependencies:

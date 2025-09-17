@@ -38,7 +38,6 @@
     "@parcel/watcher": "^2.5.1",
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
-    "@tailwindcss/postcss": "^4",
     "pokenode-ts": "^1.20.0"
   }
 }

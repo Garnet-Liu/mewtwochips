@@ -46,7 +46,8 @@
         "PORT",
         "HMR_PORT",
         "NODE_ENV",
-        "BETTER_*"
+        "BETTER_*",
+        "PUBLIC_ENV__*"
       ]
     }
   }
