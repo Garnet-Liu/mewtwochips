@@ -106,12 +106,22 @@ export function SignIn() {
             </span>
           </div>
 
-          <Button variant="outline" className="w-full" onClick={providerHandle(signInWithGitHub)}>
+          <Button
+            variant="outline"
+            type="button"
+            className="w-full"
+            onClick={providerHandle(signInWithGitHub)}
+          >
             <SiGithub />
             Sign in with GitHub
           </Button>
 
-          <Button variant="outline" className="w-full" onClick={providerHandle(signInWithGoogle)}>
+          <Button
+            variant="outline"
+            type="button"
+            className="w-full"
+            onClick={providerHandle(signInWithGoogle)}
+          >
             <SiGoogle />
             Sign in with Google
           </Button>

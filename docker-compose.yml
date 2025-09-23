@@ -1,17 +1,30 @@
 version: '3.8'
 
 services:
-  postgres:
+  postgres-auth:
     image: postgres:latest
-    container_name: postgres
+    container_name: postgres-auth
     environment:
       POSTGRES_USER: garnet
       POSTGRES_PASSWORD: garnet-liu
       POSTGRES_DB: auth
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_auth_data:/var/lib/postgresql/data
+
+  postgres-mewtwochips:
+    image: postgres:latest
+    container_name: postgres-mewtwochips
+    environment:
+      POSTGRES_USER: garnet
+      POSTGRES_PASSWORD: garnet-liu
+      POSTGRES_DB: auth-mewtwochips
+    ports:
+      - "5434:5432"
+    volumes:
+      - postgres_mewtwochips_data:/var/lib/postgresql/data
 
 volumes:
-  postgres_data:
+  postgres_auth_data:
+  postgres_mewtwochips_data:

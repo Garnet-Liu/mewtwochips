@@ -12,7 +12,7 @@
     "./hooks/*": "./src/hooks/*.ts"
   },
   "scripts": {
-    "lint": "eslint . --fix",
+    "lint": "eslint --fix",
     "generate:component": "turbo gen react-component",
     "check-types": "tsc --noEmit"
   },

@@ -4,9 +4,9 @@
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
+    "dev:auth": "turbo run auth#dev",
     "dev:features": "turbo run features#dev",
     "dev:mewtwochips": "turbo run mewtwochips#dev",
-    "dev:better-auth-demo": "turbo run better-auth-demo#dev",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "check-types": "turbo run check-types",
@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
+    "better-auth": "^1.3.11",
     "lucide-react": "^0.544.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
@@ -35,7 +36,7 @@
     "turbo": "^2.5.4",
     "typescript": "^5.9.2"
   },
-  "packageManager": "pnpm@10.16.1",
+  "packageManager": "pnpm@10.17.1",
   "engines": {
     "node": ">=18"
   },

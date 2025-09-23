@@ -1,6 +1,5 @@
 import cookieParser from "cookie-parser";
 import cors from "cors";
-import dotenv from "dotenv";
 import express, { Express } from "express";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -16,8 +15,6 @@ const hmrPort = process.env.HMR_PORT ? parseInt(process.env.HMR_PORT, 10) : 2468
 
 export const createServer = async (): Promise<Express> => {
   const app = express();
-
-  dotenv.config();
 
   app.use(cookieParser());
   app.use(express.json());

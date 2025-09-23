@@ -1,10 +1,24 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@repo/ui/components/avatar";
+import { Button } from "@repo/ui/components/button";
+import { useCallback } from "react";
 import { useData } from "vike-react/useData";
 
+import { authClient } from "@/lib/auth-client";
 import { Data } from "@/pages/+data";
 
 export default function Page() {
   const session = useData<Data>();
+
+  const registerHandle = useCallback(async () => {
+    const { data } = await authClient.oauth2.register({
+      redirect_uris: ["http://localhost:6002/api/auth/oauth2/callback/mc-coc"], // required
+      client_name: "Mewtwochips COC",
+      scope: "openid profile email",
+      contacts: ["mengyehuanyu@gmail.com"],
+      metadata: { rop: "Mewtwochips COC" },
+    });
+    console.log("data", data);
+  }, []);
 
   return (
     <div className="flex flex-col items-center gap-4">
@@ -33,6 +47,16 @@ export default function Page() {
           {session?.user.image && <AvatarImage src={session.user.image} />}
         </Avatar>
       </div>
+
+      <Button
+        onClick={() => {
+          authClient.signOut();
+        }}
+      >
+        Sign Out
+      </Button>
+
+      <Button onClick={registerHandle}>Register Client</Button>
     </div>
   );
 }

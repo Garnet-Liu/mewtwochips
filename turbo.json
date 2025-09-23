@@ -41,7 +41,7 @@
         "BAST_AUTH_API_URL"
       ]
     },
-    "dev:better-auth-demo": {
+    "dev:auth": {
       "env": [
         "PORT",
         "HMR_PORT",

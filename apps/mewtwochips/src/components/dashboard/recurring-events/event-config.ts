@@ -18,9 +18,6 @@ import { enUS } from "@/locale/enUS";
 const ONE_DAY = 24 * 60 * 60 * 1000;
 
 const getDisplayTime = (date: Date, diff: number) => {
-  console.log("=======================");
-  console.log("date", date);
-  console.log("date", new Date(date.getTime() + diff));
   const duration = intervalToDuration({ start: date, end: new Date(date.getTime() + diff) });
 
   return formatDuration(duration, {
