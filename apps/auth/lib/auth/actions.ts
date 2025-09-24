@@ -1,4 +1,4 @@
-import { authClient } from "@/lib/auth-client";
+import { authClient } from "@/lib/auth/client";
 
 /**
  * A simple timeout function that resolves after the specified delay

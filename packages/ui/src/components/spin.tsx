@@ -4,7 +4,7 @@ import { composeRefs } from "@radix-ui/react-compose-refs";
 import { Slot } from "@radix-ui/react-slot";
 import { cn } from "@repo/ui/lib/utils";
 import { LoaderCircle } from "lucide-react";
-import { forwardRef, HTMLAttributes, ReactNode, Ref, useState } from "react";
+import { forwardRef, type HTMLAttributes, type ReactNode, type Ref, useState } from "react";
 import { createPortal } from "react-dom";
 
 type SpinProps = {

@@ -6,7 +6,7 @@
     "dev": "next dev --turbopack --port=6002",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint . --fix",
+    "lint": "next lint --fix",
     "drizzle:studio": "drizzle-kit studio",
     "drizzle:generate": "drizzle-kit generate",
     "drizzle:migrate": "drizzle-kit generate && drizzle-kit migrate",

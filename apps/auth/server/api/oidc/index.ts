@@ -2,7 +2,7 @@ import { fromNodeHeaders } from "better-auth/node";
 import express, { Router } from "express";
 
 import { auth } from "@/lib/auth";
-import { authPrisma } from "@/lib/auth-prisma";
+import { authPrisma } from "@/lib/auth/prisma";
 
 const oidcRouter: Router = express.Router();
 
@@ -21,7 +21,6 @@ oidcRouter.get("/client-list", async (req, res) => {
       createdAt: "desc", // 可选：按创建时间排序
     },
   });
-  console.log(oauthApps);
   res.send(oauthApps);
 });
 

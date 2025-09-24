@@ -1,8 +1,8 @@
-import { betterAuth, BetterAuthOptions } from "better-auth";
+import { betterAuth, type BetterAuthOptions } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { bearer, customSession, jwt, oidcProvider, openAPI } from "better-auth/plugins";
 
-import { authPrisma } from "@/lib/auth-prisma";
+import { authPrisma } from "@/lib/auth/prisma";
 
 const customSessionPlugin = customSession(
   async ({ user, session }) => {
@@ -71,4 +71,9 @@ const authConfig = {
   },
 } satisfies BetterAuthOptions;
 
-export const auth = betterAuth(authConfig) as ReturnType<typeof betterAuth<typeof authConfig>>;
+const auth = betterAuth(authConfig) as ReturnType<typeof betterAuth<typeof authConfig>>;
+
+type Auth = typeof auth;
+
+export { auth };
+export type { Auth };

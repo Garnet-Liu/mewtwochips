@@ -17,9 +17,9 @@ import { SiGithub, SiGoogle } from "react-icons/si";
 import { navigate } from "vike/client/router";
 import { z } from "zod";
 
-import { providerHandle, signInWithGitHub, signInWithGoogle } from "@/lib/auth-actions";
-import { authClient } from "@/lib/auth-client";
-import { SignUpFormSchema } from "@/lib/auth-schema";
+import { providerHandle, signInWithGitHub, signInWithGoogle } from "@/lib/auth/actions";
+import { authClient } from "@/lib/auth/client";
+import { SignUpFormSchema } from "@/lib/auth/schema";
 
 export function SignUp() {
   const toast = useToast();

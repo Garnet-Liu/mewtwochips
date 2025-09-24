@@ -1,6 +1,6 @@
 import { Toaster } from "@repo/ui/components/sonner";
 import { ThemeProvider } from "@repo/ui/components/theme-provider";
-import { PropsWithChildren } from "react";
+import type { PropsWithChildren } from "react";
 
 import "./style.css";
 

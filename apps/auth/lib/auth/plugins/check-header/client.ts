@@ -1,6 +1,6 @@
-import { BetterAuthClientPlugin } from "better-auth";
+import type { BetterAuthClientPlugin } from "better-auth";
 
-import { checkHeaderServer } from "@/lib/auth-plugins";
+import { checkHeaderServer } from "@/lib/auth/plugins";
 
 export const checkHeaderClient = () => {
   return {

@@ -3,8 +3,8 @@ import { Button } from "@repo/ui/components/button";
 import { useCallback } from "react";
 import { useData } from "vike-react/useData";
 
-import { authClient } from "@/lib/auth-client";
-import { Data } from "@/pages/+data";
+import { authClient } from "@/lib/auth/client";
+import type { Data } from "@/pages/+data";
 
 export default function Page() {
   const session = useData<Data>();

@@ -1,4 +1,4 @@
-import { PageContextServer } from "vike/types";
+import type { PageContextServer } from "vike/types";
 
 import { auth } from "@/lib/auth";
 

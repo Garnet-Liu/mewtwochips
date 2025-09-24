@@ -3,7 +3,7 @@
 import { Button } from "@repo/ui/components/button";
 import { useCallback } from "react";
 
-import { signIn } from "@/lib/auth-client";
+import { signIn } from "@/lib/auth/auth-client";
 
 export function HeaderUserSignIn() {
   const signInHandle = useCallback(() => {
