@@ -11,7 +11,7 @@ const myEffect: Config = {
   Layout,
 
   // https://vike.dev/head-tags
-  title: "My Vike App",
+  title: "Mewtwochips Auth",
   description: "Demo showcasing Vike",
 
   extends: vikeReact,

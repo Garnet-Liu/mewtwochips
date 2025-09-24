@@ -29,18 +29,18 @@ const authPlugins: AuthPlugins = [
     useJWTPlugin: true, // Enable JWT plugin integration
     loginPage: "/sign-in",
     consentPage: "/consent",
-    trustedClients: [
-      {
-        clientId: "ZZFErpMWHLMLDMtmTIJuhclKktfRDSgo",
-        clientSecret: "nROZnwgXmlaEcOqdLBQmAMlLuhiunROb",
-        name: "Mewtwochips COC",
-        type: "web",
-        redirectURLs: ["http://localhost:6002/api/auth/oauth2/callback/mc-coc"],
-        disabled: false,
-        skipConsent: true,
-        metadata: {},
-      },
-    ],
+    // trustedClients: [
+    //   {
+    //     clientId: "ZZFErpMWHLMLDMtmTIJuhclKktfRDSgo",
+    //     clientSecret: "nROZnwgXmlaEcOqdLBQmAMlLuhiunROb",
+    //     name: "Mewtwochips COC",
+    //     type: "web",
+    //     redirectURLs: ["http://localhost:6002/api/auth/oauth2/callback/mc-coc"],
+    //     disabled: false,
+    //     skipConsent: true,
+    //     metadata: {},
+    //   },
+    // ],
     metadata: {
       issuer: process.env.BETTER_AUTH_URL,
     },
