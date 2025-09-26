@@ -2,8 +2,8 @@ import { Cache } from "../cache";
 
 import { reversal } from "@/components/gobang/services/gobang";
 import { FIVE } from "@/components/gobang/services/gobang/config";
-import { ABoard, Point } from "@/components/gobang/types/board.type";
-import { CacheType } from "@/components/gobang/types/cache.type";
+import { ABoard, type Point } from "@/components/gobang/types/board.type";
+import type { CacheType } from "@/components/gobang/types/cache.type";
 import { EPiece } from "@/components/gobang/types/role.type";
 
 const MAX = 1000000000;

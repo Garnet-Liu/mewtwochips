@@ -1,6 +1,6 @@
-import { Maybe } from "@repo/ui/lib/maybe";
+import type { Maybe } from "@repo/ui/lib/maybe";
 import { cn } from "@repo/ui/lib/utils";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 import { StatsType } from "@/graphql/graphql";
 

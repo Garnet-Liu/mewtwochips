@@ -1,4 +1,4 @@
-import { EventResType, EWorkerAction } from "../../types/bridge.type";
+import { type EventResType, EWorkerAction } from "../../types/bridge.type";
 
 let worker: Worker;
 

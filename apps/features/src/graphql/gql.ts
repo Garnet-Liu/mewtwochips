@@ -1,6 +1,6 @@
-/* eslint-disable */
+import type { TypedDocumentNode as DocumentNode } from "@graphql-typed-document-node/core";
+
 import * as types from "./graphql";
-import { TypedDocumentNode as DocumentNode } from "@graphql-typed-document-node/core";
 
 /**
  * Map of all GraphQL operations in the project.
@@ -18,8 +18,6 @@ type Documents = {
   "\n  fragment FPokemonStats on PokemonStats {\n    __typename\n    id\n    name\n    name_id\n    base_stat\n  }\n": typeof types.FPokemonStatsFragmentDoc;
   "\n  fragment FPokemon on Pokemon {\n    __typename\n    id\n    name\n    name_id\n    order\n    genera\n    color\n    flavor_text\n    images {\n      __typename\n      front_default\n      front_shiny\n      back_default\n      back_shiny\n      official_default\n      official_shiny\n    }\n    abilities {\n      ...FPokemonAbilities\n    }\n  }\n": typeof types.FPokemonFragmentDoc;
   "\n  query QAllPokemon($offset: Int!, $limit: Int!) {\n    pokemonAll(offset: $offset, limit: $limit) {\n      __typename\n      count\n      limit\n      offset\n      results {\n        ...FPokemon\n      }\n    }\n  }\n": typeof types.QAllPokemonDocument;
-  "\n  query QBook($id: String!) {\n    book(id: $id) {\n      id\n      title\n      author\n    }\n  }\n": typeof types.QBookDocument;
-  "\n  query QBooks {\n    books {\n      id\n      title\n      author\n    }\n  }\n": typeof types.QBooksDocument;
   "\n  query QPokemon($id: ID, $name: String) {\n    pokemon(id: $id, name: $name) {\n      ...FPokemon\n      stats {\n        ...FPokemonStats\n      }\n    }\n  }\n": typeof types.QPokemonDocument;
 };
 const documents: Documents = {
@@ -31,10 +29,6 @@ const documents: Documents = {
     types.FPokemonFragmentDoc,
   "\n  query QAllPokemon($offset: Int!, $limit: Int!) {\n    pokemonAll(offset: $offset, limit: $limit) {\n      __typename\n      count\n      limit\n      offset\n      results {\n        ...FPokemon\n      }\n    }\n  }\n":
     types.QAllPokemonDocument,
-  "\n  query QBook($id: String!) {\n    book(id: $id) {\n      id\n      title\n      author\n    }\n  }\n":
-    types.QBookDocument,
-  "\n  query QBooks {\n    books {\n      id\n      title\n      author\n    }\n  }\n":
-    types.QBooksDocument,
   "\n  query QPokemon($id: ID, $name: String) {\n    pokemon(id: $id, name: $name) {\n      ...FPokemon\n      stats {\n        ...FPokemonStats\n      }\n    }\n  }\n":
     types.QPokemonDocument,
 };
@@ -77,18 +71,6 @@ export function graphql(
 export function graphql(
   source: "\n  query QAllPokemon($offset: Int!, $limit: Int!) {\n    pokemonAll(offset: $offset, limit: $limit) {\n      __typename\n      count\n      limit\n      offset\n      results {\n        ...FPokemon\n      }\n    }\n  }\n",
 ): (typeof documents)["\n  query QAllPokemon($offset: Int!, $limit: Int!) {\n    pokemonAll(offset: $offset, limit: $limit) {\n      __typename\n      count\n      limit\n      offset\n      results {\n        ...FPokemon\n      }\n    }\n  }\n"];
-/**
- * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function graphql(
-  source: "\n  query QBook($id: String!) {\n    book(id: $id) {\n      id\n      title\n      author\n    }\n  }\n",
-): (typeof documents)["\n  query QBook($id: String!) {\n    book(id: $id) {\n      id\n      title\n      author\n    }\n  }\n"];
-/**
- * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function graphql(
-  source: "\n  query QBooks {\n    books {\n      id\n      title\n      author\n    }\n  }\n",
-): (typeof documents)["\n  query QBooks {\n    books {\n      id\n      title\n      author\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

@@ -1,6 +1,6 @@
 import { DIRECTIONS } from "@/components/gobang/services/gobang/config";
-import { ABoard, PlayPoint, Point } from "@/components/gobang/types/board.type";
-import { EventResType } from "@/components/gobang/types/bridge.type";
+import { ABoard, type PlayPoint, type Point } from "@/components/gobang/types/board.type";
+import type { EventResType } from "@/components/gobang/types/bridge.type";
 import { EPiece } from "@/components/gobang/types/role.type";
 
 /**

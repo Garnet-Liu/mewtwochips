@@ -29,3 +29,9 @@ type PokemonImages {
   dream_default: String
   dream_shiny: String
 }
+
+extend type Query {
+  pokemonAll(offset: Int!, limit: Int!): PokemonPage
+  pokemon(id: ID, name: String): Pokemon
+}
+

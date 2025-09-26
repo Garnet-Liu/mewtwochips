@@ -1,7 +1,7 @@
 import { RESTDataSource } from "@apollo/datasource-rest";
-import { Maybe } from "@repo/ui/lib/maybe";
+import type { Maybe } from "@repo/ui/lib/maybe";
 import DataLoader from "dataloader";
-import {
+import type {
   Ability,
   NamedAPIResource,
   NamedAPIResourceList,
@@ -11,7 +11,13 @@ import {
 } from "pokenode-ts";
 import { v5 as uuidv5 } from "uuid";
 
-import { LANGUAGE, PokemonArgs } from "@/apollo/types/graphql";
+export const LANGUAGE = ["zh-Hans", "zh-Hant", "ja", "en"];
+
+export interface PokemonArgs {
+  id?: Maybe<string>;
+  url?: Maybe<string>;
+  name?: Maybe<string>;
+}
 
 function toScreamingSnakeCase(str: string) {
   return str
@@ -90,7 +96,8 @@ export class PokemonDataSource extends RESTDataSource {
             back_default: pokemon.sprites.back_default,
             back_shiny: pokemon.sprites.back_shiny,
             official_default: pokemon.sprites.other?.["official-artwork"].front_default,
-            official_shiny: pokemon.sprites.other?.["official-artwork"].front_shiny,
+            // official_shiny: pokemon.sprites.other?.["official-artwork"].front_shiny,
+            official_shiny: 'pokemon.sprites.other?.["official-artwork"].front_shiny',
             dream_default: pokemon.sprites.other?.dream_world.front_default,
           },
           weight: pokemon.weight,

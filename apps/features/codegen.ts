@@ -1,26 +1,32 @@
+import { defineConfig } from "@eddeee888/gcg-typescript-resolver-files";
 import type { CodegenConfig } from "@graphql-codegen/cli";
 
 const config: CodegenConfig = {
-  overwrite: true,
-  schema: "http://localhost:3000/api/graphql",
-  documents: ["src/**/*.tsx", "src/**/*.ts"],
-  ignoreNoDocuments: true,
+  // overwrite: true,
+  schema: "**/schema.graphql",
   generates: {
     "src/graphql/": {
       preset: "client",
-      plugins: [],
+      documents: ["src/**/*.{ts,tsx}"],
+      config: {
+        useTypeImports: true,
+      },
     },
-    // "src/graphql/schema.graphql": {
-    //   plugins: ["schema-ast"],
-    //   config: {
-    //     includeDirectives: true,
-    //   },
-    // },
-    "src/graphql/generated-resolvers.ts": {
-      plugins: ["typescript", "typescript-resolvers"],
-    },
+    "src/graphql/schema": defineConfig({
+      mergeSchema: false,
+      typesPluginsConfig: {
+        useTypeImports: true,
+        contextType: "../context#MyContext",
+      },
+    }),
   },
-  hooks: { afterAllFileWrite: ["prettier --write", "eslint --fix ./src/graphql/**/*.ts"] },
+  hooks: {
+    afterAllFileWrite: [
+      "sed -i '' -E '1{/\\/\\* eslint-disable \\*\\//d;}' src/graphql/*.ts",
+      "eslint --fix",
+    ],
+  },
+  // hooks: { afterAllFileWrite: ["bash ./eslint-retry.sh"] },
 };
 
 export default config;

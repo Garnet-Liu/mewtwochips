@@ -1,4 +1,4 @@
-import { MouseEvent } from "react";
+import type { MouseEvent } from "react";
 
 export const calculatePoint = (e: MouseEvent<SVGSVGElement>, svg: SVGSVGElement) => {
   const point = svg.createSVGPoint();

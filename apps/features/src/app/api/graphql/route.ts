@@ -1,21 +1,18 @@
 import { ApolloServer } from "@apollo/server";
 import { startServerAndCreateNextHandler } from "@as-integrations/next";
-import { makeExecutableSchema } from "@graphql-tools/schema";
 import { NextRequest } from "next/server";
 
-import { resolvers } from "@/apollo/schemas/resolvers";
-import { PokemonDataSource } from "@/apollo/schemas/source";
-import { typeDefs } from "@/apollo/schemas/type-defs";
-import { IContext } from "@/apollo/types/graphql";
+import type { MyContext } from "@/graphql/context";
+import { resolvers } from "@/graphql/schema/resolvers.generated";
+import { typeDefs } from "@/graphql/schema/typeDefs.generated";
+import { PokemonDataSource } from "@/graphql/source";
 
-const server = new ApolloServer<IContext>({
-  schema: makeExecutableSchema({ typeDefs, resolvers }),
-});
+const server = new ApolloServer<MyContext>({ typeDefs, resolvers });
 
-const handler = startServerAndCreateNextHandler<NextRequest, IContext>(server, {
+const handler = startServerAndCreateNextHandler<NextRequest, MyContext>(server, {
   context: async () => {
     const { cache } = server;
-    return { pokemon: new PokemonDataSource({ cache }) };
+    return { pokemon: new PokemonDataSource({ cache }), userID: "" };
   },
 });
 

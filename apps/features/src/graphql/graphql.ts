@@ -1,4 +1,4 @@
-import { TypedDocumentNode as DocumentNode } from "@graphql-typed-document-node/core";
+import type { TypedDocumentNode as DocumentNode } from "@graphql-typed-document-node/core";
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -26,27 +26,9 @@ export type Abilities = {
   name_id?: Maybe<Scalars["String"]["output"]>;
 };
 
-export type Book = {
-  __typename?: "Book";
-  author?: Maybe<Scalars["String"]["output"]>;
-  id?: Maybe<Scalars["String"]["output"]>;
-  title?: Maybe<Scalars["String"]["output"]>;
-};
-
 export type Mutation = {
   __typename?: "Mutation";
-  addBook?: Maybe<Book>;
   check?: Maybe<Scalars["Boolean"]["output"]>;
-  deleteBook?: Maybe<Book>;
-};
-
-export type MutationAddBookArgs = {
-  author: Scalars["String"]["input"];
-  title: Scalars["String"]["input"];
-};
-
-export type MutationDeleteBookArgs = {
-  id: Scalars["String"]["input"];
 };
 
 export type Pokemon = {
@@ -103,15 +85,9 @@ export type PokemonStats = Stats & {
 
 export type Query = {
   __typename?: "Query";
-  book?: Maybe<Book>;
-  books?: Maybe<Array<Maybe<Book>>>;
   checks?: Maybe<Scalars["Boolean"]["output"]>;
   pokemon?: Maybe<Pokemon>;
   pokemonAll?: Maybe<PokemonPage>;
-};
-
-export type QueryBookArgs = {
-  id: Scalars["String"]["input"];
 };
 
 export type QueryPokemonArgs = {
@@ -199,32 +175,6 @@ export type QAllPokemonQuery = {
       | null
     > | null;
   } | null;
-};
-
-export type QBookQueryVariables = Exact<{
-  id: Scalars["String"]["input"];
-}>;
-
-export type QBookQuery = {
-  __typename?: "Query";
-  book?: {
-    __typename?: "Book";
-    id?: string | null;
-    title?: string | null;
-    author?: string | null;
-  } | null;
-};
-
-export type QBooksQueryVariables = Exact<{ [key: string]: never }>;
-
-export type QBooksQuery = {
-  __typename?: "Query";
-  books?: Array<{
-    __typename?: "Book";
-    id?: string | null;
-    title?: string | null;
-    author?: string | null;
-  } | null> | null;
 };
 
 export type QPokemonQueryVariables = Exact<{
@@ -481,77 +431,6 @@ export const QAllPokemonDocument = {
     },
   ],
 } as unknown as DocumentNode<QAllPokemonQuery, QAllPokemonQueryVariables>;
-export const QBookDocument = {
-  kind: "Document",
-  definitions: [
-    {
-      kind: "OperationDefinition",
-      operation: "query",
-      name: { kind: "Name", value: "QBook" },
-      variableDefinitions: [
-        {
-          kind: "VariableDefinition",
-          variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
-          type: {
-            kind: "NonNullType",
-            type: { kind: "NamedType", name: { kind: "Name", value: "String" } },
-          },
-        },
-      ],
-      selectionSet: {
-        kind: "SelectionSet",
-        selections: [
-          {
-            kind: "Field",
-            name: { kind: "Name", value: "book" },
-            arguments: [
-              {
-                kind: "Argument",
-                name: { kind: "Name", value: "id" },
-                value: { kind: "Variable", name: { kind: "Name", value: "id" } },
-              },
-            ],
-            selectionSet: {
-              kind: "SelectionSet",
-              selections: [
-                { kind: "Field", name: { kind: "Name", value: "id" } },
-                { kind: "Field", name: { kind: "Name", value: "title" } },
-                { kind: "Field", name: { kind: "Name", value: "author" } },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<QBookQuery, QBookQueryVariables>;
-export const QBooksDocument = {
-  kind: "Document",
-  definitions: [
-    {
-      kind: "OperationDefinition",
-      operation: "query",
-      name: { kind: "Name", value: "QBooks" },
-      selectionSet: {
-        kind: "SelectionSet",
-        selections: [
-          {
-            kind: "Field",
-            name: { kind: "Name", value: "books" },
-            selectionSet: {
-              kind: "SelectionSet",
-              selections: [
-                { kind: "Field", name: { kind: "Name", value: "id" } },
-                { kind: "Field", name: { kind: "Name", value: "title" } },
-                { kind: "Field", name: { kind: "Name", value: "author" } },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<QBooksQuery, QBooksQueryVariables>;
 export const QPokemonDocument = {
   kind: "Document",
   definitions: [

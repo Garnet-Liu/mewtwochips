@@ -1,7 +1,7 @@
 "use client";
 
 import { ApolloNextAppProvider } from "@apollo/client-integration-nextjs";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 import { makeClient } from "@/apollo/apollo-client";
 

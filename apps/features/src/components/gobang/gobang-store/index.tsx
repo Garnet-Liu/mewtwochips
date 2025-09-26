@@ -1,11 +1,11 @@
 "use client";
 
-import { createContext, ReactNode, useContext, useMemo, useState } from "react";
-import { createStore, StoreApi, useStore } from "zustand";
+import { createContext, type ReactNode, useContext, useMemo, useState } from "react";
+import { createStore, type StoreApi, useStore } from "zustand";
 import { immer } from "zustand/middleware/immer";
 
 import { end, play, reversal, start, undo } from "@/components/gobang/services/gobang";
-import { Point } from "@/components/gobang/types/board.type";
+import type { Point } from "@/components/gobang/types/board.type";
 import { EPiece, EPlayer } from "@/components/gobang/types/role.type";
 
 type GobangState = {

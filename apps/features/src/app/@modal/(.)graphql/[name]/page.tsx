@@ -3,7 +3,7 @@ import * as React from "react";
 import { getClient } from "@/apollo/apollo-server";
 import { pokemonQuery } from "@/apollo/client/query";
 import { PokemonDetail } from "@/components/graphql/pokemon-detail";
-import { QPokemonQuery, QPokemonQueryVariables } from "@/graphql/graphql";
+import type { QPokemonQuery, QPokemonQueryVariables } from "@/graphql/graphql";
 
 interface IProps {
   params: Promise<{ name: string }>;

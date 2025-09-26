@@ -1,9 +1,9 @@
-import { Maybe } from "@repo/ui/lib/maybe";
+import type { Maybe } from "@repo/ui/lib/maybe";
 import { cn } from "@repo/ui/lib/utils";
 
 import { PokemonStateItem } from "@/components/graphql/pokemon-state-item";
 import { useFragment } from "@/graphql";
-import { FPokemonStatsFragmentDoc, QPokemonQuery, StatsType } from "@/graphql/graphql";
+import { FPokemonStatsFragmentDoc, type QPokemonQuery, StatsType } from "@/graphql/graphql";
 
 interface IProps {
   color: Maybe<string>;

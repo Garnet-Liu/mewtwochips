@@ -1,9 +1,9 @@
 "use client";
 
+import { useToast } from "@repo/ui/hooks/use-toast";
 import { cn } from "@repo/ui/lib/utils";
 import { GobangBoard } from "@repo/ui/svgs";
-import { MouseEvent, useCallback, useMemo, useRef, useState } from "react";
-import { toast } from "sonner";
+import { type MouseEvent, useCallback, useMemo, useRef, useState } from "react";
 import { useShallow } from "zustand/react/shallow";
 
 import { useGobangStore } from "@/components/gobang/gobang-store";
@@ -12,6 +12,8 @@ import { calculatePoint, piecePoint } from "@/components/gobang/utils/calculate-
 
 export function Board() {
   const boardRef = useRef<SVGSVGElement>(null);
+
+  const toast = useToast();
 
   const [{ x, y }, setPoint] = useState({ x: 7, y: 7 });
 
@@ -63,13 +65,13 @@ export function Board() {
             } else {
               console.log([segmentX, segmentY, player]);
               // dispatch(move([segmentX, segmentY, player]));
-              playGame(segmentX, segmentY);
+              playGame(segmentX, segmentY).then((r) => console.log(r));
             }
           }
         }
       }
     },
-    [board, isControl, playGame, player],
+    [board, isControl, playGame, player, toast],
   );
 
   return (

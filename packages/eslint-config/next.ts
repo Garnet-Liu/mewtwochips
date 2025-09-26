@@ -14,7 +14,7 @@ export const config = defineConfig([
   {
     ...pluginReact.configs.flat.recommended,
     languageOptions: {
-      ...pluginReact.configs.flat.recommended.languageOptions,
+      ...pluginReact.configs.flat.recommended?.languageOptions,
       globals: {
         ...globals.serviceworker,
       },
@@ -35,7 +35,11 @@ export const config = defineConfig([
     },
   },
   {
-    files: ["src/graphql/generated-resolvers.ts"],
+    files: [
+      "src/graphql/fragment-masking.ts",
+      "src/graphql/gql.ts",
+      "src/graphql/schema/types.generated.ts",
+    ],
     rules: {
       "@typescript-eslint/no-empty-object-type": "off",
       "@typescript-eslint/no-explicit-any": "off",

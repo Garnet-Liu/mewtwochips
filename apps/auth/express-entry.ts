@@ -1,9 +1,10 @@
 import dotenv from "dotenv";
+import dotenvExpand from "dotenv-expand";
 
 import { createServer } from "./server/create-server";
 
 async function startServer() {
-  dotenv.config();
+  dotenvExpand.expand(dotenv.config());
 
   const port = process.env.PORT ? parseInt(process.env.PORT, 10) : 3060;
 

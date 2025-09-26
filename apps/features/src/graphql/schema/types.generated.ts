@@ -1,6 +1,8 @@
-import { GraphQLResolveInfo } from "graphql";
-export type Maybe<T> = T | null;
-export type InputMaybe<T> = Maybe<T>;
+import type { GraphQLResolveInfo } from "graphql";
+
+import type { MyContext } from "../context";
+export type Maybe<T> = T | null | undefined;
+export type InputMaybe<T> = T | null | undefined;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
@@ -10,10 +12,12 @@ export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> =
 export type Incremental<T> =
   | T
   | { [P in keyof T]?: P extends " $fragmentName" | "__typename" ? T[P] : never };
+export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 export type RequireFields<T, K extends keyof T> = Omit<T, K> & { [P in K]-?: NonNullable<T[P]> };
+export type EnumResolverSignature<T, AllowedValues = any> = { [key in keyof T]?: AllowedValues };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: { input: string; output: string };
+  ID: { input: string; output: string | number };
   String: { input: string; output: string };
   Boolean: { input: boolean; output: boolean };
   Int: { input: number; output: number };
@@ -27,27 +31,9 @@ export type Abilities = {
   name_id?: Maybe<Scalars["String"]["output"]>;
 };
 
-export type Book = {
-  __typename?: "Book";
-  author?: Maybe<Scalars["String"]["output"]>;
-  id?: Maybe<Scalars["String"]["output"]>;
-  title?: Maybe<Scalars["String"]["output"]>;
-};
-
 export type Mutation = {
   __typename?: "Mutation";
-  addBook?: Maybe<Book>;
   check?: Maybe<Scalars["Boolean"]["output"]>;
-  deleteBook?: Maybe<Book>;
-};
-
-export type MutationAddBookArgs = {
-  author: Scalars["String"]["input"];
-  title: Scalars["String"]["input"];
-};
-
-export type MutationDeleteBookArgs = {
-  id: Scalars["String"]["input"];
 };
 
 export type Pokemon = {
@@ -104,23 +90,17 @@ export type PokemonStats = Stats & {
 
 export type Query = {
   __typename?: "Query";
-  book?: Maybe<Book>;
-  books?: Maybe<Array<Maybe<Book>>>;
   checks?: Maybe<Scalars["Boolean"]["output"]>;
   pokemon?: Maybe<Pokemon>;
   pokemonAll?: Maybe<PokemonPage>;
 };
 
-export type QueryBookArgs = {
-  id: Scalars["String"]["input"];
-};
-
-export type QueryPokemonArgs = {
+export type QuerypokemonArgs = {
   id?: InputMaybe<Scalars["ID"]["input"]>;
   name?: InputMaybe<Scalars["String"]["input"]>;
 };
 
-export type QueryPokemonAllArgs = {
+export type QuerypokemonAllArgs = {
   limit: Scalars["Int"]["input"];
   offset: Scalars["Int"]["input"];
 };
@@ -131,14 +111,13 @@ export type Stats = {
   name_id?: Maybe<StatsType>;
 };
 
-export enum StatsType {
-  Attack = "ATTACK",
-  Defense = "DEFENSE",
-  Hp = "HP",
-  SpecialAttack = "SPECIAL_ATTACK",
-  SpecialDefense = "SPECIAL_DEFENSE",
-  Speed = "SPEED",
-}
+export type StatsType =
+  | "ATTACK"
+  | "DEFENSE"
+  | "HP"
+  | "SPECIAL_ATTACK"
+  | "SPECIAL_DEFENSE"
+  | "SPEED";
 
 export type ResolverTypeWrapper<T> = Promise<T> | T;
 
@@ -224,89 +203,79 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 /** Mapping of interface types */
 export type ResolversInterfaceTypes<_RefType extends Record<string, unknown>> = {
-  Abilities: PokemonAbilities;
-  Stats: PokemonStats;
+  Abilities: PokemonAbilities & { __typename: "PokemonAbilities" };
+  Stats: Omit<PokemonStats, "name_id"> & { name_id?: Maybe<_RefType["StatsType"]> } & {
+    __typename: "PokemonStats";
+  };
 };
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   Abilities: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>["Abilities"]>;
-  Book: ResolverTypeWrapper<Book>;
-  Boolean: ResolverTypeWrapper<Scalars["Boolean"]["output"]>;
+  String: ResolverTypeWrapper<Scalars["String"]["output"]>;
   ID: ResolverTypeWrapper<Scalars["ID"]["output"]>;
-  Int: ResolverTypeWrapper<Scalars["Int"]["output"]>;
   Mutation: ResolverTypeWrapper<{}>;
-  Pokemon: ResolverTypeWrapper<Pokemon>;
+  Boolean: ResolverTypeWrapper<Scalars["Boolean"]["output"]>;
+  Pokemon: ResolverTypeWrapper<
+    Omit<Pokemon, "stats"> & { stats?: Maybe<Array<Maybe<ResolversTypes["PokemonStats"]>>> }
+  >;
+  Int: ResolverTypeWrapper<Scalars["Int"]["output"]>;
   PokemonAbilities: ResolverTypeWrapper<PokemonAbilities>;
   PokemonImages: ResolverTypeWrapper<PokemonImages>;
-  PokemonPage: ResolverTypeWrapper<PokemonPage>;
-  PokemonStats: ResolverTypeWrapper<PokemonStats>;
+  PokemonPage: ResolverTypeWrapper<
+    Omit<PokemonPage, "results"> & { results?: Maybe<Array<Maybe<ResolversTypes["Pokemon"]>>> }
+  >;
+  PokemonStats: ResolverTypeWrapper<
+    Omit<PokemonStats, "name_id"> & { name_id?: Maybe<ResolversTypes["StatsType"]> }
+  >;
   Query: ResolverTypeWrapper<{}>;
   Stats: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>["Stats"]>;
-  StatsType: StatsType;
-  String: ResolverTypeWrapper<Scalars["String"]["output"]>;
+  StatsType: ResolverTypeWrapper<
+    "HP" | "ATTACK" | "DEFENSE" | "SPECIAL_ATTACK" | "SPECIAL_DEFENSE" | "SPEED"
+  >;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Abilities: ResolversInterfaceTypes<ResolversParentTypes>["Abilities"];
-  Book: Book;
-  Boolean: Scalars["Boolean"]["output"];
+  String: Scalars["String"]["output"];
   ID: Scalars["ID"]["output"];
-  Int: Scalars["Int"]["output"];
   Mutation: {};
-  Pokemon: Pokemon;
+  Boolean: Scalars["Boolean"]["output"];
+  Pokemon: Omit<Pokemon, "stats"> & {
+    stats?: Maybe<Array<Maybe<ResolversParentTypes["PokemonStats"]>>>;
+  };
+  Int: Scalars["Int"]["output"];
   PokemonAbilities: PokemonAbilities;
   PokemonImages: PokemonImages;
-  PokemonPage: PokemonPage;
+  PokemonPage: Omit<PokemonPage, "results"> & {
+    results?: Maybe<Array<Maybe<ResolversParentTypes["Pokemon"]>>>;
+  };
   PokemonStats: PokemonStats;
   Query: {};
   Stats: ResolversInterfaceTypes<ResolversParentTypes>["Stats"];
-  String: Scalars["String"]["output"];
 };
 
 export type AbilitiesResolvers<
-  ContextType = any,
+  ContextType = MyContext,
   ParentType extends ResolversParentTypes["Abilities"] = ResolversParentTypes["Abilities"],
 > = {
-  __resolveType: TypeResolveFn<"PokemonAbilities", ParentType, ContextType>;
+  __resolveType?: TypeResolveFn<"PokemonAbilities", ParentType, ContextType>;
   entries?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
   id?: Resolver<Maybe<ResolversTypes["ID"]>, ParentType, ContextType>;
   name?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
   name_id?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
 };
 
-export type BookResolvers<
-  ContextType = any,
-  ParentType extends ResolversParentTypes["Book"] = ResolversParentTypes["Book"],
-> = {
-  author?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
-  id?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
-  title?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
-
 export type MutationResolvers<
-  ContextType = any,
+  ContextType = MyContext,
   ParentType extends ResolversParentTypes["Mutation"] = ResolversParentTypes["Mutation"],
 > = {
-  addBook?: Resolver<
-    Maybe<ResolversTypes["Book"]>,
-    ParentType,
-    ContextType,
-    RequireFields<MutationAddBookArgs, "author" | "title">
-  >;
   check?: Resolver<Maybe<ResolversTypes["Boolean"]>, ParentType, ContextType>;
-  deleteBook?: Resolver<
-    Maybe<ResolversTypes["Book"]>,
-    ParentType,
-    ContextType,
-    RequireFields<MutationDeleteBookArgs, "id">
-  >;
 };
 
 export type PokemonResolvers<
-  ContextType = any,
+  ContextType = MyContext,
   ParentType extends ResolversParentTypes["Pokemon"] = ResolversParentTypes["Pokemon"],
 > = {
   abilities?: Resolver<
@@ -328,7 +297,7 @@ export type PokemonResolvers<
 };
 
 export type PokemonAbilitiesResolvers<
-  ContextType = any,
+  ContextType = MyContext,
   ParentType extends
     ResolversParentTypes["PokemonAbilities"] = ResolversParentTypes["PokemonAbilities"],
 > = {
@@ -341,7 +310,7 @@ export type PokemonAbilitiesResolvers<
 };
 
 export type PokemonImagesResolvers<
-  ContextType = any,
+  ContextType = MyContext,
   ParentType extends ResolversParentTypes["PokemonImages"] = ResolversParentTypes["PokemonImages"],
 > = {
   back_default?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
@@ -356,7 +325,7 @@ export type PokemonImagesResolvers<
 };
 
 export type PokemonPageResolvers<
-  ContextType = any,
+  ContextType = MyContext,
   ParentType extends ResolversParentTypes["PokemonPage"] = ResolversParentTypes["PokemonPage"],
 > = {
   count?: Resolver<Maybe<ResolversTypes["Int"]>, ParentType, ContextType>;
@@ -367,7 +336,7 @@ export type PokemonPageResolvers<
 };
 
 export type PokemonStatsResolvers<
-  ContextType = any,
+  ContextType = MyContext,
   ParentType extends ResolversParentTypes["PokemonStats"] = ResolversParentTypes["PokemonStats"],
 > = {
   base_stat?: Resolver<Maybe<ResolversTypes["Int"]>, ParentType, ContextType>;
@@ -378,44 +347,48 @@ export type PokemonStatsResolvers<
 };
 
 export type QueryResolvers<
-  ContextType = any,
+  ContextType = MyContext,
   ParentType extends ResolversParentTypes["Query"] = ResolversParentTypes["Query"],
 > = {
-  book?: Resolver<
-    Maybe<ResolversTypes["Book"]>,
-    ParentType,
-    ContextType,
-    RequireFields<QueryBookArgs, "id">
-  >;
-  books?: Resolver<Maybe<Array<Maybe<ResolversTypes["Book"]>>>, ParentType, ContextType>;
   checks?: Resolver<Maybe<ResolversTypes["Boolean"]>, ParentType, ContextType>;
   pokemon?: Resolver<
     Maybe<ResolversTypes["Pokemon"]>,
     ParentType,
     ContextType,
-    Partial<QueryPokemonArgs>
+    Partial<QuerypokemonArgs>
   >;
   pokemonAll?: Resolver<
     Maybe<ResolversTypes["PokemonPage"]>,
     ParentType,
     ContextType,
-    RequireFields<QueryPokemonAllArgs, "limit" | "offset">
+    RequireFields<QuerypokemonAllArgs, "limit" | "offset">
   >;
 };
 
 export type StatsResolvers<
-  ContextType = any,
+  ContextType = MyContext,
   ParentType extends ResolversParentTypes["Stats"] = ResolversParentTypes["Stats"],
 > = {
-  __resolveType: TypeResolveFn<"PokemonStats", ParentType, ContextType>;
+  __resolveType?: TypeResolveFn<"PokemonStats", ParentType, ContextType>;
   id?: Resolver<Maybe<ResolversTypes["ID"]>, ParentType, ContextType>;
   name?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
   name_id?: Resolver<Maybe<ResolversTypes["StatsType"]>, ParentType, ContextType>;
 };
 
-export type Resolvers<ContextType = any> = {
+export type StatsTypeResolvers = EnumResolverSignature<
+  {
+    ATTACK?: any;
+    DEFENSE?: any;
+    HP?: any;
+    SPECIAL_ATTACK?: any;
+    SPECIAL_DEFENSE?: any;
+    SPEED?: any;
+  },
+  ResolversTypes["StatsType"]
+>;
+
+export type Resolvers<ContextType = MyContext> = {
   Abilities?: AbilitiesResolvers<ContextType>;
-  Book?: BookResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Pokemon?: PokemonResolvers<ContextType>;
   PokemonAbilities?: PokemonAbilitiesResolvers<ContextType>;
@@ -424,4 +397,5 @@ export type Resolvers<ContextType = any> = {
   PokemonStats?: PokemonStatsResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   Stats?: StatsResolvers<ContextType>;
+  StatsType?: StatsTypeResolvers;
 };

@@ -1,9 +1,9 @@
 import { Badge } from "@repo/ui/components/badge";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@repo/ui/components/hover-card";
-import { Maybe } from "@repo/ui/lib/maybe";
+import type { Maybe } from "@repo/ui/lib/maybe";
 
 import { PokemonAbilitiesFragment } from "@/apollo/client/fragment";
-import { FragmentType, useFragment } from "@/graphql";
+import { type FragmentType, useFragment } from "@/graphql";
 import { FPokemonAbilitiesFragmentDoc } from "@/graphql/graphql";
 
 interface IProps {

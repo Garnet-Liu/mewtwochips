@@ -1,7 +1,7 @@
 "use client";
 
-import { createContext, ReactNode, useContext, useState } from "react";
-import { createStore, StoreApi, useStore } from "zustand";
+import { createContext, type ReactNode, useContext, useState } from "react";
+import { createStore, type StoreApi, useStore } from "zustand";
 import { immer } from "zustand/middleware/immer";
 
 type CounterState = {

@@ -1,10 +1,10 @@
 import { cn } from "@repo/ui/lib/utils";
 import Image from "next/image";
-import { ComponentProps } from "react";
+import type { ComponentProps } from "react";
 
 import { PokemonState } from "@/components/graphql/pokemon-state";
 import { useFragment } from "@/graphql";
-import { FPokemonFragmentDoc, QPokemonQuery } from "@/graphql/graphql";
+import { FPokemonFragmentDoc, type QPokemonQuery } from "@/graphql/graphql";
 
 interface IProps extends ComponentProps<"div"> {
   pokemon: QPokemonQuery["pokemon"];

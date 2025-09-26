@@ -1,6 +1,6 @@
 "use client";
 
-import { QueryRef, useQueryRefHandlers, useReadQuery } from "@apollo/client";
+import { type QueryRef, useQueryRefHandlers, useReadQuery } from "@apollo/client";
 import {
   Table,
   TableBody,
@@ -17,8 +17,8 @@ import { PokemonPagination } from "@/components/graphql/pokemon-pagination";
 import { useFragment } from "@/graphql";
 import {
   FPokemonFragmentDoc,
-  QAllPokemonQuery,
-  QAllPokemonQueryVariables,
+  type QAllPokemonQuery,
+  type QAllPokemonQueryVariables,
 } from "@/graphql/graphql";
 
 interface IProps {

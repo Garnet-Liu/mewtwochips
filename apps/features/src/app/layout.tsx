@@ -4,7 +4,7 @@ import { ThemeProvider } from "@repo/ui/components/theme-provider";
 import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
 import type { Metadata } from "next";
-import { PropsWithChildren, ReactNode } from "react";
+import type { PropsWithChildren, ReactNode } from "react";
 
 import { ApolloProvider } from "@/components/apollo-provider";
 import { AppHeader } from "@/components/app-header";

@@ -12,7 +12,7 @@ import {
   AlertDialogTrigger,
 } from "@repo/ui/components/alert-dialog";
 import { Button } from "@repo/ui/components/button";
-import { MouseEvent, useCallback, useState } from "react";
+import { type MouseEvent, useCallback, useState } from "react";
 import { useShallow } from "zustand/react/shallow";
 
 import { useGobangStore } from "@/components/gobang/gobang-store";

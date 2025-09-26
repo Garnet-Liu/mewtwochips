@@ -3,7 +3,7 @@
 import { useQueryRefHandlers } from "@apollo/client";
 import { Button } from "@repo/ui/components/button";
 import { Pagination, PaginationContent, PaginationItem } from "@repo/ui/components/pagination";
-import { Maybe } from "@repo/ui/lib/maybe";
+import type { Maybe } from "@repo/ui/lib/maybe";
 import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from "lucide-react";
 import { useCallback, useMemo } from "react";
 
