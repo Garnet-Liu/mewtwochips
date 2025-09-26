@@ -1,6 +1,6 @@
 "use client";
 
-import { type QueryRef, useQueryRefHandlers, useReadQuery } from "@apollo/client";
+import { type QueryRef, useQueryRefHandlers, useReadQuery } from "@apollo/client/react";
 import {
   Table,
   TableBody,
@@ -14,7 +14,7 @@ import { useRouter } from "next/navigation";
 
 import { PokemonAbilities } from "@/components/graphql/pokemon-abilities";
 import { PokemonPagination } from "@/components/graphql/pokemon-pagination";
-import { useFragment } from "@/graphql";
+import { getFragmentData } from "@/graphql";
 import {
   FPokemonFragmentDoc,
   type QAllPokemonQuery,
@@ -48,8 +48,7 @@ export function PokemonTable(props: Readonly<IProps>) {
 
         <TableBody>
           {data.pokemonAll?.results?.map((pp) => {
-            // eslint-disable-next-line react-hooks/rules-of-hooks
-            const p = useFragment(FPokemonFragmentDoc, pp);
+            const p = getFragmentData(FPokemonFragmentDoc, pp);
             return (
               <TableRow
                 key={`pokemon-${p?.id}`}

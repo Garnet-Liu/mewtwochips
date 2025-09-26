@@ -3,7 +3,7 @@
 import { ApolloNextAppProvider } from "@apollo/client-integration-nextjs";
 import type { ReactNode } from "react";
 
-import { makeClient } from "@/apollo/apollo-client";
+import { makeClient } from "@/apollo/client";
 
 interface IProps {
   children: ReactNode;

@@ -2,7 +2,7 @@ import type { Maybe } from "@repo/ui/lib/maybe";
 import { cn } from "@repo/ui/lib/utils";
 
 import { PokemonStateItem } from "@/components/graphql/pokemon-state-item";
-import { useFragment } from "@/graphql";
+import { getFragmentData } from "@/graphql";
 import { FPokemonStatsFragmentDoc, type QPokemonQuery, StatsType } from "@/graphql/graphql";
 
 interface IProps {
@@ -20,8 +20,7 @@ export function PokemonState({ stats, color }: IProps) {
 
       <div className="grid grid-cols-[auto_auto_1fr]">
         {stats?.map(async (stat) => {
-          // eslint-disable-next-line react-hooks/rules-of-hooks
-          const data = useFragment(FPokemonStatsFragmentDoc, stat);
+          const data = getFragmentData(FPokemonStatsFragmentDoc, stat);
           return (
             <div key={`pokemon-state-${data?.id}`} className="contents">
               <PokemonStateItem name_id={data?.name_id}>{data?.name}:</PokemonStateItem>

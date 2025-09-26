@@ -2,14 +2,23 @@ import { defineConfig } from "@eddeee888/gcg-typescript-resolver-files";
 import type { CodegenConfig } from "@graphql-codegen/cli";
 
 const config: CodegenConfig = {
-  // overwrite: true,
+  overwrite: true,
   schema: "**/schema.graphql",
+  ignoreNoDocuments: true,
   generates: {
     "src/graphql/": {
       preset: "client",
       documents: ["src/**/*.{ts,tsx}"],
-      config: {
-        useTypeImports: true,
+      config: { useTypeImports: true },
+      presetConfig: {
+        fragmentMasking: {
+          unmaskFunctionName: "getFragmentData",
+        },
+      },
+      hooks: {
+        beforeOneFileWrite: (path: string, content: string) => {
+          return content.replace(/^\/\* eslint-disable \*\/\n?/, "");
+        },
       },
     },
     "src/graphql/schema": defineConfig({
@@ -21,10 +30,7 @@ const config: CodegenConfig = {
     }),
   },
   hooks: {
-    afterAllFileWrite: [
-      "sed -i '' -E '1{/\\/\\* eslint-disable \\*\\//d;}' src/graphql/*.ts",
-      "eslint --fix",
-    ],
+    afterAllFileWrite: ["eslint --fix"],
   },
   // hooks: { afterAllFileWrite: ["bash ./eslint-retry.sh"] },
 };

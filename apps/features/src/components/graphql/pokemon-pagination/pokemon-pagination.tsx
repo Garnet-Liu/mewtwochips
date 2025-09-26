@@ -1,6 +1,6 @@
 "use client";
 
-import { useQueryRefHandlers } from "@apollo/client";
+import { useQueryRefHandlers } from "@apollo/client/react";
 import { Button } from "@repo/ui/components/button";
 import { Pagination, PaginationContent, PaginationItem } from "@repo/ui/components/pagination";
 import type { Maybe } from "@repo/ui/lib/maybe";

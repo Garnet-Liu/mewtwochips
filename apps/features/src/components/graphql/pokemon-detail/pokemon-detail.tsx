@@ -3,7 +3,7 @@ import Image from "next/image";
 import type { ComponentProps } from "react";
 
 import { PokemonState } from "@/components/graphql/pokemon-state";
-import { useFragment } from "@/graphql";
+import { getFragmentData } from "@/graphql";
 import { FPokemonFragmentDoc, type QPokemonQuery } from "@/graphql/graphql";
 
 interface IProps extends ComponentProps<"div"> {
@@ -13,7 +13,7 @@ interface IProps extends ComponentProps<"div"> {
 export function PokemonDetail(props: Readonly<IProps>) {
   const { pokemon, className } = props;
 
-  const data = useFragment(FPokemonFragmentDoc, pokemon);
+  const data = getFragmentData(FPokemonFragmentDoc, pokemon);
 
   return (
     <div className={cn("flex", className)}>

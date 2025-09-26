@@ -1,10 +1,10 @@
-import { setContext } from "@apollo/client/link/context";
+import { SetContextLink } from "@apollo/client/link/context";
 
-export const authLink = setContext(async (_, { headers }) => {
+export const authLink = new SetContextLink(async (prevContext) => {
   console.log(
     "=========> apollo authLink => ",
     typeof window === "undefined" ? "server" : "client",
   );
 
-  return { headers: { ...headers } };
+  return { credentials: "include", headers: prevContext.headers };
 });

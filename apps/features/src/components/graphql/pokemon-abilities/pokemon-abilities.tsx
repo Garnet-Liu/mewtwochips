@@ -2,8 +2,8 @@ import { Badge } from "@repo/ui/components/badge";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@repo/ui/components/hover-card";
 import type { Maybe } from "@repo/ui/lib/maybe";
 
-import { PokemonAbilitiesFragment } from "@/apollo/client/fragment";
-import { type FragmentType, useFragment } from "@/graphql";
+import { PokemonAbilitiesFragment } from "@/apollo/actions/fragment";
+import { type FragmentType, getFragmentData } from "@/graphql";
 import { FPokemonAbilitiesFragmentDoc } from "@/graphql/graphql";
 
 interface IProps {
@@ -16,8 +16,7 @@ export function PokemonAbilities(props: IProps) {
   return (
     <div className="flex items-center gap-1">
       {abilities?.map((a) => {
-        // eslint-disable-next-line react-hooks/rules-of-hooks
-        const data = useFragment(FPokemonAbilitiesFragmentDoc, a);
+        const data = getFragmentData(FPokemonAbilitiesFragmentDoc, a);
         return (
           <HoverCard key={`pokemon-abilities-${data?.id}`}>
             <HoverCardTrigger>
