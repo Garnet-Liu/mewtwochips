@@ -1,8 +1,8 @@
 import { Spin } from "@repo/ui/components/spin";
 import { Suspense } from "react";
 
-import { PreloadQuery } from "@/apollo/apollo-server";
-import { allPokemonQuery } from "@/apollo/client/query";
+import { allPokemonQuery } from "@/apollo/actions/query";
+import { PreloadQuery } from "@/apollo/server";
 import { PokemonTable } from "@/components/graphql/pokemon-table";
 
 export const dynamic = "force-dynamic"; // 强制 SSR

@@ -1,0 +1,13 @@
+diff --git a/lib/index.d.ts b/lib/index.d.ts
+index 83592961a3eb1afe3d035fbfc368f8841670faeb..205f8ca9a6f7535664f7d3258b4efd450e5f6024 100644
+--- a/lib/index.d.ts
++++ b/lib/index.d.ts
+@@ -1380,6 +1380,8 @@ interface DreamWorld {
+ interface OfficialArtwork {
+     /** The default depiction of this Pokémon from the front in battle */
+     front_default: string | null;
++    /** The shiny depiction of this Pokémon from the front in battle */
++    front_shiny: string | null;
+ }
+ /** Home sprites */
+ interface Home {
