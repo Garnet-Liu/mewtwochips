@@ -1,0 +1,49 @@
+{
+  "name": "auth",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx ./express-entry.ts",
+    "build": "vike build",
+    "preview": "cross-env NODE_ENV=production tsx ./express-entry.ts",
+    "lint": "eslint --fix",
+    "check-types": "tsc --noEmit",
+    "prisma:studio": "prisma studio",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate-dev": "prisma migrate dev --name init",
+    "prisma:migrate-deploy": "prisma migrate deploy",
+    "prisma:migrate-reset": "prisma migrate reset",
+    "postinstall": "prisma generate"
+  },
+  "dependencies": {
+    "@dnd-kit/core": "^6.3.1",
+    "@dnd-kit/modifiers": "^9.0.0",
+    "@dnd-kit/sortable": "^10.0.0",
+    "@dnd-kit/utilities": "^3.2.2",
+    "@prisma/client": "^6.15.0",
+    "@repo/ui": "workspace:*",
+    "@tanstack/react-table": "^8.21.3",
+    "@vitejs/plugin-react": "^5.0.2",
+    "express": "^5.1.0",
+    "swr": "^2.3.6",
+    "vike": "^0.4.239",
+    "vike-react": "^0.6.5"
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "@tailwindcss/vite": "^4.1.13",
+    "@types/cookie-parser": "^1.4.9",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.3",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "cross-env": "^10.0.0",
+    "dotenv": "^17.2.2",
+    "dotenv-expand": "^12.0.3",
+    "prisma": "^6.15.0",
+    "tsx": "^4.20.5",
+    "vite": "^7.1.4"
+  }
+}

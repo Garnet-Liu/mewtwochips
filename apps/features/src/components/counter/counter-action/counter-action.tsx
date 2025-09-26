@@ -3,16 +3,18 @@
 import { Button } from "@repo/ui/components/button";
 import { Input } from "@repo/ui/components/input";
 import { Loading } from "@repo/ui/components/loading";
+import { useToast } from "@repo/ui/hooks/use-toast";
 import { apiFetchRequest } from "@repo/ui/lib/fetch-request";
 import { Repeat } from "lucide-react";
 import { useActionState } from "react";
-import { toast } from "sonner";
 
 interface IFormData {
   count: number;
 }
 
 export function CounterAction() {
+  const toast = useToast();
+
   const [result, asyncAction, isPending] = useActionState<IFormData, FormData>(
     async (previousState, formData) => {
       return await apiFetchRequest<IFormData>(`${window.location.origin}/api/counter`, {
