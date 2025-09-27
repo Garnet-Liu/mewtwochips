@@ -68,7 +68,7 @@ export function OIDCClientTable({ table }: Props) {
   );
 
   return (
-    <div className="relative flex flex-col gap-4 overflow-auto px-4 lg:px-6">
+    <>
       <div className="overflow-hidden rounded-lg border">
         <DndContext
           collisionDetection={closestCenter}
@@ -193,6 +193,6 @@ export function OIDCClientTable({ table }: Props) {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

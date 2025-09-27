@@ -1,9 +1,8 @@
 import { SidebarInset, SidebarProvider } from "@repo/ui/components/sidebar";
 import { Toaster } from "@repo/ui/components/sonner";
 import { ThemeProvider } from "@repo/ui/components/theme-provider";
-import { GeistMono } from "geist/font/mono";
-import { GeistSans } from "geist/font/sans";
 import type { Metadata } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
 import type { PropsWithChildren, ReactNode } from "react";
 
 import { ApolloProvider } from "@/components/apollo-provider";
@@ -17,12 +16,22 @@ export const metadata: Metadata = {
   description: "A site for lovers of Pokémon and chips",
 };
 
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
 type Props = PropsWithChildren<{ modal: ReactNode }>;
 
 export default function RootLayout({ modal, children }: Readonly<Props>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${GeistSans.variable} ${GeistMono.variable} antialiased`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

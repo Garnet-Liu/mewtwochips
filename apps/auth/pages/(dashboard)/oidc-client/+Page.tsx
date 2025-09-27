@@ -649,20 +649,19 @@ export default function Page() {
 function PageContent() {
   const table = useOIDCClientTable();
   return (
-    <Tabs defaultValue="outline" className="w-full flex-col justify-start gap-6">
+    <Tabs defaultValue="all" className="@container/main justify-start gap-6 py-4">
       <div className="flex items-center justify-between px-4 lg:px-6">
         <Label htmlFor="view-selector" className="sr-only">
           View
         </Label>
         <TabsList className="**:data-[slot=badge]:bg-muted-foreground/30 **:data-[slot=badge]:size-5 **:data-[slot=badge]:rounded-full **:data-[slot=badge]:px-1">
-          <TabsTrigger value="outline">Outline</TabsTrigger>
-          <TabsTrigger value="past-performance">
-            Past Performance <Badge variant="secondary">3</Badge>
+          <TabsTrigger value="all">All</TabsTrigger>
+          <TabsTrigger value="activated">
+            Activated <Badge variant="secondary">3</Badge>
           </TabsTrigger>
-          <TabsTrigger value="key-personnel">
-            Key Personnel <Badge variant="secondary">2</Badge>
+          <TabsTrigger value="disabled">
+            Disabled <Badge variant="secondary">2</Badge>
           </TabsTrigger>
-          <TabsTrigger value="focus-documents">Focus Documents</TabsTrigger>
         </TabsList>
 
         <div className="flex items-center gap-2">
@@ -702,20 +701,17 @@ function PageContent() {
         </div>
       </div>
 
-      <TabsContent asChild value="outline">
+      <TabsContent value="all" className="relative flex flex-col gap-4 px-4 lg:px-6">
         <OIDCClientTable table={table} />
       </TabsContent>
 
-      <TabsContent asChild value="past-performance" className="flex flex-col px-4 lg:px-6">
+      <TabsContent value="activated" className="flex flex-col px-4 lg:px-6">
         <BearsStoreProvider bears={18}>
           <TestPastPerformance />
         </BearsStoreProvider>
       </TabsContent>
 
-      <TabsContent value="key-personnel" className="flex flex-col px-4 lg:px-6">
-        <div className="aspect-video w-full flex-1 rounded-lg border border-dashed"></div>
-      </TabsContent>
-      <TabsContent value="focus-documents" className="flex flex-col px-4 lg:px-6">
+      <TabsContent value="disabled" className="flex flex-col px-4 lg:px-6">
         <div className="aspect-video w-full flex-1 rounded-lg border border-dashed"></div>
       </TabsContent>
     </Tabs>
@@ -735,7 +731,7 @@ function TestPastPerformance() {
 
   return (
     <div className="aspect-video w-full flex-1 rounded-lg border border-dashed">
-      <div className="flex items-center justify-center gap-2">
+      <div className="flex h-full items-center justify-center gap-2">
         {bears}
 
         <Button onClick={() => increasePopulation(1)}>Increase Population</Button>

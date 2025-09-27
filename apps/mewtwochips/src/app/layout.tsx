@@ -1,7 +1,7 @@
 import { ThemeProvider } from "@repo/ui/components/theme-provider";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import { PropsWithChildren } from "react";
+import type { PropsWithChildren } from "react";
 
 import { AppFooter } from "@/components/app-footer";
 import { AppHeader } from "@/components/app-header";
