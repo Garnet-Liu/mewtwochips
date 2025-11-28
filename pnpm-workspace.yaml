@@ -14,3 +14,7 @@ onlyBuiltDependencies:
 patchedDependencies:
   graphql-tag: patches/graphql-tag.patch
   pokenode-ts: patches/pokenode-ts.patch
+
+ignoredBuiltDependencies:
+  - sharp
+  - unrs-resolver

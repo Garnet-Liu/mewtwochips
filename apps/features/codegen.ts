@@ -10,11 +10,7 @@ const config: CodegenConfig = {
       preset: "client",
       documents: ["src/**/*.{ts,tsx}"],
       config: { useTypeImports: true },
-      presetConfig: {
-        fragmentMasking: {
-          unmaskFunctionName: "getFragmentData",
-        },
-      },
+      presetConfig: { fragmentMasking: false },
       hooks: {
         beforeOneFileWrite: (path: string, content: string) => {
           return content.replace(/^\/\* eslint-disable \*\/\n?/, "");
@@ -25,6 +21,7 @@ const config: CodegenConfig = {
       mergeSchema: false,
       typesPluginsConfig: {
         useTypeImports: true,
+        useIndexSignature: true,
         contextType: "../context#MyContext",
       },
     }),

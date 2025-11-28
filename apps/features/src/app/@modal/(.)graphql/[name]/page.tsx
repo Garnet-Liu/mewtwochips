@@ -1,22 +1,24 @@
-import * as React from "react";
+"use client";
+
+import { useQuery } from "@apollo/client/react";
+import { Spin } from "@repo/ui/components/spin";
+import { useParams } from "next/navigation";
 
 import { pokemonQuery } from "@/apollo/actions/query";
-import { getClient } from "@/apollo/server";
 import { PokemonDetail } from "@/components/graphql/pokemon-detail";
 
-interface IProps {
-  params: Promise<{ name: string }>;
-}
+export default function PokemonModalPage() {
+  const { name } = useParams<{ name: string }>();
 
-export default async function PokemonModalPage({ params }: Readonly<IProps>) {
-  const { name } = await params;
+  const { data, loading, error } = useQuery(pokemonQuery, { variables: { name } });
 
-  try {
-    const client = await getClient();
-    const pokemon = await client.query({ query: pokemonQuery, variables: { name } });
-    return <PokemonDetail pokemon={pokemon.data?.pokemon} />;
-  } catch (e) {
-    console.warn("pokemon query error", e);
-    return <div>没找到</div>;
+  if (loading || error) {
+    return (
+      <div className="flex aspect-2/1 items-center justify-center">
+        {error ? error?.message : <Spin loading={true} />}
+      </div>
+    );
   }
+
+  return <PokemonDetail pokemon={data?.pokemon} />;
 }

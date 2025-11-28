@@ -3,8 +3,7 @@ import Image from "next/image";
 import type { ComponentProps } from "react";
 
 import { PokemonState } from "@/components/graphql/pokemon-state";
-import { getFragmentData } from "@/graphql";
-import { FPokemonFragmentDoc, type QPokemonQuery } from "@/graphql/graphql";
+import { type QPokemonQuery } from "@/graphql/graphql";
 
 interface IProps extends ComponentProps<"div"> {
   pokemon: QPokemonQuery["pokemon"];
@@ -13,15 +12,13 @@ interface IProps extends ComponentProps<"div"> {
 export function PokemonDetail(props: Readonly<IProps>) {
   const { pokemon, className } = props;
 
-  const data = getFragmentData(FPokemonFragmentDoc, pokemon);
-
   return (
     <div className={cn("flex", className)}>
       <div className="relative w-1/2">
         <div className="mt-[100%]"></div>
-        {!!data?.images?.official_default && (
+        {!!pokemon?.images?.official_default && (
           <Image
-            src={data.images?.official_default}
+            src={pokemon.images?.official_default}
             fill
             priority
             sizes="(max-width: 1200px) 50vw, 600px"
@@ -32,7 +29,7 @@ export function PokemonDetail(props: Readonly<IProps>) {
       </div>
 
       <div className="box-border flex w-1/2 items-center p-5">
-        <PokemonState stats={pokemon?.stats} color={data?.color} />
+        <PokemonState stats={pokemon?.stats} color={pokemon?.color} />
       </div>
     </div>
   );

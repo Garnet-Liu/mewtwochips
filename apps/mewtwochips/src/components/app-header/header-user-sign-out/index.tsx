@@ -3,7 +3,7 @@
 import { DropdownMenuItem, DropdownMenuShortcut } from "@repo/ui/components/dropdown-menu";
 import { useCallback } from "react";
 
-import { signOut } from "@/lib/auth/auth-client";
+import { signOut } from "@/lib/auth-client";
 
 export function HeaderUserSignOut() {
   const signOutHandle = useCallback(() => {

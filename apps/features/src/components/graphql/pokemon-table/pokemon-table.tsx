@@ -14,12 +14,7 @@ import { useRouter } from "next/navigation";
 
 import { PokemonAbilities } from "@/components/graphql/pokemon-abilities";
 import { PokemonPagination } from "@/components/graphql/pokemon-pagination";
-import { getFragmentData } from "@/graphql";
-import {
-  FPokemonFragmentDoc,
-  type QAllPokemonQuery,
-  type QAllPokemonQueryVariables,
-} from "@/graphql/graphql";
+import { type QAllPokemonQuery, type QAllPokemonQueryVariables } from "@/graphql/graphql";
 
 interface IProps {
   queryRef: QueryRef<QAllPokemonQuery, QAllPokemonQueryVariables>;
@@ -47,8 +42,7 @@ export function PokemonTable(props: Readonly<IProps>) {
         </TableHeader>
 
         <TableBody>
-          {data.pokemonAll?.results?.map((pp) => {
-            const p = getFragmentData(FPokemonFragmentDoc, pp);
+          {data.pokemonAll?.results?.map((p) => {
             return (
               <TableRow
                 key={`pokemon-${p?.id}`}
@@ -72,7 +66,11 @@ export function PokemonTable(props: Readonly<IProps>) {
                 <TableCell className="whitespace-nowrap">{p?.genera}</TableCell>
                 <TableCell className="w-full">{p?.flavor_text}</TableCell>
                 <TableCell>
-                  <PokemonAbilities abilities={p?.abilities} />
+                  <div className="flex items-center gap-1">
+                    {p?.abilities?.map((a) => {
+                      return <PokemonAbilities key={`pokemon-abilities-${a?.id}`} id={a?.id} />;
+                    })}
+                  </div>
                 </TableCell>
               </TableRow>
             );

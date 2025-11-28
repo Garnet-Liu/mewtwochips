@@ -33,11 +33,13 @@ export function TableCellHeader({ row }: CellContext<z.infer<typeof schema>, unk
           {row.original.header}
         </Button>
       </DrawerTrigger>
+
       <DrawerContent>
         <DrawerHeader className="gap-1">
           <DrawerTitle>{row.original.header}</DrawerTitle>
           <DrawerDescription>Showing total visitors for the last 6 months</DrawerDescription>
         </DrawerHeader>
+
         <div className="flex flex-col gap-4 overflow-y-auto px-4 text-sm">
           <form className="flex flex-col gap-4">
             <div className="flex flex-col gap-3">
@@ -102,6 +104,7 @@ export function TableCellHeader({ row }: CellContext<z.infer<typeof schema>, unk
             </div>
           </form>
         </div>
+
         <DrawerFooter>
           <Button>Submit</Button>
           <DrawerClose asChild>

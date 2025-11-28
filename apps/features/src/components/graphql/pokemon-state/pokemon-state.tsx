@@ -2,8 +2,7 @@ import type { Maybe } from "@repo/ui/lib/maybe";
 import { cn } from "@repo/ui/lib/utils";
 
 import { PokemonStateItem } from "@/components/graphql/pokemon-state-item";
-import { getFragmentData } from "@/graphql";
-import { FPokemonStatsFragmentDoc, type QPokemonQuery, StatsType } from "@/graphql/graphql";
+import { type QPokemonQuery, StatsType } from "@/graphql/graphql";
 
 interface IProps {
   color: Maybe<string>;
@@ -19,8 +18,7 @@ export function PokemonState({ stats, color }: IProps) {
       <h3 className="py-8 text-center font-bold">种族值</h3>
 
       <div className="grid grid-cols-[auto_auto_1fr]">
-        {stats?.map(async (stat) => {
-          const data = getFragmentData(FPokemonStatsFragmentDoc, stat);
+        {stats?.map(async (data) => {
           return (
             <div key={`pokemon-state-${data?.id}`} className="contents">
               <PokemonStateItem name_id={data?.name_id}>{data?.name}:</PokemonStateItem>

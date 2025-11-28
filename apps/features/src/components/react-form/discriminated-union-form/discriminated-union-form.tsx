@@ -15,7 +15,7 @@ import { Input } from "@repo/ui/components/input";
 import { RadioGroup, RadioGroupItem } from "@repo/ui/components/radio-group";
 import { Switch } from "@repo/ui/components/switch";
 import { useCallback } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { z } from "zod";
 
 const PricingType = z.enum(["AUCTION", "SET_PRICE"]);
@@ -98,8 +98,7 @@ export function DiscriminatedUnionForm() {
     },
   });
 
-  const sell = form.watch("sell");
-  const pricing = form.watch("pricing");
+  const [sell, pricing] = useWatch({ control: form.control, name: ["sell", "pricing"] });
 
   function onSubmit(values: FormValues) {
     console.log("onSubmit values", values);

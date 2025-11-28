@@ -8,3 +8,6 @@ type Query {
 type Mutation {
     check: Boolean
 }
+
+# Definition
+directive @auth on FIELD_DEFINITION

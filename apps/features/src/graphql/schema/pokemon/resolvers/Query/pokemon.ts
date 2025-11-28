@@ -1,6 +1,6 @@
 import type { Pokemon, QueryResolvers } from "./../../../types.generated";
 
-export const pokemon: NonNullable<QueryResolvers["pokemon"]> = async (
+export const pokemon: NonNullable<QueryResolvers['pokemon']> = async (
   _parent,
   { id, name },
   ctx,
